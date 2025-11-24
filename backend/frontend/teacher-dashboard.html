@@ -28,6 +28,19 @@
 
 <body class="h-screen overflow-hidden">
   <div class="flex min-h-screen h-screen relative">
+    <!-- Mobile Menu Toggle -->
+    <button onclick="toggleSidebar()"
+      class="lg:hidden fixed top-4 left-4 z-50 p-2 bg-accent rounded-lg text-white shadow-lg hover:bg-accent-hover transition-all duration-200"
+      id="menuToggle" aria-label="Toggle menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
+    <!-- Overlay for mobile -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden"
+      onclick="toggleSidebar()"></div>
+
     <!-- Sidebar -->
     <aside
       class="fixed left-0 top-0 h-screen w-64 bg-gradient-to-b from-sidebar to-sidebar text-white flex flex-col transition-all duration-300 ease-in-out z-50 transform -translate-x-full lg:translate-x-0 shadow-xl"
@@ -61,52 +74,53 @@
 
       <!-- Navigation -->
       <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
-        <button onclick="showPage('courses')" data-page="courses"
+        <button onclick="showPage('courses'); closeSidebarOnMobile()" data-page="courses"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 bg-white bg-opacity-20 text-white font-medium w-full text-left">
           <i data-lucide="book-open" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">My Courses</span>
         </button>
-        <button onclick="showPage('attendance')" data-page="attendance"
+        <button onclick="showPage('attendance'); closeSidebarOnMobile()" data-page="attendance"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Attendance</span>
         </button>
-        <button onclick="showPage('quizzes')" data-page="quizzes"
+        <button onclick="showPage('quizzes'); closeSidebarOnMobile()" data-page="quizzes"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="edit-3" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Quizzes</span>
         </button>
-        <button onclick="showPage('assignments')" data-page="assignments"
+        <button onclick="showPage('assignments'); closeSidebarOnMobile()" data-page="assignments"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="file-text" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Assignments</span>
         </button>
-        <button onclick="showPage('marks')" data-page="marks"
+        <button onclick="showPage('marks'); closeSidebarOnMobile()" data-page="marks"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="check-square" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Marks</span>
         </button>
-        <button onclick="showPage('reviews')" data-page="reviews"
+        <button onclick="showPage('reviews'); closeSidebarOnMobile()" data-page="reviews"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="star" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Student Reviews</span>
         </button>
-        <button onclick="showPage('schedule')" data-page="schedule"
+        <button onclick="showPage('schedule'); closeSidebarOnMobile()" data-page="schedule"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Schedule</span>
         </button>
-        <button onclick="showPage('messaging')" data-page="messaging"
+        <button onclick="showPage('messaging'); closeSidebarOnMobile()" data-page="messaging"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="mail" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Messages</span>
         </button>
-        <button onclick="showPage('roster')" data-page="roster"
+        <button onclick="showPage('roster'); closeSidebarOnMobile()" data-page="roster"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="users" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Roster</span>
         </button>
-        <button id="certRequestsNavBtn" onclick="showPage('certificateRequests')" data-page="certificateRequests"
+        <button id="certRequestsNavBtn" onclick="showPage('certificateRequests'); closeSidebarOnMobile()"
+          data-page="certificateRequests"
           class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
           <i data-lucide="award" class="w-4 h-4 flex-shrink-0"></i>
           <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Certificate
@@ -128,7 +142,8 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 ml-0 lg:ml-64 transition-all duration-300 bg-white h-full overflow-y-auto p-8" id="mainContent">
+    <main class="flex-1 ml-0 lg:ml-64 transition-all duration-300 bg-white h-full overflow-y-auto p-4 md:p-6 lg:p-8"
+      id="mainContent">
       <!-- Courses Section -->
       <div id="courses" class="page">
         <h2 class="text-3xl font-bold mb-6">My Courses</h2>
@@ -155,19 +170,21 @@
         </div>
 
         <!-- Students List -->
-        <div class="bg-white rounded-lg shadow p-6">
-          <table class="w-full">
-            <thead>
-              <tr>
-                <th class="text-left py-2">Student Name</th>
-                <th class="text-left py-2">Status</th>
-                <th class="text-left py-2">Attendance %</th>
-              </tr>
-            </thead>
-            <tbody id="attendanceTableBody">
-              <!-- Students will be loaded here -->
-            </tbody>
-          </table>
+        <div class="bg-white rounded-lg shadow p-4 md:p-6">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr>
+                  <th class="text-left py-2">Student Name</th>
+                  <th class="text-left py-2">Status</th>
+                  <th class="text-left py-2">Attendance %</th>
+                </tr>
+              </thead>
+              <tbody id="attendanceTableBody">
+                <!-- Students will be loaded here -->
+              </tbody>
+            </table>
+          </div>
           <button onclick="submitAttendance()"
             class="mt-4 bg-accent text-white px-4 py-2 rounded hover:bg-accent-hover">
             Save Attendance
@@ -274,8 +291,9 @@
           </div>
 
           <!-- Grading Modal -->
-          <div id="gradingModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-            <div class="bg-white w-full max-w-2xl p-6 rounded-lg">
+          <div id="gradingModal"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden px-4">
+            <div class="bg-white w-full max-w-2xl p-4 md:p-6 rounded-lg max-h-[90vh] overflow-y-auto">
               <div class="flex justify-between items-center mb-4">
                 <h4 id="gradingModalTitle" class="text-lg font-semibold">
                   Grade Assignment
@@ -329,42 +347,44 @@
         </div>
 
         <!-- Students Marks Table -->
-        <div class="bg-white rounded-lg shadow p-6 overflow-x-auto">
-          <table class="min-w-full">
-            <thead class="bg-gray-50">
-              <tr>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Student
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Quizzes (15%)
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Assignments (15%)
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Mid Term (30%)
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Final (40%)
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Total
-                </th>
-                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody id="marksTableBody" class="bg-white divide-y divide-gray-200">
-              <!-- Student marks will be loaded here -->
-            </tbody>
-          </table>
+        <div class="bg-white rounded-lg shadow p-4 md:p-6">
+          <div class="overflow-x-auto">
+            <table class="min-w-full">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Student
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Quizzes (15%)
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Assignments (15%)
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Mid Term (30%)
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Final (40%)
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Total
+                  </th>
+                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="marksTableBody" class="bg-white divide-y divide-gray-200">
+                <!-- Student marks will be loaded here -->
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <!-- Add/Edit Marks Modal -->
-        <div id="marksModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
-          <div class="bg-white rounded-lg p-6 w-full max-w-lg">
+        <div id="marksModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center px-4">
+          <div class="bg-white rounded-lg p-4 md:p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <h3 class="text-lg font-semibold mb-4">Enter Student Marks</h3>
             <div class="space-y-4">
               <div>
@@ -395,7 +415,7 @@
                 </div>
               </div>
             </div>
-            <div class="mt-6 flex justify-end gap-3">
+            <div class="mt-6 flex flex-col sm:flex-row justify-end gap-3">
               <button onclick="closeMarksModal()" class="px-4 py-2 bg-gray-200 rounded">
                 Cancel
               </button>
@@ -422,20 +442,22 @@
       <!-- Schedule Section -->
       <div id="schedule" class="page hidden">
         <h2 class="text-3xl font-bold mb-6">Class Schedule</h2>
-        <div class="bg-white rounded-lg shadow p-6 overflow-x-auto">
-          <table class="w-full">
-            <thead>
-              <tr>
-                <th class="text-left py-3 px-4 font-semibold">Course Name</th>
-                <th class="text-left py-3 px-4 font-semibold">Teacher</th>
-                <th class="text-left py-3 px-4 font-semibold">Schedule</th>
-                <th class="text-left py-3 px-4 font-semibold">Duration</th>
-              </tr>
-            </thead>
-            <tbody id="scheduleTableBody">
-              <!-- Schedule will be loaded here -->
-            </tbody>
-          </table>
+        <div class="bg-white rounded-lg shadow p-4 md:p-6">
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr>
+                  <th class="text-left py-3 px-4 font-semibold">Course Name</th>
+                  <th class="text-left py-3 px-4 font-semibold">Teacher</th>
+                  <th class="text-left py-3 px-4 font-semibold">Schedule</th>
+                  <th class="text-left py-3 px-4 font-semibold">Duration</th>
+                </tr>
+              </thead>
+              <tbody id="scheduleTableBody">
+                <!-- Schedule will be loaded here -->
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
@@ -1988,6 +2010,25 @@
       }
     };
 
+    // Mobile sidebar toggle functions
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+
+      sidebar.classList.toggle('-translate-x-full');
+      overlay.classList.toggle('hidden');
+    }
+
+    function closeSidebarOnMobile() {
+      // Only close on mobile (screens smaller than lg breakpoint)
+      if (window.innerWidth < 1024) {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebarOverlay');
+
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+      }
+    }
 
     lucide.createIcons();
 
