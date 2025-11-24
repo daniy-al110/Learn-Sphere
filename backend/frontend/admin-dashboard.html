@@ -528,6 +528,12 @@
           }
         });
 
+        // Close sidebar on mobile if open
+        const sidebar = document.getElementById('sidebar');
+        if (window.innerWidth < 1024 && !sidebar.classList.contains('-translate-x-full')) {
+          toggleSidebar();
+        }
+
         if (sectionId === 'dashboard') {
           loadDashboard();
         } else if (sectionId === 'scheduling') {

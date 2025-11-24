@@ -16,7 +16,7 @@
       page.classList.remove('hidden');
       page.classList.add('block');
       // scroll to top of main content
-      try { page.scrollTop = 0; } catch (e) {}
+      try { page.scrollTop = 0; } catch (e) { }
     }
 
     // update active nav state
@@ -27,12 +27,20 @@
         item.classList.remove('bg-white', 'bg-opacity-20');
       }
     });
+
+    // Close sidebar on mobile if open
+    if (window.innerWidth < 1024) {
+      var sidebar = document.getElementById('sidebar');
+      if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+        if (window.closeSidebar) window.closeSidebar();
+      }
+    }
   }
 
   // expose oldShowPage if present
-  var old = window.showPage || function () {};
+  var old = window.showPage || function () { };
   window.showPage = function (pageId) {
-    try { old(pageId); } catch (e) {}
+    try { old(pageId); } catch (e) { }
     showPageImpl(pageId);
   };
 

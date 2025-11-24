@@ -55,15 +55,18 @@
             Log in
           </button>
           <button id="mobile-menu-btn" class="md:hidden text-gray-700" onclick="toggleMobileMenu()">
-            <span class="material-symbols-outlined">menu</span>
+            <span class="material-symbols-rounded">menu</span>
           </button>
         </div>
       </div>
     </header>
     <!-- Mobile Menu -->
     <div id="mobile-menu"
-      class="hidden md:hidden bg-white shadow-lg fixed top-16 left-0 w-full z-20 transition-all duration-300 ease-in-out">
-      <nav class="flex flex-col p-4 space-y-4 font-bold text-center">
+      class="hidden md:hidden bg-white shadow-lg fixed top-0 left-0 w-full h-screen z-50 transition-all duration-300 ease-in-out flex flex-col items-center justify-center">
+      <button class="absolute top-6 right-6 text-gray-700" onclick="toggleMobileMenu()">
+        <span class="material-symbols-rounded text-3xl">close</span>
+      </button>
+      <nav class="flex flex-col p-4 space-y-6 font-bold text-center text-xl">
         <a href="#courses" class="text-gray-700 hover:text-[#e94560]" onclick="toggleMobileMenu()">Courses</a>
         <a href="#features" class="text-gray-700 hover:text-[#e94560]" onclick="toggleMobileMenu()">Features</a>
         <a href="#Testimonials" class="text-gray-700 hover:text-[#e94560]" onclick="toggleMobileMenu()">Testimonials</a>

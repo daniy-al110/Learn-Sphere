@@ -158,6 +158,11 @@
       <!-- Dashboard Page -->
       <div class="page block p-8 w-full lg:max-w-6xl lg:mx-auto expanded:w-full expanded:max-w-full expanded:mx-0"
         id="dashboard">
+        <!-- Mobile Menu Button -->
+        <button class="lg:hidden mb-6 text-gray-600 focus:outline-none" onclick="openSidebar()">
+          <i data-lucide="menu" class="w-8 h-8"></i>
+        </button>
+
         <div class="bg-white rounded-2xl p-12 mb-12 shadow-lg">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -308,8 +313,8 @@
         <!-- Students Section -->
         <div class="mb-12">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Students</h2>
-          <div class="bg-white rounded-lg shadow overflow-hidden">
-            <table class="w-full">
+          <div class="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
+            <table class="w-full min-w-[600px]">
               <thead class="bg-accent text-white">
                 <tr>
                   <th class="px-6 py-3 text-left font-semibold">
@@ -333,8 +338,8 @@
         <!-- Teachers Section -->
         <div>
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Teachers</h2>
-          <div class="bg-white rounded-lg shadow overflow-hidden">
-            <table class="w-full">
+          <div class="bg-white rounded-lg shadow overflow-hidden overflow-x-auto">
+            <table class="w-full min-w-[600px]">
               <thead class="bg-accent text-white">
                 <tr>
                   <th class="px-6 py-3 text-left font-semibold">
@@ -486,8 +491,8 @@
       <!-- Schedule Page (student) -->
       <div class="page hidden p-8 max-w-6xl mx-auto" id="schedule">
         <h2 class="text-3xl font-bold mb-6">Course Schedule</h2>
-        <div class="bg-white p-6 rounded-lg shadow">
-          <table class="w-full table-auto border-collapse">
+        <div class="bg-white p-6 rounded-lg shadow overflow-x-auto">
+          <table class="w-full table-auto border-collapse min-w-[600px]">
             <thead>
               <tr class="bg-gradient-to-r from-blue-50 to-blue-100">
                 <th class="border px-4 py-3 text-left font-semibold text-gray-700">
