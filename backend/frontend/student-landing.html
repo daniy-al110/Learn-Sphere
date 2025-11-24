@@ -37,9 +37,19 @@
 
 <body class="h-screen overflow-hidden">
   <div class="flex min-h-screen h-screen relative">
+    <!-- Mobile Menu Toggle -->
+    <button onclick="openSidebar()"
+      class="lg:hidden fixed top-4 left-4 z-50 p-2 bg-accent rounded-lg text-white shadow-lg hover:bg-accent-hover transition-all duration-200"
+      id="menuToggle" aria-label="Toggle menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      </svg>
+    </button>
+
     <!-- Mobile Overlay -->
     <div id="sidebarOverlay"
-      class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300 lg:hidden"></div>
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 opacity-0 invisible transition-all duration-300 lg:hidden"
+      onclick="closeSidebar()"></div>
 
     <!-- Sidebar -->
     <aside
@@ -156,14 +166,11 @@
     <!-- Main Content -->
     <main class="flex-1 ml-0 lg:ml-64 transition-all duration-300 bg-white h-full overflow-y-auto" id="mainContent">
       <!-- Dashboard Page -->
-      <div class="page block p-8 w-full lg:max-w-6xl lg:mx-auto expanded:w-full expanded:max-w-full expanded:mx-0"
+      <div
+        class="page block p-4 md:p-6 lg:p-8 w-full lg:max-w-6xl lg:mx-auto expanded:w-full expanded:max-w-full expanded:mx-0"
         id="dashboard">
-        <!-- Mobile Menu Button -->
-        <button class="lg:hidden mb-6 text-gray-600 focus:outline-none" onclick="openSidebar()">
-          <i data-lucide="menu" class="w-8 h-8"></i>
-        </button>
 
-        <div class="bg-white rounded-2xl p-12 mb-12 shadow-lg">
+        <div class="bg-white rounded-2xl p-6 md:p-12 mb-12 shadow-lg">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <!-- PDF libraries -->
