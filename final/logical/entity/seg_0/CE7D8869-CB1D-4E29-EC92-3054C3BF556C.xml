@@ -1,0 +1,143 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="CE7D8869-CB1D-4E29-EC92-3054C3BF556C" name="assignments">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>A2E29FE9-0941-83CC-A6AE-DAB3CC02373E</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="assignment id" id="06707574-6231-82FB-D8CC-B35FA18883EC">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>F67B7EE5-432D-18FF-39F1-52B8C4285DFE</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="course id" id="BBF19938-CC24-5DF6-36DB-5CA4F897512D">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>6EB8F036-FDC5-13FE-2552-50D5A031CDC2</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>4F149D5C-90EE-BAAC-E1BE-2DE1D0C8E371</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="title" id="81AE99E1-EE04-6261-EE06-9AF011DA5A68">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>D1269DAA-54E8-04DC-B52C-C23A6C43F261</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>AFDC3FD6-3EBF-E0C3-D0C9-9B7C846AAEF2</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="description" id="44F226AE-0EE7-B039-ACD6-C3A1BF2BAA53">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>02DF3758-908C-B894-5AF1-629CFEBB00F5</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>BF601815-1E9D-5670-4E4C-0B9F971D4E7F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="link" id="1C9BEF8E-A974-1E85-047B-9E4F58C448EA">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>16E024C4-5105-9814-C826-AB37A82ACCA9</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>D6077369-7480-1E86-5CC1-E420F269CDFA</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="due date" id="EC6BDA67-7FF1-274E-D407-B6DECCFFAF57">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>EB1C2653-D4DB-706C-EB48-0CE334736B88</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>AB023AD2-F492-FA42-1DD0-6A2F12811C1F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="created at" id="F227B357-23B1-A96E-5861-95CF2ACD741A">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>61779C80-DCD1-6738-4A35-F9531D98C74F</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>0CCD5725-A3D7-CDC9-63F7-AA7912CE22D4</domain>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="9AD6EC82-9E7E-413D-BE0B-00344FEE4371" name="assignments PK">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>5D3615B6-A0B7-65A4-8BE0-E67A29B4FD95</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="false"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>06707574-6231-82FB-D8CC-B35FA18883EC</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

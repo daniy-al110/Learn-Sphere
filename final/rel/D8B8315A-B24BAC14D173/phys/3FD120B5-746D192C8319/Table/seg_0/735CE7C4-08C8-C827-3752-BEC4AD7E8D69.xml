@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="courses" directorySegmentName="seg_0" id="735CE7C4-08C8-C827-3752-BEC4AD7E8D69">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="course_id" id="01180E23-5CAD-E4A4-81D0-7CE71CDE36D3">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+<ColumnProxy name="admin_id" id="1B9DC66F-281B-10AC-8D0E-F9CAE26AC372">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:45 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="created_at" id="283898F4-94AD-2892-4FAF-9414AFE38F6F">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="teachers_teacher_id" id="81779796-7D6D-C2FD-E72A-F8712C30D0F0">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="description" id="ADDA30F6-F9E0-D7A9-3305-FFBCB76CCE18">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="course_name" id="CC3EE933-3298-91F1-5298-024107E1D839">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="courses_teachers_FK" id="C26157AF-AD6A-18C6-8B91-398375A55712">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="courses_PK" id="0E063D01-5314-4CE2-5C06-2B4213559DF7">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

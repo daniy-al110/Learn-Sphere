@@ -1,0 +1,4 @@
+git init
+git branch -M main
+git remote add origin https://github.com/daniy-al110/LearnSphere.git
+git pull origin main

@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2A97629A-DB46-5EDC-4D0B-BD6EB051EEF4" containerWithKeyObject="3704AF02-D3CA-468A-3BBE-436A5D4A0E82" localFKIndex="011176EF-EDD5-CA21-9E93-3D60258298BA" name="assignment_submissions_assignments_FK">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>195594C0-BBDE-7DB0-4A9A-69C794BC3A91</importedID>
+<referredTableLongName>assignments</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>A2E29FE9-0941-83CC-A6AE-DAB3CC02373E</referredTableID>
+<keyObject>5D3615B6-A0B7-65A4-8BE0-E67A29B4FD95</keyObject>
+<referredKeyID>5D3615B6-A0B7-65A4-8BE0-E67A29B4FD95</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>assignment_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,127 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="929669A4-54F3-166A-A9F8-29813D3EF04B" name="enrollments">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>9AA7CE62-9FDA-0F1A-F3F0-F97C18CCC7AB</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="enrollment_id" id="0A11B56B-1CE4-A5EF-4BCC-95A1ED253BC1">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>1C478466-C154-4794-4364-EFC0E5D85D66</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="students_student_id" id="F27F4AC9-D942-3BE0-6A9A-1B89623A4B67">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>CCB07BF8-2F23-D41E-2350-F7241377C495</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="39AF2A0F-25A4-3ECD-9F86-1DA082139BE1" referredColumn="20BF800B-A834-4E14-1425-11834E7B05B2"/>
+</associations>
+</Column>
+<Column name="courses_course_id" id="A9AF5471-D305-EB92-5963-4A159D52D6E7">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>196BF366-5909-DF80-3F1C-0A54C7F54BC7</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F30E4928-A041-14D6-9B57-A9016CFA3E57" referredColumn="01180E23-5CAD-E4A4-81D0-7CE71CDE36D3"/>
+</associations>
+</Column>
+<Column name="created_at" id="53F41957-F81A-399E-A4C4-8972BB305323">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>33E7F081-4D48-F013-C445-D493A04579B5</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>0CCD5725-A3D7-CDC9-63F7-AA7912CE22D4</domain>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="admin_id" id="37F3E140-EB31-C1BF-A32B-D3208E9F632D">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:45 UTC</createdTime>
+<generatorID>6BC55B4D-4589-ACD6-14E6-EC1119330F45</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="39AF2A0F-25A4-3ECD-9F86-1DA082139BE1" referredColumn="836775BD-A07C-EA6F-359F-C5CAE750D189"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9BDB016F-8C26-D07E-90EB-63ABAC61F64D" name="enrollments_PK">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>898C4399-A08C-277D-7F22-0AF9C68C66CB</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0A11B56B-1CE4-A5EF-4BCC-95A1ED253BC1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E6F0D718-86B8-7BDE-7A9C-09EE128C6D4C" name="enrollments_courses_FK">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A9AF5471-D305-EB92-5963-4A159D52D6E7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="85254E4B-AA19-F433-7276-6B1387933CE3" name="enrollments_students_FK">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F27F4AC9-D942-3BE0-6A9A-1B89623A4B67"/>
+<colUsage columnID="37F3E140-EB31-C1BF-A32B-D3208E9F632D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

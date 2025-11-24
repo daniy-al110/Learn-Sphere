@@ -1,0 +1,1997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Dashboard - Learning Sphere</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#e94560",
+            secondary: "#f91e63",
+            accent: "#e94560",
+            "accent-hover": "#ff5c77",
+            sidebar: "#1a1a2e",
+            "card-bg": "#f5f6fa",
+            "dark-table": "#1a1a2e",
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="h-screen overflow-hidden">
+  <div class="flex min-h-screen h-screen relative">
+    <!-- Sidebar -->
+    <aside
+      class="fixed left-0 top-0 h-screen w-64 bg-gradient-to-b from-sidebar to-sidebar text-white flex flex-col transition-all duration-300 ease-in-out z-50 transform -translate-x-full lg:translate-x-0 shadow-xl"
+      id="sidebar" style="background: linear-gradient(to bottom, #1a1a2e, #0f0f1e)">
+      <!-- Logo Section -->
+      <div class="p-6 border-b border-white border-opacity-20">
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-primary bg-opacity-20 rounded-lg flex items-center justify-center">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          </div>
+          <span
+            class="text-lg md:text-xl font-extrabold whitespace-nowrap transition-opacity duration-300 bg-gradient-to-r from-primary via-primary to-primary bg-clip-text text-transparent drop-shadow-lg"
+            id="logoText" style="color: #e94560">Learning Sphere</span>
+        </div>
+      </div>
+
+      <!-- User Section -->
+      <div class="p-4 border-b border-white border-opacity-20 flex items-center gap-3">
+        <div
+          class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center font-semibold text-sm flex-shrink-0">
+          <span id="userInitial">T</span>
+        </div>
+        <div class="transition-opacity duration-300 min-w-0" id="userInfo">
+          <p class="text-sm font-medium mb-0.5">
+            👋 Hi,
+            <span id="teacherName" style="color: white; font-weight: bold">Teacher</span>
+          </p>
+          <p class="text-xs opacity-70">Welcome back!</p>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
+        <button onclick="showPage('courses')" data-page="courses"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 bg-white bg-opacity-20 text-white font-medium w-full text-left">
+          <i data-lucide="book-open" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">My Courses</span>
+        </button>
+        <button onclick="showPage('attendance')" data-page="attendance"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Attendance</span>
+        </button>
+        <button onclick="showPage('quizzes')" data-page="quizzes"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="edit-3" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Quizzes</span>
+        </button>
+        <button onclick="showPage('assignments')" data-page="assignments"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="file-text" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Assignments</span>
+        </button>
+        <button onclick="showPage('marks')" data-page="marks"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="check-square" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Marks</span>
+        </button>
+        <button onclick="showPage('reviews')" data-page="reviews"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="star" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Student Reviews</span>
+        </button>
+        <button onclick="showPage('schedule')" data-page="schedule"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="calendar" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Schedule</span>
+        </button>
+        <button onclick="showPage('messaging')" data-page="messaging"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="mail" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Messages</span>
+        </button>
+        <button onclick="showPage('roster')" data-page="roster"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="users" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Roster</span>
+        </button>
+        <button id="certRequestsNavBtn" onclick="showPage('certificateRequests')" data-page="certificateRequests"
+          class="nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 text-white text-opacity-70 hover:text-white hover:bg-white hover:bg-opacity-10 w-full text-left">
+          <i data-lucide="award" class="w-4 h-4 flex-shrink-0"></i>
+          <span class="text-sm font-medium whitespace-nowrap transition-opacity duration-300">Certificate
+            Requests</span>
+          <span id="certificateBadge"
+            class="ml-auto inline-flex items-center justify-center px-2 py-0.5 rounded-full text-xs bg-accent text-white hidden">0</span>
+        </button>
+      </nav>
+
+      <!-- Logout Button -->
+      <div class="p-4 border-t border-white border-opacity-20 flex-shrink-0">
+        <button onclick="logout()"
+          class="w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5 logout-btn text-white font-medium"
+          style="background: #e94560">
+          <i data-lucide="log-out" class="w-4 h-4"></i>
+          <span class="text-sm font-medium transition-opacity duration-300">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 ml-0 lg:ml-64 transition-all duration-300 bg-white h-full overflow-y-auto p-8" id="mainContent">
+      <!-- Courses Section -->
+      <div id="courses" class="page">
+        <h2 class="text-3xl font-bold mb-6">My Courses</h2>
+        <div id="coursesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+
+      <!-- Attendance Section -->
+      <div id="attendance" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Mark Attendance</h2>
+
+        <!-- Course Selection -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium mb-2">Select Course</label>
+          <select id="attendanceCourseSelect" class="w-full max-w-md p-2 border rounded"
+            onchange="loadStudentsForAttendance()">
+            <option value="">Select a course...</option>
+          </select>
+        </div>
+
+        <!-- Date Selection -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium mb-2">Select Date</label>
+          <input type="date" id="attendanceDate" class="p-2 border rounded" value="" />
+        </div>
+
+        <!-- Students List -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <table class="w-full">
+            <thead>
+              <tr>
+                <th class="text-left py-2">Student Name</th>
+                <th class="text-left py-2">Status</th>
+                <th class="text-left py-2">Attendance %</th>
+              </tr>
+            </thead>
+            <tbody id="attendanceTableBody">
+              <!-- Students will be loaded here -->
+            </tbody>
+          </table>
+          <button onclick="submitAttendance()"
+            class="mt-4 bg-accent text-white px-4 py-2 rounded hover:bg-accent-hover">
+            Save Attendance
+          </button>
+        </div>
+      </div>
+
+      <!-- Quizzes Section -->
+      <div id="quizzes" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Manage Quizzes</h2>
+
+        <!-- Create Quiz Form -->
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4">Create New Quiz</h3>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-2">Select Course</label>
+              <select id="quizCourseSelect" class="w-full max-w-md p-2 border rounded">
+                <option value="">Select a course...</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Quiz Title</label>
+              <input type="text" id="quizTitle" class="w-full max-w-md p-2 border rounded" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Time Limit (minutes)</label>
+              <input type="number" id="quizTimeLimit" class="w-full max-w-md p-2 border rounded" />
+            </div>
+
+            <div id="questionsContainer" class="space-y-4">
+              <!-- Questions will be added here -->
+            </div>
+
+            <button onclick="addQuestion()" class="bg-gray-200 px-4 py-2 rounded hover:bg-gray-300">
+              Add Question
+            </button>
+
+            <button onclick="createQuiz()" class="bg-accent text-white px-4 py-2 rounded hover:bg-accent-hover">
+              Create Quiz
+            </button>
+          </div>
+        </div>
+
+        <!-- Active Quizzes -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="text-xl font-semibold mb-4">Active Quizzes</h3>
+          <div id="activeQuizzesList">
+            <!-- Active quizzes will be loaded here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Assignments Section -->
+      <div id="assignments" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Manage Assignments</h2>
+
+        <!-- Create Assignment Form -->
+        <div class="bg-white rounded-lg shadow p-6 mb-6">
+          <h3 class="text-xl font-semibold mb-4">Create New Assignment</h3>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium mb-2">Select Course</label>
+              <select id="assignmentCourseSelect" class="w-full max-w-md p-2 border rounded">
+                <option value="">Select a course...</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Assignment Title</label>
+              <input type="text" id="assignmentTitle" class="w-full max-w-md p-2 border rounded" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Description</label>
+              <textarea id="assignmentDescription" class="w-full max-w-md p-2 border rounded" rows="3"></textarea>
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Assignment Link</label>
+              <input type="url" id="assignmentLink" class="w-full max-w-md p-2 border rounded" />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-2">Due Date</label>
+              <input type="date" id="assignmentDueDate" class="p-2 border rounded" />
+            </div>
+
+            <button onclick="createAssignment()" class="bg-accent text-white px-4 py-2 rounded hover:bg-accent-hover">
+              Create Assignment
+            </button>
+          </div>
+        </div>
+
+        <!-- Assignment List -->
+        <div class="bg-white rounded-lg shadow p-6">
+          <h3 class="text-xl font-semibold mb-4">Existing Assignments</h3>
+          <div id="assignmentsList" class="space-y-4">
+            <!-- Assignments will be loaded here -->
+          </div>
+
+          <!-- Grading Modal -->
+          <div id="gradingModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white w-full max-w-2xl p-6 rounded-lg">
+              <div class="flex justify-between items-center mb-4">
+                <h4 id="gradingModalTitle" class="text-lg font-semibold">
+                  Grade Assignment
+                </h4>
+                <button onclick="closeGradingModal()" class="text-gray-600">
+                  Close
+                </button>
+              </div>
+              <div id="gradingContent" class="space-y-3 max-h-96 overflow-auto"></div>
+              <div class="mt-4 text-right">
+                <button onclick="submitMarks()" class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-hover">
+                  Save Marks
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Certificate Requests Section (teacher) -->
+      <div id="certificateRequests" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Certificate Requests</h2>
+        <div class="bg-white rounded-lg shadow p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-sm text-gray-600">
+              Pending requests appear here.
+            </div>
+            <div>
+              <button id="refreshCertReqs" onclick="loadCertificateRequests()"
+                class="px-3 py-1 bg-accent text-white rounded hover:bg-accent-hover">
+                Refresh
+              </button>
+            </div>
+          </div>
+          <div id="certificateRequestsList" class="space-y-4">
+            <!-- Certificate requests will be loaded here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Marks Section -->
+      <div id="marks" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Course Marks</h2>
+
+        <!-- Course Selection -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium mb-2">Select Course</label>
+          <select id="marksSelectCourse" class="w-full max-w-md p-2 border rounded" onchange="loadCourseMarks()">
+            <option value="">Select a course...</option>
+          </select>
+        </div>
+
+        <!-- Students Marks Table -->
+        <div class="bg-white rounded-lg shadow p-6 overflow-x-auto">
+          <table class="min-w-full">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Student
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Quizzes (15%)
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Assignments (15%)
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Mid Term (30%)
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Final (40%)
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Total
+                </th>
+                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody id="marksTableBody" class="bg-white divide-y divide-gray-200">
+              <!-- Student marks will be loaded here -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Add/Edit Marks Modal -->
+        <div id="marksModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center">
+          <div class="bg-white rounded-lg p-6 w-full max-w-lg">
+            <h3 class="text-lg font-semibold mb-4">Enter Student Marks</h3>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-sm font-medium mb-1">Quiz Marks (out of 15)</label>
+                <input type="number" id="quizMarks" min="0" max="15" step="0.1" class="w-full p-2 border rounded" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Assignment Marks (out of 15)</label>
+                <input type="number" id="assignmentMarks" min="0" max="15" step="0.1"
+                  class="w-full p-2 border rounded" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Mid Term Marks (out of 30)</label>
+                <input type="number" id="midMarks" min="0" max="30" step="0.1" class="w-full p-2 border rounded" />
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1">Final Marks (out of 40)</label>
+                <input type="number" id="finalMarks" min="0" max="40" step="0.1" class="w-full p-2 border rounded" />
+              </div>
+              <div class="pt-4 border-t">
+                <div class="flex justify-between items-center">
+                  <span class="font-medium">Total Marks:</span>
+                  <span id="totalMarks" class="text-lg font-semibold">0/100</span>
+                </div>
+                <div class="flex justify-between items-center mt-2">
+                  <span class="font-medium">Grade:</span>
+                  <span id="calculatedGrade" class="text-lg font-semibold">-</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-6 flex justify-end gap-3">
+              <button onclick="closeMarksModal()" class="px-4 py-2 bg-gray-200 rounded">
+                Cancel
+              </button>
+              <button onclick="saveGrade()" class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-hover">
+                Save Grade
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reviews Section -->
+      <div id="reviews" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Student Reviews</h2>
+        <div class="mb-6">
+          <label class="block text-sm font-medium mb-2">Select Course</label>
+          <select id="reviewsCourseSelect" class="w-full max-w-md p-2 border rounded">
+            <option value="">Select a course...</option>
+          </select>
+        </div>
+        <div class="grid gap-4" id="reviewsList"></div>
+      </div>
+
+      <!-- Schedule Section -->
+      <div id="schedule" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Class Schedule</h2>
+        <div class="bg-white rounded-lg shadow p-6 overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr>
+                <th class="text-left py-3 px-4 font-semibold">Course Name</th>
+                <th class="text-left py-3 px-4 font-semibold">Teacher</th>
+                <th class="text-left py-3 px-4 font-semibold">Schedule</th>
+                <th class="text-left py-3 px-4 font-semibold">Duration</th>
+              </tr>
+            </thead>
+            <tbody id="scheduleTableBody">
+              <!-- Schedule will be loaded here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Messages Section -->
+      <div id="messaging" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Messages</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+          <!-- Compose Sidebar -->
+          <div class="lg:col-span-1">
+            <div class="bg-white rounded-lg shadow p-6 sticky top-8">
+              <h3 class="text-lg font-bold mb-4">Compose Message</h3>
+              <form onsubmit="event.preventDefault(); sendMessage()" class="space-y-4">
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Recipient Email</label>
+                  <input type="email" id="messageRecipientEmail"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                    placeholder="recipient@email.com" required />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                  <input type="text" id="messageSubject"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent"
+                    placeholder="Message subject" required />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                  <textarea id="messageBody"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent h-20"
+                    placeholder="Type your message..." required></textarea>
+                </div>
+                <button type="submit"
+                  class="w-full bg-accent hover:bg-accent-hover text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Send</button>
+              </form>
+            </div>
+          </div>
+
+          <!-- Message List -->
+          <div class="lg:col-span-4">
+            <div class="bg-white rounded-lg shadow p-6">
+              <!-- Tabs -->
+              <div class="flex border-b mb-6">
+                <button onclick="showInbox()" id="inboxTabBtn"
+                  class="px-4 py-2 font-semibold text-accent border-b-2 border-accent transition">Inbox</button>
+                <button onclick="showSent()" id="sentTabBtn"
+                  class="px-4 py-2 font-semibold text-gray-500 hover:text-gray-700 transition">Sent</button>
+              </div>
+
+              <!-- Messages List -->
+              <div id="messagesList" class="space-y-3">
+                <p class="text-gray-500 text-center py-8">Loading messages...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Roster Section -->
+      <div id="roster" class="page hidden">
+        <h2 class="text-3xl font-bold mb-6">Class Roster</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Students List -->
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-xl font-semibold mb-4">Students</h3>
+            <div id="rosterStudentsList" class="space-y-2 max-h-96 overflow-auto">
+              <p class="text-gray-500">Loading students...</p>
+            </div>
+          </div>
+          <!-- Teachers List -->
+          <div class="bg-white rounded-lg shadow p-6">
+            <h3 class="text-xl font-semibold mb-4">Teachers</h3>
+            <div id="rosterTeachersList" class="space-y-2 max-h-96 overflow-auto">
+              <p class="text-gray-500">Loading teachers...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Global variables
+    let currentTeacherId =
+      localStorage.getItem("teacherId") || localStorage.getItem("userId");
+    let currentTeacherName =
+      localStorage.getItem("teacherName") || localStorage.getItem("userName");
+    let teacherCourses = [];
+
+    // Set today's date as default for attendance
+    const today = new Date().toISOString().split("T")[0];
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("attendanceDate").value = today;
+    });
+
+    // Initialize
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!currentTeacherId) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      // Set teacher name
+      const teacherNameEl = document.getElementById("teacherName");
+      teacherNameEl.textContent = currentTeacherName;
+      teacherNameEl.style.color = "white";
+      teacherNameEl.style.fontWeight = "bold";
+
+      // Set user initial to first letter of teacher name
+      const userInitialEl = document.getElementById("userInitial");
+      userInitialEl.textContent =
+        currentTeacherName && currentTeacherName.length > 0
+          ? currentTeacherName[0].toUpperCase()
+          : "T";
+
+      // Load initial data
+      loadTeacherCourses();
+      // Also load certificate requests so pending items are visible immediately
+      if (typeof loadCertificateRequests === "function")
+        loadCertificateRequests();
+
+      // Add event listeners for course selects
+      [
+        "attendanceCourseSelect",
+        "quizCourseSelect",
+        "assignmentCourseSelect",
+        "reviewsCourseSelect",
+      ].forEach((selectId) => {
+        const select = document.getElementById(selectId);
+        if (select) {
+          select.addEventListener("change", function () {
+            if (selectId === "attendanceCourseSelect") {
+              loadStudentsForAttendance();
+            } else if (selectId === "quizCourseSelect") {
+              loadActiveQuizzes();
+            } else if (selectId === "assignmentCourseSelect") {
+              loadAssignments();
+            } else if (selectId === "reviewsCourseSelect") {
+              loadStudentsForReviews();
+            }
+          });
+        }
+      });
+    });
+
+    // Update all course select dropdowns
+    function updateCourseSelects() {
+      const selects = [
+        "attendanceCourseSelect",
+        "quizCourseSelect",
+        "assignmentCourseSelect",
+        "marksSelectCourse",
+        "reviewsCourseSelect",
+      ];
+      selects.forEach((selectId) => {
+        const select = document.getElementById(selectId);
+        if (select) {
+          select.innerHTML =
+            '<option value="">Select a course...</option>' +
+            teacherCourses
+              .map(
+                (course) =>
+                  `<option value="${course.course_id}">${course.course_name}</option>`
+              )
+              .join("");
+        }
+      });
+    }
+
+    function loadStudentsForReviews() {
+      const courseId = document.getElementById("reviewsCourseSelect").value;
+      if (!courseId) return;
+
+      const cc = (teacherCourses || []).find(c => String(c.course_id) === String(courseId));
+      if (!cc || !cc.reviews_enabled) {
+        document.getElementById("reviewsList").innerHTML = '<p class="text-gray-600">Reviews are disabled by admin for this course.</p>';
+        return;
+      }
+      const now = new Date();
+      const startOk = cc.reviews_window_start ? now >= new Date(cc.reviews_window_start) : true;
+      const endOk = cc.reviews_window_end ? now <= new Date(cc.reviews_window_end) : true;
+      if (!(startOk && endOk)) {
+        const msg = `Reviews are closed. ${cc.reviews_window_start ? 'Opens: ' + new Date(cc.reviews_window_start).toLocaleString() + ' ' : ''}${cc.reviews_window_end ? 'Closes: ' + new Date(cc.reviews_window_end).toLocaleString() : ''}`;
+        document.getElementById("reviewsList").innerHTML = `<p class="text-gray-600">${msg}</p>`;
+        return;
+      }
+
+      Promise.all([
+        fetch(`/api/teacher/course/${courseId}/students`).then(async (r) => {
+          if (!r.ok) throw new Error(`Students ${r.status}`);
+          return r.json();
+        }),
+        fetch(`/api/teacher/course/${courseId}/reviews`).then(async (r) => {
+          if (!r.ok) return { reviews: [] };
+          return r.json();
+        }),
+      ])
+        .then(([students, reviewResp]) => {
+          const reviewsByStudent = {};
+          (reviewResp.reviews || []).forEach((rv) => {
+            const sid = rv.student_id;
+            if (!reviewsByStudent[sid]) reviewsByStudent[sid] = [];
+            reviewsByStudent[sid].push(rv);
+          });
+          const container = document.getElementById("reviewsList");
+          container.innerHTML = (students || [])
+            .map((student) => {
+              const existing = reviewsByStudent[student.student_id] || [];
+              const hasMine = existing.some(r => String(r.teacher_id) === String(currentTeacherId));
+              const existingHtml = existing
+                .map(
+                  (r) => `
+                      <div class="mt-2 p-3 border rounded bg-gray-50">
+                        <div class="text-sm text-gray-700">Rating: ${r.rating}</div>
+                        <div class="text-sm text-gray-600">${r.review}</div>
+                        <div class="text-xs text-gray-500">${r.created_at || ''}</div>
+                      </div>
+                    `
+                )
+                .join("");
+              return `
+                  <div class="bg-white rounded-lg shadow p-4">
+                    <div class="flex justify-between items-center mb-3">
+                      <div>
+                        <div class="font-semibold">${student.name}</div>
+                        <div class="text-sm text-gray-600">ID: ${student.student_id}</div>
+                      </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 items-end">
+                      <div>
+                        <label class="block text-xs font-medium mb-1">Rating (1-5)</label>
+                        <input type="number" min="1" max="5" class="border rounded px-2 py-1 w-20" id="reviewRating_${student.student_id}" ${hasMine ? 'disabled' : ''} />
+                      </div>
+                      <div class="md:col-span-2">
+                        <label class="block text-xs font-medium mb-1">Review</label>
+                        <textarea rows="2" class="border rounded px-2 py-1 w-full" id="reviewText_${student.student_id}" ${hasMine ? 'disabled' : ''}></textarea>
+                      </div>
+                      <div>
+                        <button class="px-4 py-2 bg-accent text-white rounded hover:bg-accent-hover" onclick="submitStudentReview(${student.student_id}, ${courseId})" ${hasMine ? 'disabled' : ''}>${hasMine ? 'Submitted' : 'Submit'}</button>
+                      </div>
+                    </div>
+                    ${existingHtml}
+                  </div>
+                `;
+            })
+            .join("");
+        })
+        .catch((err) => {
+          console.error("Error loading reviews/students", err);
+          document.getElementById("reviewsList").innerHTML = '<p class="text-red-600">Failed to load students/reviews</p>';
+        });
+    }
+
+    window.submitStudentReview = function (studentId, courseId) {
+      const ratingEl = document.getElementById(`reviewRating_${studentId}`);
+      const reviewEl = document.getElementById(`reviewText_${studentId}`);
+      const rating = ratingEl && ratingEl.value ? Number(ratingEl.value) : null;
+      const review = reviewEl && reviewEl.value ? reviewEl.value.trim() : '';
+      if (!rating || !review) {
+        alert('Please enter rating and review');
+        return;
+      }
+      const teacherId = currentTeacherId;
+      fetch(`/api/teacher/student-review`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ teacher_id: teacherId, student_id: studentId, course_id: courseId, rating, review })
+      })
+        .then((r) => r.json())
+        .then((resp) => {
+          if (resp.success) {
+            alert('Review submitted');
+            loadStudentsForReviews();
+          } else {
+            alert('Failed: ' + (resp.error || 'Unknown'));
+          }
+        })
+        .catch((err) => {
+          console.error('Submit review error', err);
+          alert('Network error');
+        });
+    };
+
+    // Attendance Functions
+    function loadStudentsForAttendance() {
+      const courseId = document.getElementById(
+        "attendanceCourseSelect"
+      ).value;
+      if (!courseId) return;
+
+      fetch(`/api/teacher/course/${courseId}/students`)
+        .then((res) => res.json())
+        .then((students) => {
+          const tbody = document.getElementById("attendanceTableBody");
+          tbody.innerHTML = students
+            .map(
+              (student) => `
+              <tr>
+                <td class="py-2">${student.name}</td>
+                <td class="py-2">
+                  <select class="p-1 border rounded" data-student-id="${student.student_id
+                }">
+                    <option value="present">Present</option>
+                    <option value="absent">Absent</option>
+                  </select>
+                </td>
+                <td class="py-2">
+                  ${(
+                  (student.present_count /
+                    (student.present_count + student.absent_count)) *
+                  100 || 0
+                ).toFixed(1)}%
+                </td>
+              </tr>
+            `
+            )
+            .join("");
+        })
+        .catch((error) => console.error("Error loading students:", error));
+    }
+
+    function submitAttendance() {
+      const courseId = document.getElementById(
+        "attendanceCourseSelect"
+      ).value;
+      const date = document.getElementById("attendanceDate").value;
+      if (!courseId || !date) {
+        alert("Please select a course and date");
+        return;
+      }
+
+      const records = [];
+      document
+        .querySelectorAll("#attendanceTableBody select")
+        .forEach((select) => {
+          records.push({
+            studentId: select.dataset.studentId,
+            status: select.value,
+            date: date,
+          });
+        });
+
+      fetch("/api/teacher/attendance", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ courseId, attendance: records }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Attendance saved successfully");
+            loadStudentsForAttendance();
+          }
+        })
+        .catch((error) => console.error("Error saving attendance:", error));
+    }
+
+    // Quiz Functions
+    function addQuestion() {
+      const container = document.getElementById("questionsContainer");
+      const questionNum = container.children.length + 1;
+
+      const questionDiv = document.createElement("div");
+      questionDiv.className = "p-4 border rounded-lg";
+      questionDiv.innerHTML = `
+          <div class="mb-2">
+            <label class="block text-sm font-medium mb-1">Question ${questionNum}</label>
+            <input type="text" class="w-full p-2 border rounded" placeholder="Enter question">
+          </div>
+          <div class="space-y-2">
+            <input type="text" class="w-full p-2 border rounded" placeholder="Option 1">
+            <input type="text" class="w-full p-2 border rounded" placeholder="Option 2">
+            <input type="text" class="w-full p-2 border rounded" placeholder="Option 3">
+            <input type="text" class="w-full p-2 border rounded" placeholder="Option 4">
+          </div>
+          <div class="mt-2">
+            <label class="block text-sm font-medium mb-1">Correct Answer</label>
+            <select class="w-full p-2 border rounded">
+              <option value="0">Option 1</option>
+              <option value="1">Option 2</option>
+              <option value="2">Option 3</option>
+              <option value="3">Option 4</option>
+            </select>
+          </div>
+        `;
+
+      container.appendChild(questionDiv);
+    }
+
+    function createQuiz() {
+      const courseId = document.getElementById("quizCourseSelect").value;
+      const title = document.getElementById("quizTitle").value;
+      const timeLimit = document.getElementById("quizTimeLimit").value;
+
+      if (!courseId || !title || !timeLimit) {
+        alert("Please fill in all quiz details");
+        return;
+      }
+
+      const questions = [];
+      document
+        .querySelectorAll("#questionsContainer > div")
+        .forEach((questionDiv) => {
+          const inputs = questionDiv.querySelectorAll("input");
+          const options = [
+            inputs[1].value,
+            inputs[2].value,
+            inputs[3].value,
+            inputs[4].value,
+          ];
+          const correctAnswerIndex =
+            questionDiv.querySelector("select").value;
+
+          if (!inputs[0].value || options.some((opt) => !opt)) {
+            alert("Please fill in all fields for each question");
+            return;
+          }
+
+          questions.push({
+            text: inputs[0].value,
+            options: options,
+            correctAnswer: options[correctAnswerIndex],
+            points: 1,
+          });
+        });
+
+      if (questions.length === 0) {
+        alert("Please add at least one question");
+        return;
+      }
+
+      fetch("/api/teacher/quiz", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          courseId: parseInt(courseId),
+          title,
+          description: "",
+          timeLimit: parseInt(timeLimit),
+          questions,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Quiz created successfully");
+            document.getElementById("quizTitle").value = "";
+            document.getElementById("quizTimeLimit").value = "";
+            document.getElementById("questionsContainer").innerHTML = "";
+            loadActiveQuizzes();
+          } else {
+            alert(
+              "Failed to create quiz: " + (data.error || "Unknown error")
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error creating quiz:", error);
+          alert("Failed to create quiz. Please try again.");
+        });
+    }
+
+    // Assignment Functions
+    function createAssignment() {
+      const courseId = document.getElementById(
+        "assignmentCourseSelect"
+      ).value;
+      const title = document.getElementById("assignmentTitle").value;
+      const description = document.getElementById(
+        "assignmentDescription"
+      ).value;
+      const link = document.getElementById("assignmentLink").value;
+      const dueDate = document.getElementById("assignmentDueDate").value;
+
+      if (!courseId || !title || !description || !link || !dueDate) {
+        alert("Please fill in all assignment details");
+        return;
+      }
+
+      fetch("/api/teacher/assignment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          courseId: parseInt(courseId),
+          title: title.trim(),
+          description: description.trim(),
+          link: link.trim(),
+          dueDate,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Assignment created successfully");
+            // Clear form
+            document.getElementById("assignmentTitle").value = "";
+            document.getElementById("assignmentDescription").value = "";
+            document.getElementById("assignmentLink").value = "";
+            document.getElementById("assignmentDueDate").value = "";
+            // Reload assignments
+            loadAssignments(courseId);
+          } else {
+            alert(
+              "Failed to create assignment: " +
+              (data.error || "Unknown error")
+            );
+          }
+        })
+        .catch((error) => {
+          console.error("Error creating assignment:", error);
+          alert("Failed to create assignment. Please try again.");
+        });
+    }
+
+    function loadAssignments(courseId) {
+      if (!courseId) {
+        courseId = document.getElementById("assignmentCourseSelect").value;
+      }
+      if (!courseId) return;
+
+      fetch(`/api/course/${courseId}/assignments`)
+        .then((res) => res.json())
+        .then((data) => {
+          const assignments = data.assignments || data;
+          const container = document.getElementById("assignmentsList");
+          container.innerHTML =
+            assignments
+              .map(
+                (assignment) => `
+              <div class="border-b pb-4 flex justify-between items-start">
+                <div>
+                  <h4 class="font-semibold">${assignment.title}</h4>
+                  <p class="text-sm text-gray-600">${assignment.description}</p>
+                  <p class="text-sm">Due: ${assignment.due_date
+                    ? new Date(assignment.due_date).toLocaleDateString()
+                    : "N/A"
+                  }</p>
+                  <a href="${assignment.link
+                  }" target="_blank" class="text-blue-600 hover:underline">View Assignment</a>
+                </div>
+                <div class="ml-4">
+                  <button onclick="openGradingModal(${assignment.assignment_id
+                  }, ${assignment.course_id}, '${(
+                    assignment.title || ""
+                  ).replace(
+                    /'/g,
+                    "\\'"
+                  )}')" class="px-3 py-1 bg-yellow-500 text-white rounded">Grade Students</button>
+                  <button onclick="deleteAssignment(${assignment.assignment_id
+                  }, ${assignment.course_id
+                  })" class="px-3 py-1 bg-red-500 text-white rounded ml-2">Delete</button>
+                </div>
+              </div>
+            `
+              )
+              .join("") || "<p>No assignments yet</p>";
+        })
+        .catch((error) => console.error("Error loading assignments:", error));
+    }
+
+    function showPage(pageId) {
+      document
+        .querySelectorAll(".page")
+        .forEach((page) => page.classList.add("hidden"));
+      document.getElementById(pageId).classList.remove("hidden");
+
+      // Update active nav item styling
+      document.querySelectorAll(".nav-item").forEach((item) => {
+        if (item.getAttribute("data-page") === pageId) {
+          item.classList.add("bg-white", "bg-opacity-20");
+          item.classList.remove("text-opacity-70");
+        } else {
+          item.classList.remove("bg-white", "bg-opacity-20");
+          item.classList.add("text-opacity-70");
+        }
+      });
+
+      if (pageId === "courses") {
+        loadTeacherCourses();
+      } else if (pageId === "attendance") {
+        updateCourseSelects();
+      } else if (pageId === "quizzes") {
+        updateCourseSelects();
+        loadActiveQuizzes();
+      } else if (pageId === "assignments") {
+        updateCourseSelects();
+        loadAssignments();
+        // load certificate requests for this teacher
+        loadCertificateRequests();
+      } else if (pageId === "reviews") {
+        updateCourseSelects();
+        const sel = document.getElementById('reviewsCourseSelect');
+        if (sel && !sel.value && Array.isArray(teacherCourses) && teacherCourses.length) {
+          sel.value = String(teacherCourses[0].course_id);
+        }
+        loadStudentsForReviews();
+      } else if (pageId === "certificateRequests") {
+        loadCertificateRequests();
+      } else if (pageId === "marks") {
+        updateCourseSelects();
+      } else if (pageId === "schedule") {
+        loadTeacherSchedule();
+      } else if (pageId === "roster") {
+        loadRoster();
+      } else if (pageId === "messaging") {
+        currentView = "inbox";
+        loadMessages();
+      }
+    }
+
+    function loadActiveQuizzes() {
+      const courseId = document.getElementById("quizCourseSelect").value;
+      if (!courseId) return;
+
+      fetch(`/api/teacher/quizzes/${courseId}`)
+        .then((res) => res.json())
+        .then((quizzes) => {
+          const container = document.getElementById("activeQuizzesList");
+          if (quizzes.length === 0) {
+            container.innerHTML = "<p>No active quizzes</p>";
+            return;
+          }
+
+          container.innerHTML = quizzes
+            .map(
+              (quiz) => `
+              <div class="border-b pb-4 mb-4">
+                <div class="flex justify-between items-center">
+                  <h4 class="font-semibold">${quiz.title}</h4>
+                  <div class="flex items-center gap-2">
+                    <button onclick="toggleQuiz(${quiz.quiz_id
+                }, ${!quiz.is_active})" 
+                            class="px-3 py-1 rounded ${quiz.is_active
+                  ? "bg-red-100 text-red-600"
+                  : "bg-green-100 text-green-600"
+                }">
+                      ${quiz.is_active ? "Deactivate" : "Activate"}
+                    </button>
+                    <button onclick="viewQuizResults(${quiz.quiz_id})"
+                            class="px-3 py-1 rounded bg-blue-100 text-blue-600">
+                      View Results
+                    </button>
+                    <button onclick="deleteQuiz(${quiz.quiz_id
+                })" class="px-3 py-1 rounded bg-red-100 text-red-600">Delete</button>
+                  </div>
+                </div>
+                <p class="text-sm text-gray-600 mt-2">Time Limit: ${quiz.time_limit
+                } minutes</p>
+                <p class="text-sm text-gray-600">Status: ${quiz.is_active ? "Active" : "Inactive"
+                }</p>
+              </div>
+            `
+            )
+            .join("");
+        });
+    }
+
+    function toggleQuiz(quizId, makeActive) {
+      fetch(`/api/teacher/quiz/${quizId}/toggle`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ isActive: makeActive }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            loadActiveQuizzes();
+          }
+        });
+    }
+
+    function viewQuizResults(quizId) {
+      fetch(`/api/teacher/quiz/${quizId}/results`)
+        .then((res) => res.json())
+        .then((data) => {
+          // You can implement a modal or new section to show the results
+          alert(
+            `Average score: ${data.averageScore}\nParticipants: ${data.totalParticipants}`
+          );
+        });
+    }
+
+    function deleteQuiz(quizId) {
+      if (
+        !confirm(
+          "Are you sure you want to delete this quiz? This cannot be undone."
+        )
+      )
+        return;
+      fetch(`/api/teacher/quiz/${quizId}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Quiz deleted");
+            loadActiveQuizzes();
+          } else {
+            alert("Failed to delete quiz: " + (data.error || "Unknown"));
+          }
+        })
+        .catch((err) => {
+          console.error("Delete quiz error", err);
+          alert("Network error");
+        });
+    }
+
+    function deleteAssignment(assignmentId, courseId) {
+      if (!confirm("Delete this assignment and its submissions?")) return;
+      fetch(`/api/teacher/assignment/${assignmentId}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            alert("Assignment deleted");
+            loadAssignments(courseId);
+          } else {
+            alert(
+              "Failed to delete assignment: " + (data.error || "Unknown")
+            );
+          }
+        })
+        .catch((err) => {
+          console.error("Delete assignment error", err);
+          alert("Network error");
+        });
+    }
+
+    function loadTeacherCourses() {
+      fetch(`/api/teacher/courses/${currentTeacherId}`)
+        .then((res) => res.json())
+        .then((payload) => {
+          // payload may be { success: true, courses: [...] } or an array
+          const courses = Array.isArray(payload)
+            ? payload
+            : payload.courses || payload;
+          teacherCourses = courses || [];
+          updateCourseSelects();
+          const reviewsEl = document.getElementById('reviews');
+          if (reviewsEl && !reviewsEl.classList.contains('hidden')) {
+            const sel = document.getElementById('reviewsCourseSelect');
+            if (sel && !sel.value && Array.isArray(teacherCourses) && teacherCourses.length) {
+              sel.value = String(teacherCourses[0].course_id);
+            }
+            loadStudentsForReviews();
+          }
+          const grid = document.getElementById("coursesGrid");
+          grid.innerHTML = (courses || [])
+            .map(
+              (course) => `
+              <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                <h3 class="text-xl font-semibold mb-2">${course.course_name
+                }</h3>
+                <p class="text-gray-600 mb-4">${course.description || "No description available"
+                }</p>
+                <div class="flex gap-2">
+                  <button onclick="showPage('attendance'); document.getElementById('attendanceCourseSelect').value='${course.course_id
+                }'; loadStudentsForAttendance()" 
+                          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Attendance
+                  </button>
+                  <button onclick="showPage('assignments'); document.getElementById('assignmentCourseSelect').value='${course.course_id
+                }'; loadAssignments()" 
+                          class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+                    Assignments
+                  </button>
+                  <button onclick="showPage('quizzes'); document.getElementById('quizCourseSelect').value='${course.course_id
+                }'" 
+                          class="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
+                    Quizzes
+                  </button>
+                </div>
+              </div>
+            `
+            )
+            .join("");
+        })
+        .catch((error) => {
+          console.error("Error loading courses:", error);
+          document.getElementById("coursesGrid").innerHTML =
+            '<p class="text-center text-red-600">Failed to load courses</p>';
+        });
+    }
+
+    window.loadTeacherSchedule = function () {
+      // Add cache-buster to ensure fresh data
+      const cacheStr = `?t=${Date.now()}`;
+      fetch(`/api/schedule${cacheStr}`)
+        .then(async (res) => {
+          if (!res.ok) throw new Error(`Schedule ${res.status}`);
+          return res.json();
+        })
+        .then((payload) => {
+          const schedules = Array.isArray(payload)
+            ? payload
+            : payload.schedule || payload;
+          const tbody = document.getElementById("scheduleTableBody");
+          if (!schedules || schedules.length === 0) {
+            tbody.innerHTML =
+              '<tr><td colspan="4" class="text-center py-4 text-gray-500">No schedule available</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = schedules
+            .map(
+              (schedule) => `
+              <tr class="border-b hover:bg-gray-50">
+                <td class="py-3 px-4 font-medium">${schedule.course_name || "N/A"
+                }</td>
+                <td class="py-3 px-4">${schedule.teacher_name || "N/A"}</td>
+                <td class="py-3 px-4">${schedule.schedule || "N/A"}</td>
+                <td class="py-3 px-4">${schedule.duration || "N/A"}</td>
+              </tr>
+            `
+            )
+            .join("");
+        })
+        .catch((error) => {
+          console.error("Error loading schedule:", error);
+          document.getElementById("scheduleTableBody").innerHTML =
+            '<tr><td colspan="4" class="text-center py-4 text-red-600">Failed to load schedule</td></tr>';
+        });
+    }
+
+    function loadRoster() {
+      const courseId =
+        teacherCourses.length > 0 ? teacherCourses[0].course_id : null;
+
+      // Load students
+      fetch(`/api/admin/students`)
+        .then((res) => res.json())
+        .then((payload) => {
+          const students = Array.isArray(payload)
+            ? payload
+            : payload.students || [];
+          const container = document.getElementById("rosterStudentsList");
+          if (!students || students.length === 0) {
+            container.innerHTML =
+              '<p class="text-gray-500">No students enrolled</p>';
+            return;
+          }
+
+          container.innerHTML = students
+            .map(
+              (student) => `
+              <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                <p class="font-medium text-gray-900">${student.name || "N/A"
+                }</p>
+                <p class="text-sm text-gray-500">${student.email || "N/A"}</p>
+              </div>
+            `
+            )
+            .join("");
+        })
+        .catch((error) => {
+          console.error("Error loading students:", error);
+          document.getElementById("rosterStudentsList").innerHTML =
+            '<p class="text-red-600">Failed to load students</p>';
+        });
+
+      // Load teachers
+      fetch(`/api/admin/teachers`)
+        .then((res) => res.json())
+        .then((payload) => {
+          const teachers = Array.isArray(payload)
+            ? payload
+            : payload.teachers || [];
+          const container = document.getElementById("rosterTeachersList");
+          if (!teachers || teachers.length === 0) {
+            container.innerHTML =
+              '<p class="text-gray-500">No teachers found</p>';
+            return;
+          }
+
+          container.innerHTML = teachers
+            .map(
+              (teacher) => `
+              <div class="bg-gray-50 p-3 rounded-lg border border-gray-200">
+                <p class="font-medium text-gray-900">${teacher.name || "N/A"
+                }</p>
+                <p class="text-sm text-gray-500">${teacher.email || "N/A"}</p>
+              </div>
+            `
+            )
+            .join("");
+        })
+        .catch((error) => {
+          console.error("Error loading teachers:", error);
+          document.getElementById("rosterTeachersList").innerHTML =
+            '<p class="text-red-600">Failed to load teachers</p>';
+        });
+    }
+
+    function logout() {
+      // Remove both dedicated teacher keys and generic user keys to fully logout
+      localStorage.removeItem("teacherId");
+      localStorage.removeItem("teacherName");
+      localStorage.removeItem("userId");
+      localStorage.removeItem("userName");
+      localStorage.removeItem("userRole");
+      window.location.href = "login.html";
+    }
+
+    // Grading modal functions
+    let currentGradingAssignment = null;
+    function openGradingModal(assignmentId, courseId, title) {
+      currentGradingAssignment = { assignmentId, courseId };
+      document.getElementById("gradingModalTitle").textContent =
+        "Grade: " + (title || "Assignment");
+      const gradingContent = document.getElementById("gradingContent");
+      gradingContent.innerHTML = "Loading students...";
+
+      // fetch enrolled students for the assignment and any existing marks
+      fetch(
+        `/api/teacher/assignment/${assignmentId}/submissions`
+      )
+        .then((res) => res.json())
+        .then((payload) => {
+          const students =
+            payload && payload.students
+              ? payload.students
+              : Array.isArray(payload)
+                ? payload
+                : [];
+          if (!Array.isArray(students) || students.length === 0) {
+            gradingContent.innerHTML = "<div>No students enrolled.</div>";
+            return;
+          }
+          gradingContent.innerHTML = students
+            .map(
+              (s) => `
+              <div class="flex items-center justify-between p-2 border-b">
+                <div>
+                  <div class="font-medium">${s.name}</div>
+                  <div class="text-sm text-gray-600">ID: ${s.student_id}</div>
+                </div>
+                <div>
+                  <input type="number" min="0" max="100" data-student-id="${s.student_id
+                }" class="p-1 border rounded w-24" placeholder="Marks" value="${s.marks != null ? s.marks : ""
+                }" />
+                </div>
+              </div>
+            `
+            )
+            .join("");
+        })
+        .catch((err) => {
+          console.error("Failed to load students for grading", err);
+          gradingContent.innerHTML =
+            '<div class="text-red-600">Failed to load students.</div>';
+        });
+
+      document.getElementById("gradingModal").classList.remove("hidden");
+    }
+
+    function closeGradingModal() {
+      document.getElementById("gradingModal").classList.add("hidden");
+      currentGradingAssignment = null;
+    }
+
+    function submitMarks() {
+      if (!currentGradingAssignment) return alert("No assignment selected");
+      const assignmentId = currentGradingAssignment.assignmentId;
+      const inputs = Array.from(
+        document.querySelectorAll("#gradingContent input[data-student-id]")
+      );
+      const promises = [];
+      inputs.forEach((inp) => {
+        const studentId = inp.dataset.studentId;
+        const marks = inp.value ? Number(inp.value) : null;
+        promises.push(
+          fetch(
+            `/api/teacher/assignment/${assignmentId}/marks`,
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ studentId, marks }),
+            }
+          ).then((r) => r.json())
+        );
+      });
+
+      Promise.all(promises)
+        .then((results) => {
+          const allOk = results.every((r) => r && r.success);
+          if (allOk) {
+            alert("Marks saved successfully");
+            closeGradingModal();
+          } else {
+            alert("Some marks failed to save. Check console for details.");
+            console.error("Mark save results", results);
+          }
+        })
+        .catch((err) => {
+          console.error("Error submitting marks", err);
+          alert("Network error when saving marks");
+        });
+    }
+
+    // Certificate requests handling (teacher)
+    function loadCertificateRequests() {
+      // teacher id
+      const teacherId = currentTeacherId;
+      fetch(
+        `/api/teacher/certificate-requests/${teacherId}`
+      )
+        .then((r) => r.json())
+        .then((payload) => {
+          const list = document.getElementById("certificateRequestsList");
+          const requests = payload.requests || [];
+          if (!requests.length) {
+            list.innerHTML = "<p>No certificate requests</p>";
+            return;
+          }
+          list.innerHTML = requests
+            .map(
+              (req) => `
+              <div class="p-3 border rounded flex justify-between items-center">
+                <div>
+                  <div class="font-semibold">${req.student_name} (ID: ${req.student_id
+                })</div>
+                  <div class="text-sm text-gray-600">Course: ${req.course_name
+                }</div>
+                  <div class="text-sm text-gray-500">Status: ${req.status}</div>
+                </div>
+                <div class="space-x-2">
+                  ${req.status === "pending"
+                  ? `<button onclick="acceptCertificate(${req.request_id})" class="px-3 py-1 bg-green-600 text-white rounded">Accept</button>
+                  <button onclick="rejectCertificate(${req.request_id})" class="px-3 py-1 bg-red-600 text-white rounded">Reject</button>`
+                  : req.generated_path
+                    ? `<a href="/api/certificates/download/${req.generated_path.split('/').pop()}" target="_blank" rel="noopener noreferrer" download class="px-3 py-1 bg-blue-600 text-white rounded">Download</a>`
+                    : ""
+                }
+                </div>
+              </div>
+            `
+            )
+            .join("");
+          // Update badge
+          updateCertificateBadge(
+            requests.filter((r) => r.status === "pending").length
+          );
+        })
+        .catch((err) => {
+          console.error("Failed to load certificate requests", err);
+          document.getElementById("certificateRequestsList").innerHTML =
+            '<p class="text-red-600">Failed to load requests</p>';
+        });
+    }
+
+    window.acceptCertificate = function acceptCertificate(requestId) {
+      fetch(
+        `/api/teacher/certificate/${requestId}/accept`,
+        { method: "POST" }
+      )
+        .then((r) => r.json())
+        .then((resp) => {
+          if (resp.success) {
+            alert("Certificate generated: " + resp.path);
+            loadCertificateRequests();
+            updateCertificateBadge();
+          } else alert("Failed: " + (resp.error || "Unknown"));
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Network error");
+        });
+    };
+
+    window.rejectCertificate = function rejectCertificate(requestId) {
+      fetch(
+        `/api/teacher/certificate/${requestId}/reject`,
+        { method: "POST" }
+      )
+        .then((r) => r.json())
+        .then((resp) => {
+          if (resp.success) {
+            alert("Request rejected");
+            loadCertificateRequests();
+            updateCertificateBadge();
+          } else alert("Failed: " + (resp.error || "Unknown"));
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Network error");
+        });
+    };
+
+    function updateCertificateBadge(pendingCount) {
+      const badge = document.getElementById("certificateBadge");
+      if (typeof pendingCount === "undefined") {
+        // fetch and compute
+        const teacherId = currentTeacherId;
+        fetch(
+          `/api/teacher/certificate-requests/${teacherId}`
+        )
+          .then((r) => r.json())
+          .then((p) => {
+            const count = (p.requests || []).filter(
+              (r) => r.status === "pending"
+            ).length;
+            updateCertificateBadge(count);
+          })
+          .catch(() => { });
+        return;
+      }
+      if (pendingCount > 0) {
+        badge.textContent = pendingCount;
+        badge.classList.remove("hidden");
+      } else {
+        badge.classList.add("hidden");
+      }
+    }
+
+    // Poll badge every 30s
+    setInterval(() => updateCertificateBadge(), 30000);
+
+    // Marks Management
+    let currentStudent = null;
+
+    function loadCourseMarks() {
+      const courseId = document.getElementById("marksSelectCourse").value;
+      if (!courseId) {
+        document.getElementById("marksTableBody").innerHTML = "";
+        return;
+      }
+
+      fetch(`/api/teacher/course/${courseId}/marks`)
+        .then((res) => res.json())
+        .then((data) => {
+          const tbody = document.getElementById("marksTableBody");
+          if (!data.students || !data.students.length) {
+            tbody.innerHTML =
+              '<tr><td colspan="7" class="px-6 py-4 text-center text-gray-500">No students enrolled in this course</td></tr>';
+            return;
+          }
+
+          tbody.innerHTML = data.students
+            .map((student) => {
+              const quizMarks = student.quiz_marks?.toFixed(1) || "0.0";
+              const assignmentMarks =
+                student.assignment_marks?.toFixed(1) || "0.0";
+              const midMarks = student.mid_marks?.toFixed(1) || "0.0";
+              const finalMarks = student.final_marks?.toFixed(1) || "0.0";
+              const total = student.total_marks?.toFixed(1) || "0.0";
+              const grade = student.grade || "-";
+
+              return `
+                <tr>
+                  <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-medium text-gray-900">${student.name
+                }</div>
+                    <div class="text-sm text-gray-500">ID: ${student.student_id
+                }</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${quizMarks}/15</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${assignmentMarks}/15</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${midMarks}/30</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${finalMarks}/40</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <div class="${total >= 50 ? "text-green-600" : "text-red-600"
+                }">${total}/100</div>
+                  </td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <div class="flex flex-col gap-1">
+                      <div class="font-medium ${grade === "F" ? "text-red-600" : "text-green-600"
+                }">${grade}</div>
+                      <button onclick="openMarksModal(${student.student_id})"
+                              class="text-blue-600 hover:text-blue-900">Update Marks</button>
+                    </div>
+                  </td>
+                </tr>
+              `;
+            })
+            .join("");
+        })
+        .catch((error) => {
+          console.error("Error loading marks:", error);
+          document.getElementById("marksTableBody").innerHTML =
+            '<tr><td colspan="7" class="px-6 py-4 text-center text-red-500">Failed to load marks</td></tr>';
+        });
+    }
+
+    function calculateGrade(total) {
+      // Mapping based on provided table (percentage ranges -> Grade and CGPA)
+      // Returns an object { grade: 'A', cgpa: 3.67 }
+      if (total >= 90) return { grade: "A+", cgpa: 4.0 };
+      if (total >= 86) return { grade: "A", cgpa: 3.67 };
+      if (total >= 82) return { grade: "A-", cgpa: 3.33 };
+      if (total >= 78) return { grade: "B+", cgpa: 3.0 };
+      if (total >= 74) return { grade: "B", cgpa: 2.67 };
+      if (total >= 70) return { grade: "B-", cgpa: 2.33 };
+      if (total >= 66) return { grade: "C+", cgpa: 2.0 };
+      if (total >= 62) return { grade: "C", cgpa: 1.67 };
+      if (total >= 58) return { grade: "D+", cgpa: 1.33 };
+      if (total >= 50) return { grade: "D", cgpa: 1.0 };
+      return { grade: "F", cgpa: 0.0 };
+    }
+
+    function updateTotalAndGrade() {
+      const quizMarks =
+        Number(document.getElementById("quizMarks").value) || 0;
+      const assignmentMarks =
+        Number(document.getElementById("assignmentMarks").value) || 0;
+      const midMarks = Number(document.getElementById("midMarks").value) || 0;
+      const finalMarks =
+        Number(document.getElementById("finalMarks").value) || 0;
+
+      const total = quizMarks + assignmentMarks + midMarks + finalMarks;
+      const result = calculateGrade(total);
+
+      document.getElementById("totalMarks").textContent = `${total.toFixed(
+        1
+      )}/100`;
+      document.getElementById("calculatedGrade").textContent =
+        result.grade + ` (${result.cgpa.toFixed(2)})`;
+    }
+
+    function openMarksModal(studentId) {
+      currentStudent = studentId;
+
+      // Reset form
+      document.getElementById("quizMarks").value = "";
+      document.getElementById("assignmentMarks").value = "";
+      document.getElementById("midMarks").value = "";
+      document.getElementById("finalMarks").value = "";
+      document.getElementById("totalMarks").textContent = "0/100";
+      document.getElementById("calculatedGrade").textContent = "-";
+
+      // Ensure we don't add duplicate listeners when modal opened multiple times
+      ["quizMarks", "assignmentMarks", "midMarks", "finalMarks"].forEach(
+        (id) => {
+          const el = document.getElementById(id);
+          el.removeEventListener("input", updateTotalAndGrade);
+          el.addEventListener("input", updateTotalAndGrade);
+        }
+      );
+
+      document.getElementById("marksModal").classList.remove("hidden");
+    }
+
+    function closeMarksModal() {
+      currentStudent = null;
+      document.getElementById("marksModal").classList.add("hidden");
+      document.getElementById("quizzesList").innerHTML = "";
+      document.getElementById("assignmentsList").innerHTML = "";
+    }
+
+    async function saveGrade() {
+      const courseId = document.getElementById("marksSelectCourse").value;
+      const quizMarks = Number(document.getElementById("quizMarks").value);
+      const assignmentMarks = Number(
+        document.getElementById("assignmentMarks").value
+      );
+      const midMarks = Number(document.getElementById("midMarks").value);
+      const finalMarks = Number(document.getElementById("finalMarks").value);
+
+      if (!courseId || !currentStudent) {
+        alert("Missing course or student information");
+        return;
+      }
+
+      // Validate marks ranges
+      if (quizMarks < 0 || quizMarks > 15) {
+        alert("Quiz marks must be between 0 and 15");
+        return;
+      }
+      if (assignmentMarks < 0 || assignmentMarks > 15) {
+        alert("Assignment marks must be between 0 and 15");
+        return;
+      }
+      if (midMarks < 0 || midMarks > 30) {
+        alert("Mid term marks must be between 0 and 30");
+        return;
+      }
+      if (finalMarks < 0 || finalMarks > 40) {
+        alert("Final marks must be between 0 and 40");
+        return;
+      }
+
+      // Use a fetch with timeout and retry on transient network errors
+      const url = `/api/teacher/student/grade`;
+      const payloadBody = JSON.stringify({
+        studentId: currentStudent,
+        courseId,
+        quizMarks,
+        assignmentMarks,
+        midMarks,
+        finalMarks,
+        totalMarks: quizMarks + assignmentMarks + midMarks + finalMarks,
+        grade: calculateGrade(quizMarks + assignmentMarks + midMarks + finalMarks).grade,
+        cgpa: calculateGrade(quizMarks + assignmentMarks + midMarks + finalMarks).cgpa,
+      });
+
+      function fetchWithTimeout(resource, options = {}, timeout = 8000) {
+        return new Promise((resolve, reject) => {
+          const timer = setTimeout(() => {
+            reject(new Error('timeout'));
+          }, timeout);
+          fetch(resource, options)
+            .then((res) => {
+              clearTimeout(timer);
+              resolve(res);
+            })
+            .catch((err) => {
+              clearTimeout(timer);
+              reject(err);
+            });
+        });
+      }
+
+      const opts = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: payloadBody,
+      };
+
+      const maxAttempts = 3;
+      let attempt = 0;
+      let lastErr = null;
+
+      while (attempt < maxAttempts) {
+        attempt++;
+        try {
+          const resp = await fetchWithTimeout(url, opts, 8000);
+
+          // Treat 2xx as success (some servers return empty body)
+          if (resp.ok) {
+            let j = null;
+            try {
+              j = await resp.json();
+            } catch (e) {
+              // ignore parse errors — we'll assume success for 2xx
+            }
+            if (j && j.success === false) {
+              const msg = j.error || j.message || resp.statusText || 'Unknown server error';
+              console.error('Save grade failed (server reported):', msg);
+              alert('Error saving grade: ' + msg);
+              return;
+            }
+            closeMarksModal();
+            loadCourseMarks();
+            alert('Grade saved successfully');
+            return;
+          }
+
+          // Non-2xx response: try to parse error JSON and show
+          try {
+            const errBody = await resp.json();
+            const msg = errBody.error || errBody.message || resp.statusText || `HTTP ${resp.status}`;
+            console.error('Save grade failed:', msg);
+            alert('Error saving grade: ' + msg);
+            return;
+          } catch (e) {
+            console.error('Save grade failed, non-JSON response', resp.status, resp.statusText);
+            alert('Error saving grade: ' + (resp.statusText || `HTTP ${resp.status}`));
+            return;
+          }
+        } catch (err) {
+          lastErr = err;
+          console.warn(`Attempt ${attempt} failed:`, err && err.message ? err.message : err);
+          // If not last attempt, wait a bit then retry
+          if (attempt < maxAttempts) {
+            await new Promise((r) => setTimeout(r, 300 * attempt));
+            continue;
+          }
+          break;
+        }
+      }
+
+      console.error('All attempts to save grade failed:', lastErr && lastErr.message ? lastErr.message : lastErr);
+      try { loadCourseMarks(); } catch (e) { }
+      alert('Network error while saving grade. The grade may have been saved — check the table to confirm.');
+    }
+
+    // Messaging Functions
+    let currentView = "inbox";
+
+    async function sendMessage() {
+      const email = document.getElementById("messageRecipientEmail").value.trim();
+      const subject = document.getElementById("messageSubject").value.trim();
+      const body = document.getElementById("messageBody").value.trim();
+
+      if (!email || !subject || !body) {
+        alert("Please fill in all fields");
+        return;
+      }
+
+      // Find recipient by email - search students first, then teachers
+      let recipientId = null;
+      let recipientName = null;
+
+      try {
+        // Search students
+        const studentRes = await fetch(`/api/admin/students`);
+        const studentData = await studentRes.json();
+        const students = Array.isArray(studentData) ? studentData : (studentData.students || []);
+        const studentRecipient = students.find((s) => s.email === email);
+        if (studentRecipient) {
+          recipientId = studentRecipient.student_id;
+          recipientName = studentRecipient.name;
+        }
+
+        // If not found in students, search teachers
+        if (!recipientId) {
+          const teacherRes = await fetch(`/api/admin/teachers`);
+          const teacherData = await teacherRes.json();
+          const teachers = Array.isArray(teacherData) ? teacherData : (teacherData.teachers || []);
+          const teacherRecipient = teachers.find((t) => t.email === email);
+          if (teacherRecipient) {
+            recipientId = teacherRecipient.teacher_id;
+            recipientName = teacherRecipient.name;
+          }
+        }
+
+        if (!recipientId) {
+          alert("Recipient with this email not found");
+          return;
+        }
+
+        // Send message
+        const response = await fetch("/api/messages", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sender_id: currentTeacherId,
+            sender_name: currentTeacherName,
+            receiver_id: recipientId,
+            receiver_name: recipientName,
+            subject: subject,
+            content: body,
+          }),
+        });
+
+        const result = await response.json();
+        if (result.success) {
+          alert("Message sent successfully");
+          document.getElementById("messageRecipientEmail").value = "";
+          document.getElementById("messageSubject").value = "";
+          document.getElementById("messageBody").value = "";
+          currentView = "sent";
+          loadMessages();
+        } else {
+          alert("Failed to send message: " + (result.error || "Unknown error"));
+        }
+      } catch (error) {
+        console.error("Error sending message:", error);
+        alert("Network error while sending message");
+      }
+    }
+
+    function showInbox() {
+      currentView = "inbox";
+      document.getElementById("inboxTabBtn").classList.add("text-accent", "border-b-2", "border-accent");
+      document.getElementById("inboxTabBtn").classList.remove("text-gray-500");
+      document.getElementById("sentTabBtn").classList.remove("text-accent", "border-b-2", "border-accent");
+      document.getElementById("sentTabBtn").classList.add("text-gray-500", "hover:text-gray-700");
+      loadMessages();
+    }
+
+    function showSent() {
+      currentView = "sent";
+      document.getElementById("sentTabBtn").classList.add("text-accent", "border-b-2", "border-accent");
+      document.getElementById("sentTabBtn").classList.remove("text-gray-500");
+      document.getElementById("inboxTabBtn").classList.remove("text-accent", "border-b-2", "border-accent");
+      document.getElementById("inboxTabBtn").classList.add("text-gray-500", "hover:text-gray-700");
+      loadMessages();
+    }
+
+    function loadMessages() {
+      const endpoint = currentView === "inbox"
+        ? `/api/messages/inbox/${currentTeacherId}`
+        : `/api/messages/sent/${currentTeacherId}`;
+
+      fetch(endpoint)
+        .then((res) => res.json())
+        .then((data) => {
+          const messagesList = document.getElementById("messagesList");
+          // Backend returns array directly, not wrapped in object
+          const messages = Array.isArray(data) ? data : (data.messages || []);
+
+          if (messages.length === 0) {
+            messagesList.innerHTML = `<p class="text-gray-500 text-center py-8">No messages in ${currentView}</p>`;
+            return;
+          }
+
+          messagesList.innerHTML = messages
+            .map((msg) => {
+              const senderName = currentView === "inbox" ? msg.sender_name : msg.receiver_name;
+              const preview = msg.content.substring(0, 50) + (msg.content.length > 50 ? "..." : "");
+              const dateStr = new Date(msg.created_at).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: '2-digit' });
+
+              return `
+                <div class="border-b pb-4 mb-4 last:border-b-0 hover:bg-gray-50 p-4 rounded transition">
+                  <div class="flex justify-between items-start mb-2">
+                    <div class="flex-1">
+                      <p class="font-semibold text-gray-900">${senderName}</p>
+                      <p class="text-sm text-gray-600">${senderName}</p>
+                    </div>
+                    <span class="text-sm text-gray-500 ml-4">${dateStr}</span>
+                  </div>
+                  <p class="font-medium text-gray-900 mb-1">${msg.subject || "No Subject"}</p>
+                  <p class="text-sm text-gray-600 mb-3">${preview}</p>
+                  <div class="flex gap-3">
+                    <button onclick="viewMessage('${msg.message_id}')" class="text-sm text-blue-500 hover:text-blue-700 font-medium">View</button>
+                    <button onclick="deleteMessagePerm('${msg.message_id}')" class="text-sm text-red-500 hover:text-red-700 font-medium">Delete</button>
+                  </div>
+                </div>
+              `;
+            })
+            .join("");
+        })
+        .catch((error) => {
+          console.error("Error loading messages:", error);
+          document.getElementById("messagesList").innerHTML = "<p class='text-red-500'>Error loading messages</p>";
+        });
+    }
+
+    function viewMessage(messageId) {
+      fetch(`/api/messages/view/${messageId}`)
+        .then((res) => res.json())
+        .then((msg) => {
+          alert(`From: ${msg.sender_name}\nSubject: ${msg.subject}\n\n${msg.content}`);
+        })
+        .catch((error) => console.error("Error viewing message:", error));
+    }
+
+    function deleteMessagePerm(messageId) {
+      if (confirm("Are you sure you want to delete this message?")) {
+        fetch(`/api/messages/${messageId}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((result) => {
+            if (result.success) {
+              loadMessages();
+            } else {
+              alert("Failed to delete message");
+            }
+          })
+          .catch((error) => console.error("Error deleting message:", error));
+      }
+    }
+
+    // Update showPage to handle marks page
+    const oldShowPage = showPage;
+    window.showPage = function (pageId) {
+      oldShowPage(pageId);
+      if (pageId === "marks") {
+        updateCourseSelects(); // This will update the marks course select too
+      }
+    };
+
+
+    lucide.createIcons();
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7D004559-C3A1-179C-E0A1-E3C0838FA4B1" name="admins">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>C54B4679-E7FC-F885-62B9-C8C10540CB12</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="admin_id" id="B8F0CB8C-2C8C-E686-D402-37614644A384">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>E7998865-A050-53EC-47B3-97ABD4FFEADB</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="email" id="9033F2BA-7A56-0EC4-3315-2C8CB4334B76">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>277DA7AC-81E7-AC66-2437-8229CE481603</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>4CEFCA78-731D-377A-336E-A08FA6247EB8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="password" id="3A22C091-DECE-0897-4FB4-73556888DC0F">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>9A6D850C-E201-1A39-B921-8EEC40CCB9A1</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>4CEFCA78-731D-377A-336E-A08FA6247EB8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="created_at" id="36076120-667E-DAD8-EFF7-2A8F9556EFE5">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>AE2A1C28-76AE-DD12-291A-7D1CB462B50A</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>0CCD5725-A3D7-CDC9-63F7-AA7912CE22D4</domain>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="16175E32-B08B-129F-DF1B-89AB9C95A819" name="admins_PK">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>4B60AF0B-B01E-2604-A884-C01A3321833A</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B8F0CB8C-2C8C-E686-D402-37614644A384"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="077CB5A3-D5E4-2E3C-CD7E-0EBF4D961AF1" name="admins_email_UN">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>2E040118-9647-8207-F9BB-A9FAE982051B</importedID>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9033F2BA-7A56-0EC4-3315-2C8CB4334B76"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

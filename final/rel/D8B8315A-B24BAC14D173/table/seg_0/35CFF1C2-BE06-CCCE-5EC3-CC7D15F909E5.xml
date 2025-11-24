@@ -1,0 +1,143 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="35CFF1C2-BE06-CCCE-5EC3-CC7D15F909E5" name="attendance">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>09040BD8-68FB-7961-A892-C0FF803EC20E</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="attendance_id" id="1671F5F0-D11F-73A6-009C-617290E7AC3A">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>FBF84DF0-8916-B37D-7EA2-1ACD1857844D</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="students_student_id" id="BF4993DE-E16F-ECCB-9B61-F3EF56F48D70">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>2A91882B-1027-99FB-3DBF-16E773545D5E</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A0180709-0DE3-D31B-7230-7F3346966B9F" referredColumn="20BF800B-A834-4E14-1425-11834E7B05B2"/>
+</associations>
+</Column>
+<Column name="courses_course_id" id="C9EFEF29-AAAD-588D-CBE5-F653D05FEA75">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>B6371BCD-75E9-11ED-CCC2-91B3959EA5A0</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="63F018D8-693E-B2EE-FDCB-DB39D0300C0A" referredColumn="01180E23-5CAD-E4A4-81D0-7CE71CDE36D3"/>
+</associations>
+</Column>
+<Column name="attendance_date" id="219084BE-5DBB-D33E-2941-418E9A6D610F">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>FD30DFCF-F8FB-E8CC-FBCB-AD10BE98BD38</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<domain>AB023AD2-F492-FA42-1DD0-6A2F12811C1F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="status" id="432B0651-302D-A480-3682-48B0B84EDB4E">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>76FD0EA2-68CC-A8AC-5148-DD32288F6517</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>7939AD03-7C35-FE18-1E2E-790C5974D278</domain>
+<listOfValues>
+<valueDef value="absent" description=""/>
+<valueDef value="present" description=""/>
+</listOfValues>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="admin_id" id="3218D154-65E7-1B45-95E4-DECD523B3006">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:45 UTC</createdTime>
+<generatorID>BCEFF804-3D84-334B-772F-C21FC2B562BD</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="A0180709-0DE3-D31B-7230-7F3346966B9F" referredColumn="836775BD-A07C-EA6F-359F-C5CAE750D189"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A443DBCB-B4BE-4F0B-84E7-5413E4EF6E87" name="attendance_PK">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>68AC350F-29B9-3024-0C55-A94276032D83</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1671F5F0-D11F-73A6-009C-617290E7AC3A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="99C076D3-37D0-8C73-531C-5E8F9360EC7D" name="attendance_courses_FK">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C9EFEF29-AAAD-588D-CBE5-F653D05FEA75"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1177A222-83B2-A96F-F2BA-CEF9BD0FAE2A" name="attendance_students_FK">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BF4993DE-E16F-ECCB-9B61-F3EF56F48D70"/>
+<colUsage columnID="3218D154-65E7-1B45-95E4-DECD523B3006"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

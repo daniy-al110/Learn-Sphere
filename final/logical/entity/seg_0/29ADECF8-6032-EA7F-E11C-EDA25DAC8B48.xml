@@ -1,0 +1,149 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="29ADECF8-6032-EA7F-E11C-EDA25DAC8B48" name="quizzes">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>96BF2549-3161-ED86-241C-55863D181A76</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="quiz id" id="A1D10B48-DAB8-1A71-B097-816B9A31BFD1">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>3ABC6968-38D5-6923-5FB2-AFC21DBC812F</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="course id" id="8585AA6C-F95F-BFBD-6C50-889FB5A35CD6">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>6E302B3A-D0E0-AE1F-3023-29C0CECCEC87</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>4F149D5C-90EE-BAAC-E1BE-2DE1D0C8E371</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="title" id="C5522535-7C8A-A094-5BF0-8B0DA23B45AA">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>3F2FB3DB-2934-665E-F0E8-3B0F0A2140E1</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>AFDC3FD6-3EBF-E0C3-D0C9-9B7C846AAEF2</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="description" id="A6585833-D81F-F8D2-D508-B6625530E8D8">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>D7BCC00F-8FEA-8C67-C537-D99A2822DF01</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>D6077369-7480-1E86-5CC1-E420F269CDFA</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="time limit" id="CE61DE15-B607-0AE5-FE18-74EE4FD84160">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>85E80C22-6A5A-2600-B801-A90A8695E0A2</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="is active" id="D75E83E0-FE88-4705-8BAD-19445DE3555F">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>B8420A1E-CACB-11FA-585C-062555A9CA68</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>C1A7B415-045A-4DE3-38CC-2A656BAAF6E6</domain>
+<listOfValues>
+<valueDef value="0" description=""/>
+<valueDef value="1" description=""/>
+</listOfValues>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="created at" id="9B33C71D-6F13-B0D4-D62C-3D0CCB67C2FD">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>75898459-FD4D-1509-DF9F-43BC12F41084</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>0CCD5725-A3D7-CDC9-63F7-AA7912CE22D4</domain>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="1E5C8E70-733A-9E6F-5D3A-8C41299D2494" name="quizzes PK">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>91FF4E22-0928-BEDB-FEA5-2837F864A460</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="false"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A1D10B48-DAB8-1A71-B097-816B9A31BFD1</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

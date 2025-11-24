@@ -1,0 +1,185 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="08C0694E-7A1B-847B-BE1D-527E54C4D26E" name="feedback">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>D2040FAC-F771-2F66-3407-E32D74D7CD89</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="feedback id" id="07CE1795-7849-4F3D-56B3-53D498B00542">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>9D3E8EE7-EFF5-0E37-0FE3-56F1167846DB</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="student id" id="C4741F47-0C94-C37A-F98B-6DB8B54F7698">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>1A9D92B3-327A-0273-BC61-11D6DE957887</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>604E6793-D4A8-E689-C3F7-67497183865E</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="course id" id="1FDE5339-979D-458A-8F80-F29A948037BC">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>7D3AFA66-0E5C-D7AB-F2D9-2C874958BEE4</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>4F149D5C-90EE-BAAC-E1BE-2DE1D0C8E371</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="teacher id" id="9CE2783B-9CB7-C82B-1074-CCC9DBB1A7C0">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>AA761549-1810-9555-D3DA-ECC5A9A96E56</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>35EE3FC1-4311-A5C1-6882-97C2625181E3</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rating" id="58D3E75D-3806-FC9C-3E6F-F592D9C59824">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>C0CEC8B3-5497-352C-F413-8BE48D113F04</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<listOfRanges>
+<rangeDef class="oracle.dbtools.crest.model.design.constraint.AVT">
+<beginValue>1</beginValue>
+<endValue>5</endValue>
+</rangeDef>
+</listOfRanges>
+</Attribute>
+<Attribute name="review" id="9373262E-1BF5-E319-839F-5805A013ACEB">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>9CC72043-94F7-9B87-1525-C8C04151F8FD</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>BF601815-1E9D-5670-4E4C-0B9F971D4E7F</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="created at" id="1EA1C2C6-9BCC-52A5-5F56-BDA384BE49CA">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>7A2B2BE4-DB5B-FA23-FE8C-322A4DE39A8A</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>0CCD5725-A3D7-CDC9-63F7-AA7912CE22D4</domain>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="admin id" id="3ADBD5E3-E665-D154-349E-828E620EA669">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:30 UTC</createdTime>
+<generatorID>AA761549-1810-9555-D3DA-ECC5A9A96E56</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>A062B364-3FE2-4A28-918D-813DAF72A51F</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="admin id1" id="4289241A-4C51-741C-0B0F-3B518E3B4222">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:41 UTC</createdTime>
+<generatorID>1A9D92B3-327A-0273-BC61-11D6DE957887</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>6FC7DCB5-2C2F-8CC4-6683-1195A4F63A4C</referedAttribute>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="0616F82B-1CA6-F6B2-AA50-B8BC43822E63" name="feedback PK">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>EB7BF286-B6FA-D018-691D-60372F52E6C2</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="false"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>07CE1795-7849-4F3D-56B3-53D498B00542</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

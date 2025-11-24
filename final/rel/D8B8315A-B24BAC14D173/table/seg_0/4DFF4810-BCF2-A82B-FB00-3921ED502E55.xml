@@ -1,0 +1,133 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4DFF4810-BCF2-A82B-FB00-3921ED502E55" name="students">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>5889138F-1E96-36D1-A59C-58F53D1F03BA</importedID>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="student_id" id="20BF800B-A834-4E14-1425-11834E7B05B2">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>68A2475A-844B-09D0-8817-555108B7770E</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementColumn>true</autoIncrementColumn>
+<identityColumn>true</identityColumn>
+<defaultOntNull>true</defaultOntNull>
+<autoIncrementCycle>false</autoIncrementCycle>
+<autoIncrementOrder>false</autoIncrementOrder>
+</Column>
+<Column name="name" id="AD885F17-4FD0-912F-4E1F-FF7EDEA133DF">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>FF8386E0-A2FF-CBCA-07C9-24E950869195</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>4CEFCA78-731D-377A-336E-A08FA6247EB8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="email" id="444CE26E-21DE-3914-9B46-57702F4BC6DB">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>F7F78358-BAE5-6831-E98F-CE4CD2C7F371</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>4CEFCA78-731D-377A-336E-A08FA6247EB8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="password" id="A32D1DE9-129A-2E19-E55B-8F372772A44C">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>C592DD3D-98DA-66AD-9FB3-CC98FF033B36</importedID>
+<use>0</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<domain>4CEFCA78-731D-377A-336E-A08FA6247EB8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="created_at" id="6ECB8D53-8938-1D61-8EF3-D2840AC3A892">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>D07825BB-0124-1E2F-37CC-38ACB9912CC8</importedID>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<logicalDatatype>LOGDT015</logicalDatatype>
+<domain>0CCD5725-A3D7-CDC9-63F7-AA7912CE22D4</domain>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="admins_admin_id" id="836775BD-A07C-EA6F-359F-C5CAE750D189">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:45 UTC</createdTime>
+<generatorID>6FC7DCB5-2C2F-8CC4-6683-1195A4F63A4C</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<use>0</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<domain>E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8</domain>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3930F826-D114-DD00-A2C3-928A0A603F38" referredColumn="B8F0CB8C-2C8C-E686-D402-37614644A384"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="C015F293-7BCE-8DF9-82A1-D0CD4E90EF37" name="students_PK">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>4B273D04-3D5D-CA29-583E-987C3606AA46</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="20BF800B-A834-4E14-1425-11834E7B05B2"/>
+<colUsage columnID="836775BD-A07C-EA6F-359F-C5CAE750D189"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="459F0C26-3C16-F2DA-CED4-F56A4B22BC0A" name="students_email_UN">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>BD60CD1A-AA93-428F-FF74-ECF52828B9B5</importedID>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="444CE26E-21DE-3914-9B46-57702F4BC6DB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DF577C15-E77F-33FE-754B-3B22C2DA835E" name="students_admins_FK">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:45 UTC</createdTime>
+<generatorID>5C6A6B58-1AB3-C34C-CC63-84D6FD956FF2</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="836775BD-A07C-EA6F-359F-C5CAE750D189"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="63F018D8-693E-B2EE-FDCB-DB39D0300C0A" containerWithKeyObject="35CFF1C2-BE06-CCCE-5EC3-CC7D15F909E5" localFKIndex="99C076D3-37D0-8C73-531C-5E8F9360EC7D" name="attendance_courses_FK">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>6D24AB1F-D780-44B9-2AAD-8C9BF0783B75</importedID>
+<referredTableLongName>courses</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>735CE7C4-08C8-C827-3752-BEC4AD7E8D69</referredTableID>
+<keyObject>0E063D01-5314-4CE2-5C06-2B4213559DF7</keyObject>
+<referredKeyID>0E063D01-5314-4CE2-5C06-2B4213559DF7</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>course_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2323934E-7610-8AC8-95B6-4CDCF1E8495A" containerWithKeyObject="6171D128-91EB-1AE7-446A-64F86E7E6912" localFKIndex="D187FA4A-FC0D-1415-4391-39122939AEDB" name="quiz_questions_quizzes_FK">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>65B69FEF-AA7D-B2B2-99A4-49B481ED93A6</importedID>
+<referredTableLongName>quizzes</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>96BF2549-3161-ED86-241C-55863D181A76</referredTableID>
+<keyObject>91FF4E22-0928-BEDB-FEA5-2837F864A460</keyObject>
+<referredKeyID>91FF4E22-0928-BEDB-FEA5-2837F864A460</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>quiz_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

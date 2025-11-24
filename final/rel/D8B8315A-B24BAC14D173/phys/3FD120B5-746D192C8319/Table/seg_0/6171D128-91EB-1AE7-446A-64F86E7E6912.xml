@@ -1,0 +1,60 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="quiz_questions" directorySegmentName="seg_0" id="6171D128-91EB-1AE7-446A-64F86E7E6912">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="question_text" id="0E5CD1AE-98E3-8920-C0D0-32E90525CB5F">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="points" id="1B28E827-BCDD-705A-BB25-B19A6B70E44D">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<defaultValue>1</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="correct_answer" id="3C4619DA-8666-FD8D-3C2B-E7CBB0845396">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="question_id" id="4BFF6F28-D22D-F503-639A-ACDB676EB3F2">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+<ColumnProxy name="quizzes_quiz_id" id="57E0684D-009C-C90E-A36E-2D0A4159C6D2">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="options" id="827F85FA-EFB8-9A61-2D2F-618D78FA76A9">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="quiz_questions_quizzes_FK" id="D187FA4A-FC0D-1415-4391-39122939AEDB">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="quiz_questions_PK" id="9B25B769-C0BD-9FBD-D33E-918F0828430E">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

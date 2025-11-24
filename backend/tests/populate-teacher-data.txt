@@ -1,0 +1,477 @@
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
+const fetch = require('node-fetch');
+
+const DB_FILE = path.join(__dirname, 'database.db');
+const API_BASE = 'http://localhost:3000/api';
+
+let db;
+let teacherId = 1;
+let courseId = 1;
+let studentId = 1;
+
+// Color codes for console output
+const colors = {
+  reset: '\x1b[0m',
+  green: '\x1b[32m',
+  red: '\x1b[31m',
+  yellow: '\x1b[33m',
+  blue: '\x1b[36m',
+  bold: '\x1b[1m'
+};
+
+function log(message, color = 'reset') {
+  console.log(`${colors[color]}${message}${colors.reset}`);
+}
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function initializeDatabase() {
+  return new Promise((resolve) => {
+    db = new sqlite3.Database(DB_FILE, (err) => {
+      if (err) {
+        log(`✗ Database Error: ${err.message}`, 'red');
+        process.exit(1);
+      } else {
+        log(`✓ Database Connected`, 'green');
+        resolve();
+      }
+    });
+  });
+}
+
+async function getTeacherInfo() {
+  return new Promise((resolve) => {
+    db.get(`SELECT * FROM teachers WHERE teacher_id = ?`, [teacherId], (err, teacher) => {
+      if (teacher) {
+        log(`✓ Teacher Found: ${teacher.name} (ID: ${teacher.teacher_id})`, 'green');
+        resolve(teacher);
+      } else {
+        log(`✗ No teacher found with ID ${teacherId}`, 'red');
+        resolve(null);
+      }
+    });
+  });
+}
+
+async function getCourses() {
+  return new Promise((resolve) => {
+    db.all(`SELECT * FROM courses WHERE teacher_id = ?`, [teacherId], (err, courses) => {
+      if (courses && courses.length > 0) {
+        log(`✓ Found ${courses.length} courses assigned to teacher`, 'green');
+        resolve(courses);
+      } else {
+        log(`⚠ No courses assigned to teacher`, 'yellow');
+        resolve([]);
+      }
+    });
+  });
+}
+
+async function getEnrolledStudents(courseId) {
+  return new Promise((resolve) => {
+    db.all(`SELECT * FROM enrollments WHERE course_id = ?`, [courseId], (err, enrollments) => {
+      if (enrollments && enrollments.length > 0) {
+        log(`  ✓ ${enrollments.length} students enrolled in course ${courseId}`, 'green');
+        resolve(enrollments);
+      } else {
+        log(`  ⚠ No students enrolled in course ${courseId}`, 'yellow');
+        resolve([]);
+      }
+    });
+  });
+}
+
+async function addAttendance(courseId, enrollments) {
+  return new Promise((resolve) => {
+    log(`\n▶ ADDING ATTENDANCE FOR COURSE ${courseId}`, 'blue');
+    
+    let completed = 0;
+    if (enrollments.length === 0) {
+      log(`  ⚠ No students to mark attendance`, 'yellow');
+      resolve();
+      return;
+    }
+
+    enrollments.forEach((enrollment) => {
+      const attendanceDate = new Date().toISOString().split('T')[0];
+      const status = Math.random() > 0.2 ? 'present' : 'absent'; // lowercase as per constraint
+      
+      db.run(
+        `INSERT OR REPLACE INTO attendance (student_id, course_id, date, status)
+         VALUES (?, ?, ?, ?)`,
+        [enrollment.student_id, courseId, attendanceDate, status],
+        (err) => {
+          completed++;
+          if (!err) {
+            log(`  ✓ Attendance marked for Student ${enrollment.student_id}: ${status}`, 'green');
+          } else {
+            log(`  ✗ Error marking attendance: ${err.message}`, 'red');
+          }
+          
+          if (completed === enrollments.length) {
+            resolve();
+          }
+        }
+      );
+    });
+  });
+}
+
+async function createQuiz(courseId) {
+  return new Promise((resolve) => {
+    log(`\n▶ CREATING QUIZ FOR COURSE ${courseId}`, 'blue');
+    
+    const quizData = {
+      course_id: courseId,
+      title: `Quiz ${Math.floor(Math.random() * 1000)}`,
+      description: 'Complete this quiz to assess your understanding of the course material',
+      time_limit: 45,
+      is_active: 1,
+      created_at: new Date().toISOString()
+    };
+
+    db.run(
+      `INSERT INTO quizzes (course_id, title, description, time_limit, is_active, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [quizData.course_id, quizData.title, quizData.description, quizData.time_limit, quizData.is_active, quizData.created_at],
+      function(err) {
+        if (!err) {
+          const quizId = this.lastID;
+          log(`  ✓ Quiz Created: ${quizData.title} (ID: ${quizId})`, 'green');
+          
+          // Add quiz questions
+          addQuizQuestions(quizId, courseId).then(() => resolve());
+        } else {
+          log(`  ✗ Error creating quiz: ${err.message}`, 'red');
+          resolve();
+        }
+      }
+    );
+  });
+}
+
+async function addQuizQuestions(quizId, courseId) {
+  return new Promise((resolve) => {
+    log(`  ▶ Adding quiz questions...`, 'blue');
+    
+    const questions = [
+      { question: 'What is the capital of France?', options: 'Paris,London,Berlin,Madrid', correct: 'Paris', points: 5 },
+      { question: 'Which language is used for web development?', options: 'Python,JavaScript,Java,C++', correct: 'JavaScript', points: 5 },
+      { question: 'What does API stand for?', options: 'Application Programming Interface,Advanced Programming Infrastructure,Application Process Integration,Advanced Program Instance', correct: 'Application Programming Interface', points: 10 }
+    ];
+
+    let added = 0;
+    questions.forEach((q) => {
+      db.run(
+        `INSERT INTO quiz_questions (quiz_id, question_text, options, correct_answer, points)
+         VALUES (?, ?, ?, ?, ?)`,
+        [quizId, q.question, q.options, q.correct, q.points],
+        (err) => {
+          added++;
+          if (!err) {
+            log(`    ✓ Question added: "${q.question.substring(0, 30)}..."`, 'green');
+          } else {
+            log(`    ✗ Error adding question: ${err.message}`, 'red');
+          }
+          
+          if (added === questions.length) {
+            resolve();
+          }
+        }
+      );
+    });
+  });
+}
+
+async function createAssignments(courseId) {
+  return new Promise((resolve) => {
+    log(`\n▶ CREATING ASSIGNMENTS FOR COURSE ${courseId}`, 'blue');
+    
+    const assignments = [
+      {
+        title: 'Assignment 1: Basic Concepts',
+        description: 'Submit solutions for basic programming concepts covered in class',
+        link: 'https://github.com/learning-sphere/assignment-1',
+        due_date: new Date(Date.now() + 7*24*60*60*1000).toISOString().split('T')[0]
+      },
+      {
+        title: 'Assignment 2: Advanced Topics',
+        description: 'Implement advanced algorithms discussed in lectures',
+        link: 'https://github.com/learning-sphere/assignment-2',
+        due_date: new Date(Date.now() + 14*24*60*60*1000).toISOString().split('T')[0]
+      }
+    ];
+
+    let created = 0;
+    assignments.forEach((assignment) => {
+      db.run(
+        `INSERT INTO assignments (course_id, title, description, link, due_date, created_at)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [courseId, assignment.title, assignment.description, assignment.link, assignment.due_date, new Date().toISOString()],
+        function(err) {
+          created++;
+          if (!err) {
+            log(`  ✓ Assignment Created: "${assignment.title}"`, 'green');
+          } else {
+            log(`  ✗ Error creating assignment: ${err.message}`, 'red');
+          }
+          
+          if (created === assignments.length) {
+            resolve();
+          }
+        }
+      );
+    });
+  });
+}
+
+async function submitAssignmentResponses(courseId, enrollments) {
+  return new Promise((resolve) => {
+    log(`\n▶ SUBMITTING ASSIGNMENT RESPONSES FOR COURSE ${courseId}`, 'blue');
+    
+    if (enrollments.length === 0) {
+      log(`  ⚠ No students to submit assignments`, 'yellow');
+      resolve();
+      return;
+    }
+
+    // Get assignments for this course
+    db.all(`SELECT assignment_id FROM assignments WHERE course_id = ?`, [courseId], (err, assignments) => {
+      if (!assignments || assignments.length === 0) {
+        log(`  ⚠ No assignments found for this course`, 'yellow');
+        resolve();
+        return;
+      }
+
+      let completed = 0;
+      enrollments.forEach((enrollment) => {
+        assignments.forEach((assignment) => {
+          const submissionDate = new Date().toISOString();
+          const marks = Math.floor(Math.random() * 41) + 60; // 60-100
+          
+          db.run(
+            `INSERT INTO assignment_submissions (assignment_id, student_id, marks, submitted_at)
+             VALUES (?, ?, ?, ?)`,
+            [assignment.assignment_id, enrollment.student_id, marks, submissionDate],
+            (err) => {
+              completed++;
+              if (!err) {
+                log(`  ✓ Student ${enrollment.student_id} submitted assignment ${assignment.assignment_id} with marks ${marks}`, 'green');
+              } else if (!err.message.includes('UNIQUE constraint failed')) {
+                log(`  ✗ Error: ${err.message}`, 'red');
+              }
+              
+              if (completed === enrollments.length * assignments.length) {
+                resolve();
+              }
+            }
+          );
+        });
+      });
+    });
+  });
+}
+
+async function addStudentGrades(courseId, enrollments) {
+  return new Promise((resolve) => {
+    log(`\n▶ ADDING STUDENT GRADES FOR COURSE ${courseId}`, 'blue');
+    
+    if (enrollments.length === 0) {
+      log(`  ⚠ No students to grade`, 'yellow');
+      resolve();
+      return;
+    }
+
+    let completed = 0;
+    enrollments.forEach((enrollment) => {
+      const quizMarks = Math.floor(Math.random() * 41) + 50; // 50-90
+      const assignmentMarks = Math.floor(Math.random() * 41) + 50; // 50-90
+      const midMarks = Math.floor(Math.random() * 21) + 60; // 60-80
+      const finalMarks = Math.floor(Math.random() * 21) + 70; // 70-90
+      const totalMarks = (quizMarks + assignmentMarks + midMarks + finalMarks) / 4;
+      
+      let grade = 'A';
+      if (totalMarks < 50) grade = 'F';
+      else if (totalMarks < 60) grade = 'D';
+      else if (totalMarks < 70) grade = 'C';
+      else if (totalMarks < 80) grade = 'B';
+
+      db.run(
+        `INSERT OR REPLACE INTO student_grades 
+         (student_id, course_id, quiz_marks, assignment_marks, mid_marks, final_marks, total_marks, grade)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+        [enrollment.student_id, courseId, quizMarks, assignmentMarks, midMarks, finalMarks, totalMarks, grade],
+        (err) => {
+          completed++;
+          if (!err) {
+            log(`  ✓ Grades added for Student ${enrollment.student_id}: Quiz=${quizMarks}, Assign=${assignmentMarks}, Mid=${midMarks}, Final=${finalMarks}, Grade=${grade}`, 'green');
+          } else {
+            log(`  ✗ Error adding grades: ${err.message}`, 'red');
+          }
+          
+          if (completed === enrollments.length) {
+            resolve();
+          }
+        }
+      );
+    });
+  });
+}
+
+async function createTeacherReview() {
+  return new Promise((resolve) => {
+    log(`\n▶ CREATING TEACHER REVIEW/PERFORMANCE RECORD`, 'blue');
+    
+    const rating = Math.floor(Math.random() * 5) + 1; // 1-5 stars
+    const comments = 'Excellent teaching methods and student engagement';
+    const periodStart = new Date(Date.now() - 30*24*60*60*1000).toISOString().split('T')[0];
+    const periodEnd = new Date().toISOString().split('T')[0];
+    
+    db.run(
+      `INSERT OR REPLACE INTO instructor_performance (teacher_id, period_start, period_end, rating, comments, created_at)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [teacherId, periodStart, periodEnd, rating, comments, new Date().toISOString()],
+      (err) => {
+        if (!err) {
+          log(`  ✓ Teacher Performance Record: Rating=${rating}/5`, 'green');
+        } else {
+          log(`  ✗ Error creating review: ${err.message}`, 'red');
+        }
+        resolve();
+      }
+    );
+  });
+}
+
+async function getTeacherStats() {
+  return new Promise((resolve) => {
+    log(`\n▶ TEACHER STATISTICS`, 'blue');
+    
+    // Total courses
+    db.get(`SELECT COUNT(*) as cnt FROM courses WHERE teacher_id = ?`, [teacherId], (err, row) => {
+      if (!err) log(`  • Courses Teaching: ${row.cnt}`, 'blue');
+    });
+
+    // Total students
+    db.get(`SELECT COUNT(DISTINCT e.student_id) as cnt FROM enrollments e 
+            JOIN courses c ON e.course_id = c.course_id WHERE c.teacher_id = ?`, [teacherId], (err, row) => {
+      if (!err) log(`  • Total Students: ${row.cnt}`, 'blue');
+    });
+
+    // Attendance records
+    db.get(`SELECT COUNT(*) as cnt FROM attendance a
+            JOIN courses c ON a.course_id = c.course_id WHERE c.teacher_id = ?`, [teacherId], (err, row) => {
+      if (!err) log(`  • Attendance Records: ${row.cnt}`, 'blue');
+    });
+
+    // Quizzes created
+    db.get(`SELECT COUNT(*) as cnt FROM quizzes WHERE course_id IN 
+            (SELECT course_id FROM courses WHERE teacher_id = ?)`, [teacherId], (err, row) => {
+      if (!err) log(`  • Quizzes Created: ${row.cnt}`, 'blue');
+    });
+
+    // Assignments created
+    db.get(`SELECT COUNT(*) as cnt FROM assignments WHERE course_id IN 
+            (SELECT course_id FROM courses WHERE teacher_id = ?)`, [teacherId], (err, row) => {
+      if (!err) log(`  • Assignments Created: ${row.cnt}`, 'blue');
+    });
+
+    // Grades assigned
+    db.get(`SELECT COUNT(*) as cnt FROM student_grades WHERE course_id IN 
+            (SELECT course_id FROM courses WHERE teacher_id = ?)`, [teacherId], (err, row) => {
+      if (!err) {
+        log(`  • Grades Assigned: ${row.cnt}`, 'blue');
+        resolve();
+      }
+    });
+  });
+}
+
+async function runAllOperations() {
+  console.clear();
+  log('╔═══════════════════════════════════════════════════════════════╗', 'bold');
+  log('║     TEACHER DATA POPULATION & ACTIVITY GENERATOR             ║', 'bold');
+  log('║           Learning Sphere - DB Project                       ║', 'bold');
+  log('╚═══════════════════════════════════════════════════════════════╝', 'bold');
+
+  await initializeDatabase();
+
+  log('\n▶ STEP 1: RETRIEVING TEACHER INFORMATION', 'blue');
+  const teacher = await getTeacherInfo();
+  
+  if (!teacher) {
+    log('\n✗ Cannot proceed without a teacher. Exiting...', 'red');
+    db.close();
+    process.exit(1);
+  }
+
+  log('\n▶ STEP 2: RETRIEVING ASSIGNED COURSES', 'blue');
+  const courses = await getCourses();
+
+  if (courses.length === 0) {
+    log('\n✗ No courses assigned to teacher. Please assign courses first.', 'red');
+    db.close();
+    process.exit(1);
+  }
+
+  // Process each course
+  for (const course of courses) {
+    log(`\n╔═ PROCESSING COURSE: ${course.course_name} (ID: ${course.course_id}) ════════╗`, 'yellow');
+
+    // Get enrolled students
+    const enrollments = await getEnrolledStudents(course.course_id);
+
+    // Add attendance
+    await addAttendance(course.course_id, enrollments);
+
+    // Create quiz
+    await createQuiz(course.course_id);
+    await sleep(500);
+
+    // Create assignments
+    await createAssignments(course.course_id);
+    await sleep(500);
+
+    // Submit assignment responses
+    await submitAssignmentResponses(course.course_id, enrollments);
+    await sleep(500);
+
+    // Add grades
+    await addStudentGrades(course.course_id, enrollments);
+    await sleep(500);
+  }
+
+  // Create teacher review/performance record
+  await createTeacherReview();
+
+  // Display statistics
+  await getTeacherStats();
+
+  console.log('\n');
+  log('╔═══════════════════════════════════════════════════════════════╗', 'bold');
+  log('║          ✓ ALL TEACHER OPERATIONS COMPLETED                  ║', 'bold');
+  log('║                                                               ║', 'bold');
+  log('║  Teacher has successfully:                                    ║', 'bold');
+  log('║  ✓ Marked attendance for all students                         ║', 'bold');
+  log('║  ✓ Created quizzes with questions                             ║', 'bold');
+  log('║  ✓ Created assignments                                        ║', 'bold');
+  log('║  ✓ Recorded student submissions                               ║', 'bold');
+  log('║  ✓ Assigned grades and marks                                  ║', 'bold');
+  log('║  ✓ Updated performance record                                 ║', 'bold');
+  log('║                                                               ║', 'bold');
+  log('║  All data is now ready for teacher to view and manage!        ║', 'bold');
+  log('╚═══════════════════════════════════════════════════════════════╝', 'bold');
+
+  db.close();
+  process.exit(0);
+}
+
+// Start the population
+runAllOperations().catch(err => {
+  log(`Fatal Error: ${err.message}`, 'red');
+  if (db) db.close();
+  process.exit(1);
+});

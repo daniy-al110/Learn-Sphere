@@ -1,0 +1,104 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<DomainFile class="oracle.dbtools.crest.model.design.DomainFileWrapper" fileName="azain1_Domains">
+   <domains>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Timestamp_6_0_0" id="0CCD5725-A3D7-CDC9-63F7-AA7912CE22D4">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>6</dataTypePrecision>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT015</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_100" id="4CEFCA78-731D-377A-336E-A08FA6247EB8">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>100</dataTypeSize>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_10" id="7939AD03-7C35-FE18-1E2E-790C5974D278">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>10</dataTypeSize>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="CLOB_0_0_0" id="A3D52875-A908-ADCE-B924-E566939D8D6C">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT028</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="Date_0_0_0" id="AB023AD2-F492-FA42-1DD0-6A2F12811C1F">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT007</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_200" id="AFDC3FD6-3EBF-E0C3-D0C9-9B7C846AAEF2">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>200</dataTypeSize>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_1000" id="BF601815-1E9D-5670-4E4C-0B9F971D4E7F">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>1000</dataTypeSize>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_1_0_0" id="C1A7B415-045A-4DE3-38CC-2A656BAAF6E6">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>1</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>0</dataTypeSize>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="VARCHAR_0_0_500" id="D6077369-7480-1E86-5CC1-E420F269CDFA">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <dataTypePrecision>0</dataTypePrecision>
+         <dataTypeScale>0</dataTypeScale>
+         <dataTypeSize>500</dataTypeSize>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT024</logicalDatatype>
+      </Domain>
+      <Domain class="oracle.dbtools.crest.model.design.Domain" name="NUMERIC_0_0_0" id="E8E5CC20-7093-E7C4-C0ED-50C2675CC3E8">
+         <createdBy>Azain</createdBy>
+         <createdTime>2025-10-26 17:37:59 UTC</createdTime>
+         <ownerDesignName>final </ownerDesignName>
+         <avTSortOrder>0</avTSortOrder>
+         <fileName>azain1_Domains</fileName>
+         <logicalDatatype>LOGDT019</logicalDatatype>
+      </Domain>
+   </domains>
+</DomainFile>

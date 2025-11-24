@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="fk_feedback_teacher" directorySegmentName="seg_0" id="AA761549-1810-9555-D3DA-ECC5A9A96E56">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>713438D2-ABE0-C00B-212E-32E53F8A61EE</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<sourcePk>E6069889-AD20-67BC-9E30-6A08E7D94322</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>53C68354-79C7-0CD1-F093-09D052E08985</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>08C0694E-7A1B-847B-BE1D-527E54C4D26E</targetEntity>
+<transferable>true</transferable>
+<deleteRule>CASCADE</deleteRule>
+</Relation>

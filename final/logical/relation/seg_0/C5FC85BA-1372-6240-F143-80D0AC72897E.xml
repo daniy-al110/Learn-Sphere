@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="fk_qr_quiz" directorySegmentName="seg_0" id="C5FC85BA-1372-6240-F143-80D0AC72897E">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>CD097DA3-B4D1-E987-557F-8A5D30AC56E2</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<sourcePk>1E5C8E70-733A-9E6F-5D3A-8C41299D2494</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>29ADECF8-6032-EA7F-E11C-EDA25DAC8B48</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>D09C8DCA-A93B-2B97-BBB3-67C62A812A4B</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,18 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="4BA6DC83-346A-90C6-F499-1AE67DC2DE72" containerWithKeyObject="D2040FAC-F771-2F66-3407-E32D74D7CD89" localFKIndex="FCC2A0F8-2510-1C73-A45C-351612DD406F" name="feedback_students_FK">
+<sourceDDLFile>azain1.sql</sourceDDLFile>
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:59 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<importedID>1367647C-6956-1FB3-F320-1746E0AB78AF</importedID>
+<referredTableLongName>students</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>4DFF4810-BCF2-A82B-FB00-3921ED502E55</referredTableID>
+<keyObject>C015F293-7BCE-8DF9-82A1-D0CD4E90EF37</keyObject>
+<referredKeyID>C015F293-7BCE-8DF9-82A1-D0CD4E90EF37</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>student_id,admins_admin_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

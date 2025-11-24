@@ -1,0 +1,69 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="teachers" directorySegmentName="seg_0" id="42E11CC4-EAE6-940B-2442-48BBAEDC1665">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="admins_admin_id" id="17CDD783-FC91-A519-4DEC-61847F395B9E">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:45 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="created_at" id="9233F81C-4904-1C3F-31C5-C04AFF18923B">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="name" id="CBD2E387-74B2-772A-C00C-F519D570FF61">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="password" id="D16AB42A-BD57-9C60-5BEF-54B055C20AAA">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="email" id="D61F26B8-70B2-476C-8876-2CBE3D8BC2ED">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="teacher_id" id="EA90BD61-DF36-9CF6-0F25-2A103F48A333">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="teachers_admins_FK" id="065DD0C2-F950-0AC6-9433-3664C65DE8CA">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:45 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="teachers_PK" id="D3055663-C878-CDFB-8140-6E4CF5152996">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="INDEX_1" id="B83C14B8-38E1-157C-E034-C102067D50BA">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<nameChanged>true</nameChanged>
+<indexSort>SORTED</indexSort>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev12c>

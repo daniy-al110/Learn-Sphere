@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="fk_attend_course" directorySegmentName="seg_0" id="1E2FFEEB-D175-59B0-038E-B1EC137B8A55">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:12 UTC</createdTime>
+<generatorID>63F018D8-693E-B2EE-FDCB-DB39D0300C0A</generatorID>
+<ownerDesignName>final </ownerDesignName>
+<engineerTo>
+<item key="D8B8315A-0BEB-93D4-D7CB-B24BAC14D173" value="true"/>
+<item key="0FBFA0EE-0D31-48A7-5403-D02D06682DFF" value="true"/>
+</engineerTo>
+<sourcePk>1808BA79-5350-CA42-6106-2663F9BA2DE5</sourcePk>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>826E5AF3-E8B5-8B42-E034-D1DCBD6D1518</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>8F8BA3AF-6997-8CBC-99FA-74719F7176D9</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

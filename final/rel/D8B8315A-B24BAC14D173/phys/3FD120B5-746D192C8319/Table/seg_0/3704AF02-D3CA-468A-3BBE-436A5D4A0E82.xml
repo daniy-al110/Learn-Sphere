@@ -1,0 +1,65 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev12c class="oracle.dbtools.crest.model.design.storage.oracle.v12c.TableProxyOraclev12c" name="assignment_submissions" directorySegmentName="seg_0" id="3704AF02-D3CA-468A-3BBE-436A5D4A0E82">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="submission_id" id="3935149B-D9C6-95BC-8D41-06CAEFCC4DC4">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<autoIncrementDDL>IDENTITY_CLAUSE</autoIncrementDDL>
+</ColumnProxy>
+<ColumnProxy name="students_student_id" id="464DFBD8-A891-0DAC-0972-4252EB83D5C6">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="submitted_at" id="51BE0209-9D7D-1E18-E39B-427663D2BABD">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<defaultValue>CURRENT_TIMESTAMP</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="marks" id="8E61ED8C-9728-8F23-FEF1-4C58BCC6252B">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="admin_id" id="90EABAC4-C6B0-06C2-66B7-E1A2964ED735">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:40:45 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="assignments_assignment_id" id="FAD8A9B3-74DA-5ACE-7B32-26E32B7851C5">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="assignment_submissions_assignments_FK" id="011176EF-EDD5-CA21-9E93-3D60258298BA">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ForeignKey>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="assignment_submissions_students_FK" id="1B2C0369-265A-9A1F-9BEC-8F71F53D1BDF">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="assignment_submissions_PK" id="C4DE8E78-1FC9-6C7B-A67B-21F7754D19BA">
+<createdBy>Azain</createdBy>
+<createdTime>2025-10-26 17:37:50 UTC</createdTime>
+<ownerDesignName>final </ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev12c>

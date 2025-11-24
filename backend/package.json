@@ -1,0 +1,21 @@
+{
+  "name": "db-project",
+  "version": "1.0.0",
+  "description": "Database Project",
+  "main": "app-server.js",
+  "scripts": {
+    "start": "node app-server.js",
+    "dev": "nodemon app-server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node-fetch": "^2.7.0",
+    "oracledb": "*",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
