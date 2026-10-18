@@ -1,4 +1,35 @@
-git init
-git branch -M main
-git remote add origin https://github.com/daniy-al110/LearnSphere.git
-git pull origin main
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment Variables (Secrets)
+.env
+.env.*
+*.env
+backend/.env
+frontend-next/.env*
+
+# Next.js build output
+frontend-next/.next/
+frontend-next/out/
+frontend-next/build/
+
+# Testing & Logs
+test-results/
+playwright-report/
+blob-report/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# OS & Backups
+.DS_Store
+Thumbs.db
+*.backup
+*.bak
+
+# Presentation & local docs
+DOCUMENTATION.md
+guide
+Kill.txt
+*.pptx

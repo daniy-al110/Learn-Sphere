@@ -1,0 +1,35 @@
+.overlay {
+  position: fixed; inset: 0; z-index: 10001;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.5); padding: 16px;
+  opacity: 1; transition: opacity .25s ease;
+}
+.card {
+  width: 100%; max-width: 440px; border-radius: 16px; overflow: hidden;
+  background: #fff; box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  transform: scale(1) translateY(0); transition: transform .25s cubic-bezier(.4,0,.2,1);
+}
+.enter { opacity: 0; }
+.enter .card { transform: scale(.92) translateY(10px); }
+.exit { opacity: 0; pointer-events: none; }
+.exit .card { transform: scale(.92) translateY(10px); }
+.header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; color: #fff; }
+.headerInfo    { background: linear-gradient(135deg, #1a1a2e, #e94560); }
+.headerDanger  { background: linear-gradient(135deg, #1a1a2e, #dc2626); }
+.headerWarning { background: linear-gradient(135deg, #1a1a2e, #d97706); }
+.title { font-size: 18px; font-weight: 700; margin: 0; }
+.headerClose { background: none; border: none; color: rgba(255,255,255,.8); font-size: 22px; cursor: pointer; padding: 0 4px; line-height: 1; transition: color .2s; }
+.headerClose:hover { color: #fff; }
+.bodyWrap { padding: 24px 20px; text-align: center; }
+.iconWrap { margin: 0 auto 12px; width: 48px; height: 48px; }
+.icon { width: 48px; height: 48px; }
+.message { font-size: 15px; color: #4b5563; margin: 0; line-height: 1.6; }
+.footer { display: flex; justify-content: flex-end; gap: 10px; padding: 14px 20px; border-top: 1px solid #f3f4f6; background: #fafafa; }
+.btn { padding: 9px 22px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all .2s; }
+.cancel { background: #f3f4f6; color: #4b5563; }
+.cancel:hover { background: #e5e7eb; }
+.confirmInfo    { background: #e94560; color: #fff; }
+.confirmDanger  { background: #dc2626; color: #fff; }
+.confirmWarning { background: #d97706; color: #fff; }
+.confirm:hover { opacity: .9; transform: translateY(-1px); }
+.confirm:focus { outline: 2px solid #e94560; outline-offset: 2px; }

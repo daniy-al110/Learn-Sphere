@@ -1,0 +1,38 @@
+/* Ported 1:1 from the CSS string injected by lms-ui.js */
+.container {
+  position: fixed; top: 20px; right: 20px; z-index: 10000;
+  display: flex; flex-direction: column; gap: 10px;
+  max-width: 420px; width: calc(100% - 40px);
+  pointer-events: none;
+}
+.toast {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  padding: 14px 16px; border-radius: 12px;
+  color: #fff; font-family: inherit; font-size: 14px; line-height: 1.45;
+  box-shadow: 0 8px 32px rgba(0,0,0,.18), 0 2px 8px rgba(0,0,0,.12);
+  pointer-events: auto; position: relative; overflow: hidden;
+  transform: translateX(0); opacity: 1;
+  transition: transform 350ms cubic-bezier(.4,0,.2,1), opacity 350ms ease;
+}
+.enter, .exit { transform: translateX(120%); opacity: 0; }
+.success { background: linear-gradient(135deg, #059669, #10b981); }
+.error   { background: linear-gradient(135deg, #dc2626, #ef4444); }
+.warning { background: linear-gradient(135deg, #d97706, #f59e0b); }
+.info    { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+.body { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+.icon { width: 20px; height: 20px; flex-shrink: 0; stroke: #fff; }
+.msg { word-break: break-word; }
+.close {
+  background: none; border: none; color: rgba(255,255,255,.7); font-size: 20px;
+  cursor: pointer; padding: 0 0 0 10px; line-height: 1; flex-shrink: 0; transition: color .2s;
+}
+.close:hover { color: #fff; }
+.progress {
+  position: absolute; bottom: 0; left: 0; height: 3px; width: 100%;
+  background: rgba(255,255,255,.35); border-radius: 0 0 12px 12px;
+  animation: shrink linear forwards; transform-origin: left;
+}
+@keyframes shrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@media (max-width: 480px) {
+  .container { right: 10px; left: 10px; width: auto; max-width: none; }
+}

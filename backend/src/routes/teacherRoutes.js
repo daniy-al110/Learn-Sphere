@@ -1,0 +1,31 @@
+const express = require('express');
+const router = express.Router();
+const teacherController = require('../controllers/teacherController');
+
+router.get('/courses/:courseId/feedback', teacherController.get_api_teacher_courses_courseId_feedback);
+router.post('/student-review', teacherController.post_api_teacher_student_review);
+router.get('/course/:courseId/reviews', teacherController.get_api_teacher_course_courseId_reviews);
+router.post('/login', teacherController.post_api_teacher_login);
+router.get('/courses/:teacherId', teacherController.get_api_teacher_courses_teacherId);
+router.delete('/remove-course/:id', teacherController.delete_api_teacher_remove_course_id);
+router.get('/courses/:courseId/students', teacherController.get_api_teacher_courses_courseId_students);
+router.get('/course/:courseId/students', teacherController.get_api_teacher_course_courseId_students);
+router.post('/attendance_old', teacherController.post_api_teacher_attendance_old);
+router.post('/quiz', teacherController.post_api_teacher_quiz);
+router.get('/quizzes/:courseId', teacherController.get_api_teacher_quizzes_courseId);
+router.post('/quiz/:quizId/toggle', teacherController.post_api_teacher_quiz_quizId_toggle);
+router.get('/quiz/:quizId/results', teacherController.get_api_teacher_quiz_quizId_results);
+router.post('/assignment', teacherController.post_api_teacher_assignment);
+router.post('/assignment/:assignmentId/marks', teacherController.post_api_teacher_assignment_assignmentId_marks);
+router.get('/assignment/:assignmentId/submissions', teacherController.get_api_teacher_assignment_assignmentId_submissions);
+router.delete('/quiz/:quizId', teacherController.delete_api_teacher_quiz_quizId);
+router.get('/course/:courseId/marks', teacherController.get_api_teacher_course_courseId_marks);
+router.post('/course/:courseId/marks', teacherController.post_api_teacher_course_courseId_marks);
+router.get('/course/:courseId/student/:studentId/quizzes', teacherController.get_api_teacher_course_courseId_student_studentId_quizzes);
+router.get('/course/:courseId/student/:studentId/assignments', teacherController.get_api_teacher_course_courseId_student_studentId_assignments);
+router.delete('/assignment/:assignmentId', teacherController.delete_api_teacher_assignment_assignmentId);
+router.post('/student/grade', teacherController.post_api_teacher_student_grade);
+router.post('/attendance', teacherController.post_api_teacher_attendance);
+router.patch('/attendance', teacherController.patch_api_teacher_attendance);
+
+module.exports = router;

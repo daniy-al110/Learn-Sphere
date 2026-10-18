@@ -1,0 +1,170 @@
+@import "tailwindcss";
+
+/* Original pages toggled dark mode via `document.documentElement.classList.add("dark")`.
+   Make Tailwind's `dark:` variant follow that class instead of the OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Override Tailwind viewport height classes to account for zoom: 0.9 on html */
+@layer utilities {
+  .min-h-screen {
+    min-height: 111.12vh !important;
+  }
+  .h-screen {
+    height: 111.12vh !important;
+  }
+}
+
+/* Ensure html and body always fill the full physical viewport regardless of zoom */
+html, body {
+  min-height: 111.12vh;
+}
+/* Same palette the dashboards passed to the Tailwind CDN (`tailwind.config = { ... }`). */
+@theme {
+  --color-primary: #e94560;
+  --color-secondary: #f91e63;
+  --color-accent: #e94560;
+  --color-accent-hover: #ff5c77;
+  --color-sidebar: #1a1a2e;
+  --color-card-bg: #f5f6fa;
+  --color-dark-table: #1a1a2e;
+  
+  /* Fallbacks for Tailwind v4 default oklch colors to prevent html2canvas "lab" parse errors */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+}
+
+/* Tailwind v4 changed the default border colour from gray-200 to currentColor.
+   The original pages ran on the v3 CDN build, so restore v3 behaviour to keep the design identical. */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+  /* v3 buttons didn't show a pointer cursor by default in preflight; v4 matches. Nothing to restore. */
+}
+
+/* ───────────── Admin dashboard (was the <style> block in admin-dashboard.html) ─────────────
+   Scoped to .admin-root and wrapped in cascade layers so Tailwind utilities still win,
+   exactly like the element selectors lost to class utilities in the original page. */
+@layer base {
+  :where(.admin-root) {
+    font-family: "Poppins", sans-serif;
+    color: #333;
+  }
+  :where(.admin-root) h1 {
+    color: #1a1a2e;
+    margin-bottom: 15px;
+  }
+  :where(.admin-root) form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+  }
+  :where(.admin-root) form input,
+  :where(.admin-root) form select,
+  :where(.admin-root) form button {
+    display: block;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  :where(.admin-root) form button {
+    background-color: #e94560;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  :where(.admin-root) form button:hover {
+    background-color: #ff5c77;
+  }
+  :where(.admin-root) table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  :where(.admin-root) table th,
+  :where(.admin-root) table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  :where(.admin-root) table th {
+    background-color: #1a1a2e;
+    color: #fff;
+  }
+}
+
+@layer components {
+  .search-bar {
+    margin-bottom: 15px;
+    padding: 8px;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .delete-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .delete-btn:hover {
+    background-color: #c82333;
+  }
+  .edit-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-right: 5px;
+  }
+  .edit-btn:hover {
+    background-color: #0056b3;
+  }
+  .remove-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: #e94560;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: all 0.2s;
+  }
+  .remove-btn:hover {
+    background: #ff5c77;
+    transform: translateY(-2px);
+  }
+}
