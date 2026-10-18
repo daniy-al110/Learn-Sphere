@@ -236,7 +236,7 @@ export default function CoursesView() {
           Loading open enrollment status...
         </div>
       ) : (
-        <Banner win={data?.window ?? null} />
+        <Banner winInfo={data?.windowInfo ?? null} />
       )}
 
       <FilterBar

@@ -4,6 +4,8 @@
   "description": "Database Project",
   "main": "app-server.js",
   "scripts": {
+    "postinstall": "npm --prefix ../frontend-next install && npm --prefix ../frontend-next run build",
+    "build": "npm --prefix ../frontend-next install && npm --prefix ../frontend-next run build",
     "start": "node app-server.js",
     "dev": "nodemon app-server.js"
   },

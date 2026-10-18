@@ -15,39 +15,7 @@ process.on('exit', (code) => console.log('*** process exit event, code=' + code)
 process.on('uncaughtException', (err) => console.error('*** uncaughtException:', err && err.stack ? err.stack : err));
 process.on('unhandledRejection', (reason, promise) => console.error('*** unhandledRejection at:', promise, 'reason:', reason));
 
-app.get('/', (req, res) => {
-  res.send(`
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>LearnSphere LMS Backend</title>
-        <style>
-          * { box-sizing: border-box; margin: 0; padding: 0; }
-          body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #090d16; color: #f8fafc; padding: 1.5rem; }
-          .card { background: #131b2e; padding: 2.5rem; border-radius: 1rem; border: 1px solid #1e293b; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); text-align: center; max-width: 500px; width: 100%; }
-          .badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 0.4rem 1rem; border-radius: 9999px; font-size: 0.875rem; font-weight: 600; margin-bottom: 1.25rem; border: 1px solid rgba(16, 185, 129, 0.3); }
-          .dot { width: 8px; height: 8px; background: #10b981; border-radius: 50%; box-shadow: 0 0 10px #10b981; }
-          h1 { font-size: 1.85rem; font-weight: 700; color: #38bdf8; margin-bottom: 0.75rem; letter-spacing: -0.025em; }
-          p { color: #94a3b8; font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
-          .btn { display: inline-block; background: #2563eb; color: #fff; padding: 0.65rem 1.25rem; border-radius: 0.5rem; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: background 0.2s; }
-          .btn:hover { background: #1d4ed8; }
-          .footer { margin-top: 1.75rem; font-size: 0.8rem; color: #64748b; border-top: 1px solid #1e293b; padding-top: 1rem; }
-        </style>
-      </head>
-      <body>
-        <div class="card">
-          <div class="badge"><span class="dot"></span> Backend Active & Online</div>
-          <h1>LearnSphere REST API</h1>
-          <p>The backend server for LearnSphere LMS is running smoothly on Render and ready to handle frontend client requests.</p>
-          <a class="btn" href="/api/health">Check API Health</a>
-          <div class="footer">LearnSphere LMS • Connected to Supabase Remote PostgreSQL</div>
-        </div>
-      </body>
-    </html>
-  `);
-});
+const fs = require('fs');
 
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'OK', uptime: process.uptime(), timestamp: Date.now() });
@@ -66,12 +34,41 @@ app.use('/api/super-admin', require('./src/routes/superAdminRoutes'));
 app.use('/api/meetings', require('./src/routes/meetingsRoutes'));
 app.use('/api/lectures', require('./src/routes/lecturesRoutes'));
 
+// Setup Next.js Frontend Handler
+const frontendDir = path.resolve(__dirname, '../frontend-next');
+let nextHandler = null;
+
+async function setupNext() {
+  const nextPkgPath = path.join(frontendDir, 'node_modules', 'next');
+  if (fs.existsSync(frontendDir)) {
+    try {
+      const next = require(fs.existsSync(nextPkgPath) ? nextPkgPath : 'next');
+      const dev = process.env.NODE_ENV !== 'production' && !fs.existsSync(path.join(frontendDir, '.next'));
+      const nextApp = next({ dev, dir: frontendDir });
+      await nextApp.prepare();
+      nextHandler = nextApp.getRequestHandler();
+      console.log('✅ Next.js frontend integrated on same port');
+    } catch (e) {
+      console.warn('⚠️ Next.js integration skipped or failed:', e.message);
+    }
+  }
+}
+
+// Next.js catch-all route handler for all non-API paths
+app.all('*', (req, res) => {
+  if (nextHandler) {
+    return nextHandler(req, res);
+  }
+  res.status(404).send('Not Found');
+});
+
 (async () => {
   try {
     await initPoolWithIPv4();
+    await setupNext();
     
     app.listen(PORT, () => {
-      console.log(`🚀 Server listening: http://localhost:${PORT}`);
+      console.log(`🚀 Unified Fullstack Server listening: http://localhost:${PORT}`);
     });
   } catch (e) {
     console.error('Fatal startup error:', e && e.message ? e.message : e);
