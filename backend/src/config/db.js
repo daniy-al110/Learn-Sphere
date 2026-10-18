@@ -6,13 +6,19 @@ if (typeof dnsModule.setDefaultResultOrder === 'function') {
 }
 const dns = dnsModule.promises;
 const { createClient } = require('@supabase/supabase-js');
-const supabase = createClient('https://qupkoahkwisctivxmtlf.supabase.co', process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY);
 
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_ANON_KEY;
 const DATABASE_URL = process.env.DATABASE_URL || process.env.SUPABASE_DB_URL;
-if (!DATABASE_URL) {
-  console.error("❌ Missing DATABASE_URL. Add your Supabase connection string to backend/.env");
+
+if (!DATABASE_URL || !supabaseKey) {
+  console.error("❌ Startup Error: Missing required environment variables on Render.");
+  if (!DATABASE_URL) console.error("   - Missing: DATABASE_URL (Supabase PostgreSQL connection string)");
+  if (!supabaseKey) console.error("   - Missing: SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY");
+  console.error("👉 Please add these keys under Environment in your Render service dashboard.");
   process.exit(1);
 }
+
+const supabase = createClient('https://qupkoahkwisctivxmtlf.supabase.co', supabaseKey);
 
 let pool;
 let poolAvailable = false;
