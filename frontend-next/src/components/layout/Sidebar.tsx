@@ -8,6 +8,7 @@ import { useSidebar } from "./SidebarProvider";
 import { initialsOf } from "@/lib/student/helpers";
 import { useSession } from "@/hooks/useSession";
 import { useLogout } from "./LogoutButton";
+import { GraduationCap, LogOut, Sparkles } from "lucide-react";
 
 export interface NavItem {
   href: string;
@@ -18,29 +19,17 @@ export interface NavItem {
 
 interface SidebarProps {
   items: NavItem[];
-  /** Fallback display name shown until/unless a name is stored (original used "Student"). */
   fallbackName: string;
-  /** Small line under the name ("Ready to learn?" for students, "Welcome back!" for staff). */
   tagline?: string;
-  /**
-   * What the bottom "Logout" button does. Students' old button only navigated to login.html
-   * ("navigate"); teachers/admins confirmed and cleared the session ("signout").
-   */
   logoutMode?: "navigate" | "signout";
-  /** Used when logoutMode is "navigate". */
   logoutHref?: string;
-  /** Letter shown in the avatar when no name is stored. */
   fallbackInitial?: string;
-  /** Show this fixed label instead of the stored user name (the admin page was static: "Hi, Admin"). */
   fixedName?: string;
 }
 
-const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+const FOCUSABLE =
+  'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
-/**
- * Reusable dashboard sidebar. Replaces the <aside id="sidebar"> markup plus the drawer
- * behaviour of mobile-sidebar.js (slide in/out, overlay, Escape, focus trap, close on nav click).
- */
 export default function Sidebar({
   items,
   fallbackName,
@@ -58,23 +47,29 @@ export default function Sidebar({
   const asideRef = useRef<HTMLElement>(null);
 
   const name = session.userName || fallbackName;
-  const initial = fixedName ? fallbackInitial : session.userName ? initialsOf(session.userName)[0] : fallbackInitial;
+  const initial = fixedName
+    ? fallbackInitial
+    : session.userName
+      ? initialsOf(session.userName)[0]
+      : fallbackInitial;
 
-  const isSuperAdmin = session.role === "admin" && (session.userEmail === "admin@lms.edu" || session.userEmail === "admin@learnsphere.com");
+  const isSuperAdmin =
+    session.role === "admin" &&
+    Array.isArray(session.permissions) &&
+    session.permissions.includes("MANAGE_ADMINS") &&
+    session.permissions.includes("MANAGE_ROLES");
 
-  const filteredItems = items.filter(item => {
+  const filteredItems = items.filter((item) => {
     if (!item.permission) return true;
-    if (session.role !== 'admin') return true;
-    if (isSuperAdmin) return true;
-    return session.permissions && session.permissions.includes(item.permission);
+    if (session.role !== "admin") return true;
+    return isSuperAdmin || (session.permissions && session.permissions.includes(item.permission));
   });
 
-  // Move focus into the drawer when it opens (mobile-sidebar.js did the same).
   useEffect(() => {
-    if (open && window.innerWidth < 1024) asideRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+    if (open && window.innerWidth < 1024)
+      asideRef.current?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
   }, [open]);
 
-  // Focus trap while the drawer is open.
   function onKeyDown(e: React.KeyboardEvent<HTMLElement>) {
     if (e.key !== "Tab" || !open) return;
     const focusable = asideRef.current?.querySelectorAll<HTMLElement>(FOCUSABLE);
@@ -90,47 +85,70 @@ export default function Sidebar({
     }
   }
 
+  const roleLabel =
+    session.role === "admin"
+      ? isSuperAdmin
+        ? "SUPER ADMIN"
+        : "ADMINISTRATOR"
+      : session.role === "teacher"
+        ? "FACULTY INSTRUCTOR"
+        : "STUDENT SCHOLAR";
+
   return (
     <>
       <aside
         ref={asideRef}
         id="sidebar"
         onKeyDown={onKeyDown}
-        className={`fixed left-0 top-0 h-screen w-64 text-white flex flex-col transition-all duration-300 ease-in-out z-50 transform shadow-xl lg:translate-x-0 ${
-          open ? "translate-x-0" : "-translate-x-full"
-        }`}
-        style={{ background: "linear-gradient(to bottom, #1a1a2e, #0f0f1e)" }}
+        className={`fixed left-0 top-0 h-screen w-64 bg-[#0d111f] border-r border-white/10 text-white flex flex-col transition-all duration-300 ease-in-out z-50 transform shadow-2xl lg:translate-x-0 ${open ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
-        {/* Logo */}
-        <div className="p-6 border-b border-white/20">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/20 rounded-lg flex items-center justify-center">
-              <Icon name="graduation-cap" className="w-6 h-6" />
+        {/* Brand Header */}
+        <div className="p-5 border-b border-white/10">
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 to-rose-600 p-0.5 shadow-md shadow-pink-500/25 group-hover:scale-105 transition-transform flex items-center justify-center">
+              <div className="w-full h-full bg-slate-950 rounded-[10px] flex items-center justify-center">
+                <GraduationCap className="w-5 h-5 text-pink-400 group-hover:text-pink-300 transition-colors" />
+              </div>
             </div>
-            <span
-              className="text-lg md:text-xl font-extrabold whitespace-nowrap transition-opacity duration-300 drop-shadow-lg"
-              style={{ color: "#e94560" }}
-            >
-              Learning Sphere
+            <div>
+              <div className="flex items-center gap-1.5">
+                <span className="text-base font-extrabold text-white tracking-tight">
+                  LearnSphere
+                </span>
+                <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-pink-500/20 text-pink-400 border border-pink-500/30">
+                  LMS
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-400 tracking-wider uppercase font-mono font-medium">
+                Campus Portal
+              </p>
+            </div>
+          </Link>
+        </div>
+
+        {/* User Card */}
+        <div className="p-4 mx-3 my-3 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center gap-3">
+          <div className="relative">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-pink-500 to-indigo-600 text-white font-bold flex items-center justify-center text-sm shadow-md">
+              <span>{initial}</span>
+            </div>
+            <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-[#0d111f]" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-1.5">
+              <p className="text-xs font-bold text-white truncate">
+                {fixedName ? fixedName : name}
+              </p>
+            </div>
+            <span className="text-[9px] font-bold text-pink-400 tracking-wider uppercase block truncate">
+              {roleLabel}
             </span>
           </div>
         </div>
 
-        {/* User */}
-        <div className="p-4 border-b border-white/20 flex items-center gap-3">
-          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center font-semibold text-sm shrink-0">
-            <span>{initial}</span>
-          </div>
-          <div className="transition-opacity duration-300 min-w-0">
-            <p className="text-sm font-medium mb-0.5">
-              👋 Hi,{" "}
-              {fixedName ? fixedName : <span style={{ color: "white", fontWeight: "bold" }}>{name}</span>}
-            </p>
-            <p className="text-xs opacity-70">{tagline}</p>
-          </div>
-        </div>
-
-        <nav className="flex-1 p-4 flex flex-col gap-2 overflow-y-auto">
+        {/* Navigation List */}
+        <nav className="flex-1 px-3 py-2 flex flex-col gap-1 overflow-y-auto scrollbar-thin">
           {filteredItems.map((item) => {
             const active = pathname === item.href;
             return (
@@ -139,43 +157,52 @@ export default function Sidebar({
                 href={item.href}
                 onClick={closeSidebar}
                 aria-current={active ? "page" : undefined}
-                className={`nav-item flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200 ${
-                  active ? "bg-white/20 text-white font-medium" : "text-white/70 hover:text-white hover:bg-white/10"
-                }`}
+                className={`nav-item group flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 cursor-pointer ${active
+                    ? "bg-gradient-to-r from-pink-500/20 via-pink-500/10 to-transparent text-white border-l-4 border-pink-500 shadow-sm shadow-pink-500/10 font-bold"
+                    : "text-slate-400 hover:text-white hover:bg-white/[0.04]"
+                  }`}
               >
-                <Icon name={item.icon} className="w-4 h-4 shrink-0" />
-                <span className="text-sm font-medium whitespace-nowrap transition-opacity duration-300">{item.label}</span>
+                <div
+                  className={`p-1 rounded-lg transition-colors ${active
+                      ? "text-pink-400"
+                      : "text-slate-400 group-hover:text-pink-300"
+                    }`}
+                >
+                  <Icon name={item.icon} className="w-4 h-4 shrink-0" />
+                </div>
+                <span className="truncate">{item.label}</span>
+                {active && (
+                  <span className="ml-auto w-1.5 h-1.5 rounded-full bg-pink-400 shadow-[0_0_8px_rgba(233,69,96,0.8)]" />
+                )}
               </Link>
             );
           })}
         </nav>
 
-        {/* Logout */}
-        <div className="p-4 border-t border-white/20 shrink-0">
+        {/* Logout Footer */}
+        <div className="p-3 border-t border-white/10 shrink-0">
           <button
             type="button"
-            className="logout-btn w-full flex items-center gap-2 px-3 py-2 rounded-lg transition-all duration-200 hover:-translate-y-0.5 text-white font-medium cursor-pointer"
-            style={{ background: "#e94560" }}
+            className="logout-btn w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl font-bold text-xs text-white bg-gradient-to-r from-pink-500/90 to-rose-600/90 hover:from-pink-600 hover:to-rose-600 shadow-md shadow-pink-500/20 transition-all hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
             onClick={() => {
               closeSidebar();
               if (logoutMode === "signout") void signOut();
               else router.push(logoutHref);
             }}
           >
-            <Icon name="log-out" className="w-4 h-4" />
-            <span className="text-sm font-medium transition-opacity duration-300">Logout</span>
+            <LogOut className="w-3.5 h-3.5" />
+            <span>Sign Out</span>
           </button>
         </div>
       </aside>
 
-      {/* Mobile overlay (was injected by mobile-sidebar.js) */}
+      {/* Mobile Backdrop Overlay */}
       <div
         id="sidebarOverlay"
         aria-hidden="true"
         onClick={closeSidebar}
-        className={`fixed inset-0 bg-black/50 z-40 lg:hidden transition-opacity duration-300 ease-in-out ${
-          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ease-in-out ${open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+          }`}
       />
     </>
   );

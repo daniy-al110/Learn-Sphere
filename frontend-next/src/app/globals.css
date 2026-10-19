@@ -168,3 +168,178 @@ html, body {
     transform: translateY(-2px);
   }
 }
+
+/* ───────────── Custom Modern Scrollbars ───────────── */
+@keyframes progress {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0%); }
+  100% { transform: translateX(100%); }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(156, 163, 175, 0.3);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(233, 69, 96, 0.6);
+}
+
+/* ───────────── Admin Dark Mode Overrides ───────────── */
+:where(.dark .admin-root) {
+  color: #e2e8f0;
+}
+:where(.dark .admin-root) h1 {
+  color: #ffffff;
+}
+:where(.dark .admin-root) form {
+  background-color: #11162b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+:where(.dark .admin-root) form input,
+:where(.dark .admin-root) form select {
+  background-color: #0c0f1d;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+:where(.dark .admin-root) table {
+  background-color: #11162b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+:where(.dark .admin-root) table th,
+:where(.dark .admin-root) table td {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+:where(.dark .admin-root) table th {
+  background-color: #0b0e1b;
+  color: #ffffff;
+}
+:where(.dark .search-bar) {
+  background-color: #0c0f1d;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ───────────── Hide Next.js Development Badge Overlay ───────────── */
+nextjs-portal,
+[data-nextjs-toast],
+[data-nextjs-dialog-overlay] {
+  display: none !important;
+}
+
+/* ───────────── Sidebar Scrollbar ───────────── */
+#sidebar nav::-webkit-scrollbar {
+  width: 4px;
+}
+#sidebar nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+#sidebar nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+#sidebar nav::-webkit-scrollbar-thumb:hover {
+  background: #e94560;
+}
+
+/* ───────────── Universal Dark Mode Polish for Dashboard Content ───────────── */
+.dark #mainContent .bg-white {
+  background-color: #11162b !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #f8fafc !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+.dark #mainContent .bg-gray-50,
+.dark #mainContent .bg-slate-50 {
+  background-color: #0c1020 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #e2e8f0 !important;
+}
+
+.dark #mainContent .bg-gray-100 {
+  background-color: #161c36 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #e2e8f0 !important;
+}
+
+.dark #mainContent .text-gray-900,
+.dark #mainContent .text-slate-900,
+.dark #mainContent h1,
+.dark #mainContent h2,
+.dark #mainContent h3,
+.dark #mainContent h4 {
+  color: #ffffff !important;
+}
+
+.dark #mainContent .text-gray-800,
+.dark #mainContent .text-slate-800 {
+  color: #f1f5f9 !important;
+}
+
+.dark #mainContent .text-gray-700,
+.dark #mainContent .text-slate-700 {
+  color: #cbd5e1 !important;
+}
+
+.dark #mainContent .text-gray-600,
+.dark #mainContent .text-slate-600,
+.dark #mainContent .text-gray-500,
+.dark #mainContent .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+.dark #mainContent .border-gray-200,
+.dark #mainContent .border-gray-100,
+.dark #mainContent .border-slate-200,
+.dark #mainContent .border-slate-100 {
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark #mainContent input,
+.dark #mainContent select,
+.dark #mainContent textarea {
+  background-color: #0c1020 !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark #mainContent input:focus,
+.dark #mainContent select:focus,
+.dark #mainContent textarea:focus {
+  border-color: #e94560 !important;
+  outline: none !important;
+}
+
+.dark #mainContent select option {
+  background-color: #11162b !important;
+  color: #ffffff !important;
+}
+
+.dark #mainContent table {
+  background-color: #11162b !important;
+  color: #e2e8f0 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.dark #mainContent table th {
+  background-color: #0b0e1b !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.dark #mainContent table td {
+  border-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+.dark #mainContent table tr:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+

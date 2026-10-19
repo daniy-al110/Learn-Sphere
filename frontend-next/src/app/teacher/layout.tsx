@@ -26,11 +26,11 @@ export default function TeacherLayout({ children }: { children: React.ReactNode 
     <RoleGuard role="teacher">
       <SidebarProvider>
         <TeacherCoursesProvider>
-          <div className="flex min-h-screen h-screen relative overflow-hidden">
+          <div className="flex min-h-screen h-screen relative overflow-hidden bg-slate-50 dark:bg-[#0c0f1d] text-slate-900 dark:text-white transition-colors duration-200">
             <Sidebar items={NAV} fallbackName="Teacher" fallbackInitial="T" tagline="Welcome back!" logoutMode="signout" />
-            <div className="flex-1 ml-0 lg:ml-64 transition-all duration-300 bg-white h-full flex flex-col overflow-hidden">
+            <div className="flex-1 ml-0 lg:ml-64 transition-all duration-300 bg-slate-50 dark:bg-[#0c0f1d] h-full flex flex-col overflow-hidden">
               <Navbar welcomeLabel="Welcome Teacher" fallbackName="Teacher User" changePasswordHref="/teacher/change-password" notifications={false} />
-              <main className="flex-1 overflow-y-auto p-8" id="mainContent">
+              <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8" id="mainContent">
                 {children}
               </main>
             </div>

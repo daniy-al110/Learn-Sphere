@@ -26,9 +26,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <RoleGuard role="admin" requireId={false}>
       <SidebarProvider>
         <AdminDataProvider>
-          <div className="admin-root flex relative overflow-hidden" style={{ minHeight: '111.12vh', height: '111.12vh' }}>
+          <div className="admin-root flex relative overflow-hidden bg-slate-50 dark:bg-[#0c0f1d] text-slate-900 dark:text-white transition-colors duration-200" style={{ minHeight: "111.12vh", height: "111.12vh" }}>
             <Sidebar items={NAV} fallbackName="Admin User" fallbackInitial="A" tagline="Welcome back!" logoutMode="signout" />
-            <div className="flex-1 ml-0 lg:ml-64 transition-all duration-300 bg-white h-full flex flex-col overflow-hidden">
+            <div className="flex-1 ml-0 lg:ml-64 transition-all duration-300 bg-slate-50 dark:bg-[#0c0f1d] h-full flex flex-col overflow-hidden">
               <Navbar
                 welcomeLabel="Welcome" fallbackName="Admin User" 
                 changePasswordHref="/admin/change-password" notifications={false} compactPadding
