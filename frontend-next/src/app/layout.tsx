@@ -6,7 +6,7 @@ import ThemeSync from "@/components/ui/ThemeSync";
 import GlobalRouteProgress from "@/components/ui/GlobalRouteProgress";
 import JsonLd from "@/components/seo/JsonLd";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://learnsphere-lms.com";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://learn-sphere-tra6.onrender.com";
 
 export const viewport: Viewport = {
   themeColor: "#030712",
@@ -74,6 +74,9 @@ export const metadata: Metadata = {
     creator: "@learnsphere",
     images: ["/opengraph-image"],
   },
+  verification: {
+    google: 'googledad0429bcffd48f9',
+  },
   robots: {
     index: true,
     follow: true,
@@ -106,3 +109,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
+

@@ -17,6 +17,10 @@ process.on('unhandledRejection', (reason, promise) => console.error('*** unhandl
 
 const fs = require('fs');
 
+app.get('/googledad0429bcffd48f9.html', (req, res) => {
+  res.type('text/html').send('google-site-verification: googledad0429bcffd48f9.html');
+});
+
 app.get('/api/health', (req, res) => {
   res.json({ success: true, message: 'OK', uptime: process.uptime(), timestamp: Date.now() });
 });

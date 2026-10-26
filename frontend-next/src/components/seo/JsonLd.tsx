@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function JsonLd() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://learnsphere-lms.com";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://learn-sphere-tra6.onrender.com";
 
   const organizationSchema = {
     "@context": "https://schema.org",
