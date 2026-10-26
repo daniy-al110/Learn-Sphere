@@ -27,7 +27,7 @@ exports.post_api_admin_signup = async (req, res) => {
     // Role 2 is regular Academy Admin (Role 1 is Super Super Admin)
     const { data: newAdmin, error: adminErr } = await supabase
       .from('admins')
-      .insert([{ name: name.trim(), email: cleanEmail, password: hashed, role_id: 2 }])
+      .insert([{ name: name.trim(), email: cleanEmail, password: hashed, role_id: 1 }])
       .select('admin_id, name, email, role_id')
       .single();
 
@@ -64,7 +64,8 @@ exports.post_api_admin_signup = async (req, res) => {
       success: true,
       admin: {
         ...newAdmin,
-        is_super_admin: false,
+        is_super_admin: true,
+        permissions: ['MANAGE_USERS', 'MANAGE_COURSES', 'MANAGE_FINANCE', 'MANAGE_ADMINS', 'MANAGE_ROLES'],
         academy_name: academy_name || name + "'s Academy"
       },
       course_id: createdCourseId
@@ -93,15 +94,15 @@ exports.post_api_admin_login = async (req, res) => {
     const ok = await bcrypt.compare(password, admin.password);
     if (!ok) return res.status(401).json({ success: false, error: "Invalid credentials" });
 
-    // Identify if this is the single Super Super Admin (daniyal@learnsphere.com or role_id 1)
-    const isSuperAdmin = admin.email.toLowerCase() === 'daniyal@learnsphere.com' || admin.role_id === 1;
-
     delete admin.password;
+    const permissions = ['MANAGE_USERS', 'MANAGE_COURSES', 'MANAGE_FINANCE', 'MANAGE_ADMINS', 'MANAGE_ROLES'];
     res.json({
       success: true,
       admin: {
         ...admin,
-        is_super_admin: isSuperAdmin
+        role_id: 1,
+        is_super_admin: true,
+        permissions
       }
     });
   } catch (err) {

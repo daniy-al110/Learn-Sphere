@@ -160,7 +160,7 @@ export default function Navbar({
               <div className="flex items-center gap-1.5 mt-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
                 <span className="text-[10px] text-pink-500 font-semibold uppercase tracking-wider">
-                  {session.role || "Authenticated"}
+                  {session.role === "admin" ? "SUPER ADMIN" : session.role || "Authenticated"}
                 </span>
               </div>
             </div>

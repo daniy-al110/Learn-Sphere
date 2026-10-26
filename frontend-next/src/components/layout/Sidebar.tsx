@@ -53,11 +53,7 @@ export default function Sidebar({
       ? initialsOf(session.userName)[0]
       : fallbackInitial;
 
-  const isSuperAdmin =
-    session.role === "admin" &&
-    Array.isArray(session.permissions) &&
-    session.permissions.includes("MANAGE_ADMINS") &&
-    session.permissions.includes("MANAGE_ROLES");
+  const isSuperAdmin = session.role === "admin";
 
   const isPlatformSuperAdmin =
     session.role === "admin" &&
@@ -96,9 +92,7 @@ export default function Sidebar({
 
   const roleLabel =
     session.role === "admin"
-      ? isSuperAdmin
-        ? "SUPER ADMIN"
-        : "ADMINISTRATOR"
+      ? "SUPER ADMIN"
       : session.role === "teacher"
         ? "FACULTY INSTRUCTOR"
         : "STUDENT SCHOLAR";
