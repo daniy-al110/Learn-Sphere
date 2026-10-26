@@ -188,8 +188,8 @@ export default function SuperSuperAdminPlatformPage() {
             <ShieldCheck className="w-3.5 h-3.5" />
             Super Super Admin Platform Center
           </div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Platform Overview & Plan Approvals</h1>
-          <p className="text-slate-400 text-sm mt-1">
+          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Platform Overview & Plan Approvals</h1>
+          <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
             Global management portal for KRAD TECH: inspect all classes, view payment screenshots, and approve plan tiers.
           </p>
         </div>

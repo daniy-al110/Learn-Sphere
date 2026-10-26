@@ -1,4 +1,4 @@
-const { registerAdminWorkspace, getAdminWorkspace, addEntityToWorkspace, isPlatformSuperAdmin } = require('../utils/workspaces');
+const { registerAdminWorkspace, resolveWorkspaceCourseIds, isPlatformSuperAdmin } = require('../utils/workspaces');
 const { supabase, db, getAsync, runAsync, allAsync } = require('../config/db');
 const { computeOpenEnrollmentState, getCourseCreditHours, buildChallanNumber, parseChallanRow, validateTeacherIds, syncCourseTeachers, getOpenEnrollmentWindow, requireOpenEnrollmentWindow, getStudentFeeBreakdown, issueFeeChallan } = require('../utils/helpers');
 const bcrypt = require('bcryptjs');
@@ -240,13 +240,10 @@ exports.get_api_admin_teachers = async (req, res) => {
     const isMaster = isPlatformSuperAdmin(reqEmail, null);
     let filteredTeachers = teachersWithCourses;
     if (!isMaster && (reqEmail || reqId)) {
-      const ws = getAdminWorkspace(reqId, reqEmail);
-      if (ws) {
-        filteredTeachers = teachersWithCourses.filter(t => 
-          (Array.isArray(ws.teacher_ids) && ws.teacher_ids.includes(t.teacher_id)) ||
-          (t.assignedCourses && t.assignedCourses.some(ac => ws.course_ids && ws.course_ids.includes(ac.id)))
-        );
-      }
+      const courseIds = await resolveWorkspaceCourseIds(reqId, reqEmail);
+      filteredTeachers = teachersWithCourses.filter(t =>
+        t.assignedCourses && t.assignedCourses.some(ac => courseIds.includes(ac.id || ac.course_id))
+      );
     }
     res.json({ success: true, teachers: filteredTeachers });
   } catch (err) {
@@ -455,7 +452,17 @@ exports.get_api_admin_students = async (req, res) => {
       return { ...student, assigned_courses };
     });
 
-    res.json({ success: true, students: studentsWithCourses });
+    const reqEmail = req.headers['x-user-email'];
+    const reqId = req.headers['x-user-id'];
+    const isMaster = isPlatformSuperAdmin(reqEmail, null);
+    let filteredStudents = studentsWithCourses;
+    if (!isMaster && (reqEmail || reqId)) {
+      const courseIds = await resolveWorkspaceCourseIds(reqId, reqEmail);
+      filteredStudents = studentsWithCourses.filter(s =>
+        s.assigned_courses && s.assigned_courses.some(ac => courseIds.includes(ac.course_id))
+      );
+    }
+    res.json({ success: true, students: filteredStudents });
   } catch (err) {
     console.error("List students error:", err);
     res.status(500).json({ success: false, error: err.message });
@@ -825,13 +832,8 @@ exports.get_api_admin_courses = async (req, res) => {
     const isMaster = isPlatformSuperAdmin(reqEmail, null);
     let filteredCourses = courses;
     if (!isMaster && (reqEmail || reqId)) {
-      const ws = getAdminWorkspace(reqId, reqEmail);
-      if (ws) {
-        filteredCourses = courses.filter(c => 
-          (Array.isArray(ws.course_ids) && ws.course_ids.includes(c.course_id)) ||
-          (c.department && c.department.toLowerCase() === (ws.academy_name || '').toLowerCase())
-        );
-      }
+      const courseIds = await resolveWorkspaceCourseIds(reqId, reqEmail);
+      filteredCourses = courses.filter(c => courseIds.includes(c.course_id));
     }
     res.json({ success: true, courses: filteredCourses });
   } catch (err) {
@@ -1085,7 +1087,15 @@ exports.get_api_admin_enrollments = async (req, res) => {
     // Sort by enrollment_id DESC
     result.sort((x, y) => y.enrollment_id - x.enrollment_id);
 
-    res.json({ success: true, enrollments: result });
+    const reqEmail = req.headers['x-user-email'];
+    const reqId = req.headers['x-user-id'];
+    const isMaster = isPlatformSuperAdmin(reqEmail, null);
+    let filteredEnrollments = result;
+    if (!isMaster && (reqEmail || reqId)) {
+      const courseIds = await resolveWorkspaceCourseIds(reqId, reqEmail);
+      filteredEnrollments = result.filter(e => courseIds.includes(e.course_id));
+    }
+    res.json({ success: true, enrollments: filteredEnrollments });
   } catch (err) {
     console.error("❌ Failed to fetch enrollments:", err);
     res.status(500).json({ success: false, error: err.message });

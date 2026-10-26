@@ -1,5 +1,6 @@
 ﻿const fs = require('fs');
 const path = require('path');
+const { supabase } = require('../config/db');
 
 const WORKSPACE_FILE = path.resolve(__dirname, '../data/workspaces.json');
 
@@ -40,53 +41,71 @@ function registerAdminWorkspace(adminId, adminEmail, academyName, initialCourseI
     course_ids: initialCourseId ? [Number(initialCourseId)] : [],
     teacher_ids: [],
     student_ids: [],
-    section_ids: [],
   };
   saveWorkspaces(ws);
   return ws[key];
 }
 
-function getAdminWorkspace(adminId, adminEmail) {
+async function resolveWorkspaceCourseIds(adminId, adminEmail) {
   const ws = getWorkspaces();
   const idKey = adminId ? String(adminId) : null;
   const emailKey = adminEmail ? String(adminEmail).toLowerCase() : null;
-  if (idKey && ws[idKey]) return ws[idKey];
-  if (emailKey && ws[emailKey]) return ws[emailKey];
-  for (const item of Object.values(ws)) {
-    if ((adminId && Number(item.admin_id) === Number(adminId)) || (emailKey && item.admin_email === emailKey)) {
-      return item;
+  let item = null;
+  if (idKey && ws[idKey]) item = ws[idKey];
+  else if (emailKey && ws[emailKey]) item = ws[emailKey];
+  else {
+    for (const val of Object.values(ws)) {
+      if ((adminId && Number(val.admin_id) === Number(adminId)) || (emailKey && val.admin_email === emailKey)) {
+        item = val;
+        break;
+      }
     }
   }
-  return null;
-}
 
-function addEntityToWorkspace(adminId, adminEmail, entityType, entityId) {
-  const ws = getWorkspaces();
-  let item = getAdminWorkspace(adminId, adminEmail);
-  if (!item) {
-    item = registerAdminWorkspace(adminId, adminEmail, 'My Academy', null);
+  const courseIds = new Set(item && Array.isArray(item.course_ids) ? item.course_ids : []);
+
+  // Also query courses table for matching academy name or department if known
+  try {
+    let academyName = item ? item.academy_name : null;
+    if (!academyName && adminEmail) {
+      // Look up admin in admins table
+      const { data: adminRow } = await supabase
+        .from('admins')
+        .select('name')
+        .eq('email', adminEmail.toLowerCase().trim())
+        .maybeSingle();
+      if (adminRow && adminRow.name) {
+        academyName = adminRow.name;
+      }
+    }
+
+    if (academyName) {
+      const cleanName = academyName.trim();
+      const { data: matchedCourses } = await supabase
+        .from('courses')
+        .select('course_id, description')
+        .ilike('description', `%${cleanName}%`);
+      if (matchedCourses) {
+        matchedCourses.forEach(c => courseIds.add(c.course_id));
+      }
+    }
+  } catch (err) {
+    console.error('Error resolving workspace courses:', err.message);
   }
-  const key = String(item.admin_id || item.admin_email).toLowerCase();
-  const prop = `${entityType}_ids`;
-  if (!Array.isArray(item[prop])) item[prop] = [];
-  const numId = Number(entityId);
-  if (!item[prop].includes(numId)) {
-    item[prop].push(numId);
-  }
-  ws[key] = item;
-  saveWorkspaces(ws);
+
+  return Array.from(courseIds);
 }
 
 function isPlatformSuperAdmin(email, roleId) {
   if (!email && !roleId) return false;
   const clean = (email || '').toLowerCase().trim();
-  return clean === 'kradtech4@gmail.com' || clean === 'admin@kradtech.com' || Number(roleId) === 1;
+  // Role 1 is Platform Super Admin, or specific master emails
+  return clean === 'kradtech4@gmail.com' || clean === 'admin@kradtech.com' || clean === 'admin@learnsphere.com' || Number(roleId) === 1;
 }
 
 module.exports = {
   getWorkspaces,
-  getAdminWorkspace,
   registerAdminWorkspace,
-  addEntityToWorkspace,
+  resolveWorkspaceCourseIds,
   isPlatformSuperAdmin
 };
