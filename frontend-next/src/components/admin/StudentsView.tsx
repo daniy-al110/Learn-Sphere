@@ -11,6 +11,7 @@ import {
 import { addEnrollment, removeEnrollment, removeStudent, saveStudent } from "@/lib/admin/api";
 import type { AdminStudent } from "@/lib/admin/types";
 import { confirmDialog, toast } from "@/lib/toast-store";
+import { getActivePlanConfig } from "@/lib/plans";
 
 interface FormState {
   id: string; // "" => adding
@@ -53,6 +54,18 @@ export default function StudentsView() {
     e.preventDefault();
     if (!form) return;
     const editing = Boolean(form.id);
+
+    if (!editing) {
+      const plan = getActivePlanConfig();
+      if (students.data.length >= plan.maxStudents) {
+        temp.show(
+          `Capacity Reached: Your current plan (${plan.name}) allows a maximum of ${plan.maxStudents} students. Upgrade to increase capacity or email kradtech4@gmail.com.`,
+          true
+        );
+        return;
+      }
+    }
+
     const body = { name: form.name.trim(), personalEmail: form.email.trim().toLowerCase(), degree_program: form.degree_program, department: form.department, ...(editing ? { student_id: Number(form.id) } : {}) };
     setSaving(true);
     try {

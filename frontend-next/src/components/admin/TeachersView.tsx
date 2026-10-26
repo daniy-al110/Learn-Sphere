@@ -11,6 +11,7 @@ import {
 import { assignTeacherCourse, removeTeacher, saveTeacher, unassignTeacherCourse } from "@/lib/admin/api";
 import type { AdminTeacher } from "@/lib/admin/types";
 import { confirmDialog, toast } from "@/lib/toast-store";
+import { getActivePlanConfig } from "@/lib/plans";
 
 interface FormState {
   id: string;
@@ -50,6 +51,18 @@ export default function TeachersView() {
     e.preventDefault();
     if (!form) return;
     const editing = Boolean(form.id);
+
+    if (!editing) {
+      const plan = getActivePlanConfig();
+      if (teachers.data.length >= plan.maxTeachers) {
+        temp.show(
+          `Faculty Seat Limit Reached: Your current plan (${plan.name}) allows a maximum of ${plan.maxTeachers} teacher seats. Please upgrade your plan or email kradtech4@gmail.com.`,
+          true
+        );
+        return;
+      }
+    }
+
     setSaving(true);
     try {
       await saveTeacher({ name: form.name.trim(), personalEmail: form.email.trim().toLowerCase(), degree_program: form.degree_program, department: form.department, ...(editing ? { teacher_id: Number(form.id) } : {}) });

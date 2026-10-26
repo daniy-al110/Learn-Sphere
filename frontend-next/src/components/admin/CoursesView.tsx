@@ -10,6 +10,8 @@ import { removeCourse, saveCourse, type CourseSaveBody } from "@/lib/admin/api";
 import { formatPkDisplay } from "@/lib/student/helpers";
 import type { AdminCourse } from "@/lib/admin/types";
 import { confirmDialog, toast } from "@/lib/toast-store";
+import { getActivePlanConfig } from "@/lib/plans";
+import ShareClassModal from "@/components/courses/ShareClassModal";
 
 const none = null;
 const LINK_BTN = { background: "none", border: "none", padding: 0, display: "inline-block", width: "auto", marginBottom: 0 } as const;
@@ -41,6 +43,7 @@ export default function CoursesView() {
   const [categoryQ, setCategoryQ] = useState("");
   const [degreeQ, setDegreeQ] = useState("");
   const [deptQ, setDeptQ] = useState("");
+  const [sharingCourse, setSharingCourse] = useState<{ id: number; name: string } | null>(null);
 
   const uniqueSections = useMemo(() => {
     const secs = courses.data.map((c) => c.section_name).filter(Boolean) as string[];
@@ -79,6 +82,16 @@ export default function CoursesView() {
     if (!form) return;
     const creditHours = Number(form.credit);
     if (!Number.isFinite(creditHours) || creditHours <= 0) return toast.warning("Credit hours must be a positive number.");
+
+    if (!form.id) {
+      const plan = getActivePlanConfig();
+      if (courses.data.length >= plan.maxCourses) {
+        toast.error(
+          `Batch Limit Reached: Your current plan (${plan.name}) allows a maximum of ${plan.maxCourses} courses/batches. Please upgrade your plan or email kradtech4@gmail.com.`
+        );
+        return;
+      }
+    }
 
     const body: CourseSaveBody = {
       course_name: form.name.trim(), section_name: form.section.trim(), description: form.desc.trim(), credit_hours: creditHours,
@@ -322,6 +335,7 @@ export default function CoursesView() {
                     <td className="px-6 py-4 text-sm text-gray-600">{c.category || "General"}</td>
                     <td className="px-6 py-4 text-sm text-gray-600">{c.teacher_name || "Unassigned"}</td>
                     <td className="px-6 py-4 text-sm space-x-4">
+                      <button onClick={() => setSharingCourse({ id: c.course_id, name: c.course_name })} className="text-pink-600 hover:text-pink-900 font-bold hover:underline cursor-pointer" style={LINK_BTN}>🔗 Share</button>
                       <button onClick={() => edit(c)} className="text-blue-600 hover:text-blue-900 font-bold hover:underline cursor-pointer" style={LINK_BTN}>Edit</button>
                       <button onClick={() => remove(c.course_id)} className="text-red-600 hover:text-red-900 font-bold hover:underline cursor-pointer" style={LINK_BTN}>🗑️ Remove</button>
                     </td>
@@ -332,6 +346,14 @@ export default function CoursesView() {
           </tbody>
         </table>
       </div>
+
+      {sharingCourse && (
+        <ShareClassModal
+          courseId={sharingCourse.id}
+          courseName={sharingCourse.name}
+          onClose={() => setSharingCourse(null)}
+        />
+      )}
     </div>
   );
 }

@@ -1,0 +1,19 @@
+[
+  {
+    "id": "REQ-1793046224941",
+    "academy_name": "Apex Coaching Academy",
+    "contact_name": "Prof. Asad Khan",
+    "contact_email": "asad@apexacademy.edu.pk",
+    "phone": "+92 300 1234567",
+    "requested_tier": "tuition",
+    "billing_cycle": "monthly",
+    "amount_pkr": 1999,
+    "transaction_id": "RAAST-892374619",
+    "status": "rejected",
+    "submitted_at": "2026-10-26T19:23:44.941Z",
+    "screenshot_url": "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=600&q=80",
+    "notes": "Meezan bank mobile app transfer completed for Tuition Center tier.",
+    "rejected_at": "2026-10-26T20:53:55.904Z",
+    "rejection_reason": "Receipt could not be verified with bank."
+  }
+]

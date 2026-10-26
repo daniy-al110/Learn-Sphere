@@ -30,33 +30,6 @@ interface UltraAuthCardProps {
   onSuccess?: () => void;
 }
 
-const DEMO_ACCOUNTS = {
-  admin: {
-    role: "admin",
-    label: "Super Admin",
-    email: "daniyal@learnsphere.com",
-    password: "Xyz@1234",
-    badge: "Full Access",
-    color: "from-pink-500 to-rose-600",
-  },
-  teacher: {
-    role: "teacher",
-    label: "Faculty",
-    email: "bilal846@lms.edu",
-    password: "g8tiwbhs",
-    badge: "Course & Grades",
-    color: "from-indigo-500 to-purple-600",
-  },
-  student: {
-    role: "student",
-    label: "Student",
-    email: "khalid600@student.lms.edu",
-    password: "Xyz@1234",
-    badge: "Classroom & Quizzes",
-    color: "from-cyan-500 to-blue-600",
-  },
-} as const;
-
 export default function UltraAuthCard({
   embedded = false,
   initialRole = "admin",
@@ -77,15 +50,6 @@ export default function UltraAuthCard({
   const [lmsEmail, setLmsEmail] = useState("");
   const [personalEmail, setPersonalEmail] = useState("");
   const [forgotLoading, setForgotLoading] = useState(false);
-
-  function applyDemo(role: "student" | "teacher" | "admin") {
-    setSelectedRole(role);
-    const demo = DEMO_ACCOUNTS[role];
-    setEmail(demo.email);
-    setPassword(demo.password);
-    setStatusMessage(null);
-    toast.info(`Loaded ${demo.label} demo credentials (${demo.email})`);
-  }
 
   async function handleLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -243,73 +207,6 @@ export default function UltraAuthCard({
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
           )}
           <span className="leading-relaxed">{statusMessage.text}</span>
-        </div>
-      )}
-
-      {/* Quick Demo Credential Selectors */}
-      {view === "login" && (
-        <div className="mb-6 space-y-3">
-          {/* Super Admin Credentials Banner */}
-          <div className="p-3 rounded-2xl bg-gradient-to-r from-pink-500/15 via-rose-500/10 to-indigo-500/15 border border-pink-500/30 flex items-center justify-between text-xs shadow-md">
-            <div className="flex items-center gap-2.5 min-w-0">
-              <div className="w-7 h-7 rounded-lg bg-pink-500 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
-                🛡️
-              </div>
-              <div className="truncate">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-white text-[11px] tracking-wide">
-                    SUPER ADMIN:
-                  </span>
-                  <span className="text-pink-300 font-mono text-[11px] font-bold">
-                    daniyal@learnsphere.com
-                  </span>
-                </div>
-                <div className="text-[10px] text-slate-300 font-mono mt-0.5">
-                  Password: <span className="text-white font-bold">Xyz@1234</span>
-                </div>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => applyDemo("admin")}
-              className="px-2.5 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-[10px] shrink-0 cursor-pointer transition-all shadow-sm active:scale-95"
-            >
-              Fill Credentials
-            </button>
-          </div>
-
-          <div className="flex items-center justify-between text-xs text-slate-400 mb-1 font-medium">
-            <span className="flex items-center gap-1.5">
-              <UserCheck className="w-3.5 h-3.5 text-slate-400" />
-              Role Presets:
-            </span>
-            <span className="text-[11px] text-pink-400/90 font-mono">1-Click Switch</span>
-          </div>
-
-          <div className="grid grid-cols-3 gap-2">
-            {(["admin", "teacher", "student"] as const).map((r) => {
-              const info = DEMO_ACCOUNTS[r];
-              const isCurrent = selectedRole === r;
-              return (
-                <button
-                  key={r}
-                  type="button"
-                  onClick={() => applyDemo(r)}
-                  className={`relative p-2 rounded-xl text-left border transition-all duration-200 cursor-pointer ${
-                    isCurrent
-                      ? "bg-white/10 border-pink-500/50 shadow-[0_0_15px_rgba(233,69,96,0.25)] text-white"
-                      : "bg-slate-800/60 border-white/5 hover:border-white/20 text-slate-300 hover:text-white"
-                  }`}
-                >
-                  <div className="text-[11px] font-bold truncate flex items-center justify-between">
-                    {info.label}
-                    {isCurrent && <span className="w-1.5 h-1.5 rounded-full bg-pink-400" />}
-                  </div>
-                  <div className="text-[9px] text-slate-400 truncate mt-0.5">{info.badge}</div>
-                </button>
-              );
-            })}
-          </div>
         </div>
       )}
 

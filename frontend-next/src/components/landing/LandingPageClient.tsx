@@ -6,9 +6,11 @@ import UltraAuthCard from "../auth/UltraAuthCard";
 import RoleShowcase from "./RoleShowcase";
 import FeatureGrid from "./FeatureGrid";
 import CoursePreview from "./CoursePreview";
+import PricingSection from "./PricingSection";
 import StatsAndTestimonials from "./StatsAndTestimonials";
 import FaqAccordion from "./FaqAccordion";
 import LandingFooter from "./LandingFooter";
+import QuickStartClassModal from "./QuickStartClassModal";
 import {
   Sparkles,
   ShieldCheck,
@@ -23,6 +25,7 @@ import {
 
 export default function LandingPageClient() {
   const [selectedDemoRole, setSelectedDemoRole] = useState<"student" | "teacher" | "admin">("admin");
+  const [showQuickClassModal, setShowQuickClassModal] = useState(false);
 
   const handleRoleSelect = (role: "student" | "teacher" | "admin") => {
     setSelectedDemoRole(role);
@@ -61,7 +64,7 @@ export default function LandingPageClient() {
       </div>
 
       {/* Sticky frosted Navbar */}
-      <LandingNavbar />
+      <LandingNavbar onStartClass={() => setShowQuickClassModal(true)} />
 
       <main>
         {/* HERO SECTION */}
@@ -94,7 +97,7 @@ export default function LandingPageClient() {
 
                 {/* Subtitle */}
                 <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                  The unified, high-performance learning operating system connecting students, professors, and university leadership in real time. Experience automated GPA calculations, instantaneous WebRTC virtual lecture halls, and cloud-backed institutional security.
+                  The unified, high-performance learning operating system connecting students, professors, and university leadership in real time. Launch your virtual class in 30 seconds with automated GPA calculations, instantaneous WebRTC virtual lecture halls, and cloud-backed institutional security.
                 </p>
 
                 {/* Feature Value Highlights */}
@@ -118,9 +121,9 @@ export default function LandingPageClient() {
                   <div className="p-3 rounded-2xl bg-slate-900/60 border border-white/5 backdrop-blur-sm col-span-2 sm:col-span-1">
                     <div className="flex items-center gap-2 text-xs font-bold text-emerald-400">
                       <Database className="w-4 h-4" />
-                      <span>Supabase Core</span>
+                      <span>High-Entropy Links</span>
                     </div>
-                    <div className="text-[11px] text-slate-400 mt-1">PostgreSQL Cloud Sync</div>
+                    <div className="text-[11px] text-slate-400 mt-1">Anti-Brute-Force Protected</div>
                   </div>
                 </div>
 
@@ -128,19 +131,20 @@ export default function LandingPageClient() {
                 <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
                   <button
                     type="button"
-                    onClick={scrollToAuth}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-600 shadow-[0_10px_35px_rgba(233,69,96,0.4)] hover:shadow-[0_12px_45px_rgba(233,69,96,0.6)] transition-all cursor-pointer active:scale-95"
+                    onClick={() => setShowQuickClassModal(true)}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-600 shadow-[0_10px_35px_rgba(233,69,96,0.4)] hover:shadow-[0_12px_45px_rgba(233,69,96,0.6)] transition-all cursor-pointer active:scale-95"
                   >
-                    <span>Log In to Your Workspace</span>
+                    <Sparkles className="w-5 h-5 text-pink-200" />
+                    <span>Start Free • Create Your Class</span>
                     <ArrowRight className="w-5 h-5" />
                   </button>
 
                   <button
                     type="button"
-                    onClick={scrollToRoles}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-2xl font-bold text-sm text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-white/10 transition-all cursor-pointer"
+                    onClick={scrollToAuth}
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-2xl font-bold text-sm text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-white/10 transition-all cursor-pointer"
                   >
-                    <span>Explore Role Portals</span>
+                    <span>Log In to Workspace</span>
                   </button>
                 </div>
 
@@ -183,6 +187,9 @@ export default function LandingPageClient() {
         {/* SECTION: Active Academic Curriculum */}
         <CoursePreview onPromptLogin={scrollToAuth} />
 
+        {/* SECTION: Transparent Academy Pricing */}
+        <PricingSection onSelectFreePlan={() => setShowQuickClassModal(true)} />
+
         {/* SECTION: Metrics & Testimonials */}
         <StatsAndTestimonials />
 
@@ -206,10 +213,11 @@ export default function LandingPageClient() {
               <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
                   type="button"
-                  onClick={scrollToAuth}
+                  onClick={() => setShowQuickClassModal(true)}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-600 shadow-[0_10px_35px_rgba(233,69,96,0.5)] transition-all cursor-pointer active:scale-95"
                 >
-                  <span>Sign In to Access Your Portal</span>
+                  <Sparkles className="w-5 h-5 text-pink-200" />
+                  <span>Start Free • Create Your Class</span>
                   <ArrowRight className="w-5 h-5" />
                 </button>
               </div>
@@ -228,6 +236,11 @@ export default function LandingPageClient() {
           </div>
         </section>
       </main>
+
+      {/* Quick Start Class Modal */}
+      {showQuickClassModal && (
+        <QuickStartClassModal onClose={() => setShowQuickClassModal(false)} />
+      )}
 
       {/* Modern Footer */}
       <LandingFooter />

@@ -61,7 +61,7 @@ export default function LandingFooter() {
             </ul>
           </div>
 
-          {/* Institutional Security */}
+          {/* Institutional Security & KRAD TECH Support */}
           <div>
             <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-4">
               Governance & Support
@@ -73,24 +73,44 @@ export default function LandingFooter() {
               </li>
               <li>Automated SMTP Reset</li>
               <li>WebRTC Jitsi Telepresence</li>
-              <li>Contact: support@learnsphere.com</li>
+              <li className="pt-1">
+                <span className="text-[11px] text-slate-500 block uppercase font-bold tracking-wider">Official Inquiries & Support</span>
+                <a
+                  href="mailto:kradtech4@gmail.com"
+                  className="text-pink-400 hover:text-pink-300 font-semibold transition-colors flex items-center gap-1.5 mt-0.5"
+                >
+                  <span>kradtech4@gmail.com</span>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-          <div>
-            © {new Date().getFullYear()} LearnSphere LMS. All rights reserved. Built for higher education institutions.
+        {/* Bottom Bar: KRAD TECH Signature */}
+        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs">
+          <div className="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+            <span>© {new Date().getFullYear()} LearnSphere LMS. All rights reserved.</span>
+            <span className="hidden sm:inline text-slate-600">•</span>
+            <span className="inline-flex items-center gap-1.5 text-slate-300">
+              A Product of <strong className="text-white font-black tracking-wide bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">KRAD TECH</strong>
+            </span>
           </div>
-          <button
-            type="button"
-            onClick={scrollToTop}
-            className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer"
-          >
-            <span>Back to Top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-6">
+            <a
+              href="mailto:kradtech4@gmail.com"
+              className="text-slate-400 hover:text-white transition-colors"
+            >
+              Contact Support: kradtech4@gmail.com
+            </a>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              className="flex items-center gap-1.5 text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <span>Back to Top</span>
+              <ArrowUp className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
     </footer>

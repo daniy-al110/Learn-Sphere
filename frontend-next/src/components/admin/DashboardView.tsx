@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/layout/icons";
 import { useAdminData } from "./AdminDataProvider";
@@ -17,9 +18,191 @@ import {
   ShieldAlert,
   Database,
   Activity,
+  CreditCard,
+  Building2,
+  CheckCircle2,
+  AlertTriangle,
 } from "lucide-react";
+import {
+  getActivePlanConfig,
+  getActivePlanTier,
+  setActivePlanTier,
+  ACADEMY_PLANS,
+  type PlanTier,
+} from "@/lib/plans";
 
 const none = null;
+
+function AcademyPlanStatusCard({
+  studentCount,
+  teacherCount,
+  courseCount,
+}: {
+  studentCount: number;
+  teacherCount: number;
+  courseCount: number;
+}) {
+  const [currentTier, setCurrentTier] = useState<PlanTier>("tuition");
+
+  useEffect(() => {
+    setCurrentTier(getActivePlanTier());
+    const onPlanChange = () => setCurrentTier(getActivePlanTier());
+    window.addEventListener("academy-plan-changed", onPlanChange);
+    return () => window.removeEventListener("academy-plan-changed", onPlanChange);
+  }, []);
+
+  const plan = ACADEMY_PLANS[currentTier];
+  const studentPct = Math.min(100, Math.round((studentCount / plan.maxStudents) * 100));
+  const teacherPct = Math.min(100, Math.round((teacherCount / plan.maxTeachers) * 100));
+  const maxCourseDisplay = plan.maxCourses > 500 ? "Unlimited" : plan.maxCourses;
+  const coursePct =
+    plan.maxCourses > 500
+      ? 15
+      : Math.min(100, Math.round((courseCount / plan.maxCourses) * 100));
+
+  return (
+    <div className="rounded-3xl bg-slate-900/90 border border-pink-500/30 p-6 sm:p-7 backdrop-blur-xl shadow-xl space-y-5">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-pink-500/20 border border-pink-500/30 flex items-center justify-center text-pink-400">
+            <CreditCard className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-lg font-black text-white">{plan.name}</h3>
+              <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 uppercase">
+                {plan.badge}
+              </span>
+            </div>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Active Billing:{" "}
+              <strong className="text-white font-bold">
+                {plan.priceMonthly === 0 ? "Free (Rs. 0)" : `Rs. ${plan.priceMonthly.toLocaleString()}/month`}
+              </strong>{" "}
+              • Managed by KRAD TECH
+            </p>
+          </div>
+        </div>
+
+        {/* Plan Switcher / Tester */}
+        <div className="flex items-center gap-2.5">
+          <label className="text-xs text-slate-400 font-semibold">Current Tier:</label>
+          <select
+            value={currentTier}
+            onChange={(e) => setActivePlanTier(e.target.value as PlanTier)}
+            className="text-xs font-bold rounded-xl bg-slate-800 border border-white/15 px-3 py-2 text-white focus:outline-none focus:border-pink-500 cursor-pointer"
+          >
+            <option value="free">Free Starter (10 Students • Rs. 0)</option>
+            <option value="tuition">Tuition Center (40 Students • Rs. 1,999/mo)</option>
+            <option value="academy">Academy Pro (150 Students • Rs. 4,499/mo)</option>
+          </select>
+          <Link
+            href="/admin/plan"
+            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-pink-400 hover:text-white bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 transition-all cursor-pointer"
+          >
+            <span>Upgrade Plan (10+)</span>
+            <ArrowRight className="w-3 h-3" />
+          </Link>
+          <Link
+            href="/admin/platform"
+            className="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-white/10 transition-all cursor-pointer"
+          >
+            <span>Platform Center</span>
+          </Link>
+        </div>
+      </div>
+
+      {/* Quota Progress Trackers */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {/* Student Capacity */}
+        <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-slate-400 flex items-center gap-1.5">
+              <Users className="w-3.5 h-3.5 text-pink-400" /> Student Capacity
+            </span>
+            <span className="font-bold text-white">
+              {studentCount} / {plan.maxStudents}
+            </span>
+          </div>
+          <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-500 ${
+                studentPct >= 100
+                  ? "bg-rose-500"
+                  : studentPct >= 80
+                  ? "bg-amber-400"
+                  : "bg-gradient-to-r from-pink-500 to-rose-500"
+              }`}
+              style={{ width: `${studentPct}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-[11px] text-slate-500">
+            <span>{studentPct}% utilized</span>
+            {studentCount >= plan.maxStudents && (
+              <span className="text-rose-400 font-bold flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3" /> Plan limit reached
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Teacher Seats */}
+        <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-slate-400 flex items-center gap-1.5">
+              <UserCheck className="w-3.5 h-3.5 text-emerald-400" /> Tutor Seats
+            </span>
+            <span className="font-bold text-white">
+              {teacherCount} / {plan.maxTeachers}
+            </span>
+          </div>
+          <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+            <div
+              className={`h-full rounded-full transition-all duration-500 ${
+                teacherPct >= 100 ? "bg-rose-500" : "bg-gradient-to-r from-emerald-500 to-teal-500"
+              }`}
+              style={{ width: `${teacherPct}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-[11px] text-slate-500">
+            <span>{teacherPct}% utilized</span>
+            {teacherCount >= plan.maxTeachers && (
+              <span className="text-rose-400 font-bold flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3" /> Seat full
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Course / Batch Limit */}
+        <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/5 space-y-2">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-slate-400 flex items-center gap-1.5">
+              <BookOpen className="w-3.5 h-3.5 text-indigo-400" /> Active Batches
+            </span>
+            <span className="font-bold text-white">
+              {courseCount} / {maxCourseDisplay}
+            </span>
+          </div>
+          <div className="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+            <div
+              className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-500"
+              style={{ width: `${coursePct}%` }}
+            />
+          </div>
+          <div className="flex justify-between text-[11px] text-slate-500">
+            <span>{plan.maxCourses > 500 ? "Unlimited courses" : `${coursePct}% utilized`}</span>
+            {courseCount >= plan.maxCourses && plan.maxCourses <= 500 && (
+              <span className="text-rose-400 font-bold flex items-center gap-1">
+                <AlertTriangle className="w-3 h-3" /> Max batches
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function StatCard(props: {
   href: string;
@@ -101,6 +284,13 @@ export default function DashboardView() {
           </div>
         </div>
       </div>
+
+      {/* Academy Subscription Plan & Capacity Widget */}
+      <AcademyPlanStatusCard
+        studentCount={students.data.length}
+        teacherCount={teachers.data.length}
+        courseCount={courses.data.length}
+      />
 
       {/* 4 Stat Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">

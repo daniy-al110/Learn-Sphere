@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { GraduationCap, ArrowRight, Menu, X, Sparkles, Shield, User } from "lucide-react";
 
-export default function LandingNavbar() {
+interface LandingNavbarProps {
+  onStartClass?: () => void;
+}
+
+export default function LandingNavbar({ onStartClass }: LandingNavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -79,6 +83,13 @@ export default function LandingNavbar() {
             </button>
             <button
               type="button"
+              onClick={() => scrollToSection("pricing")}
+              className="text-sm font-medium text-slate-300 hover:text-pink-400 transition-colors cursor-pointer"
+            >
+              Pricing
+            </button>
+            <button
+              type="button"
               onClick={() => scrollToSection("metrics")}
               className="text-sm font-medium text-slate-300 hover:text-white transition-colors cursor-pointer"
             >
@@ -95,6 +106,16 @@ export default function LandingNavbar() {
 
           {/* Right Action Buttons */}
           <div className="hidden sm:flex items-center gap-3">
+            {onStartClass && (
+              <button
+                type="button"
+                onClick={onStartClass}
+                className="relative inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-pink-300 hover:text-white bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 transition-all cursor-pointer"
+              >
+                <Sparkles className="w-4 h-4 text-pink-400" />
+                <span>Create Class Free</span>
+              </button>
+            )}
             <button
               type="button"
               onClick={() => scrollToSection("auth-section")}
@@ -146,6 +167,13 @@ export default function LandingNavbar() {
           </button>
           <button
             type="button"
+            onClick={() => scrollToSection("pricing")}
+            className="block w-full text-left py-2 text-base font-medium text-slate-300 hover:text-white"
+          >
+            Pricing
+          </button>
+          <button
+            type="button"
             onClick={() => scrollToSection("metrics")}
             className="block w-full text-left py-2 text-base font-medium text-slate-300 hover:text-white"
           >
@@ -158,7 +186,20 @@ export default function LandingNavbar() {
           >
             FAQ
           </button>
-          <div className="pt-2">
+          <div className="pt-2 space-y-2">
+            {onStartClass && (
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onStartClass();
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold text-pink-300 bg-pink-500/10 border border-pink-500/30 shadow-md"
+              >
+                <Sparkles className="w-4 h-4 text-pink-400" />
+                <span>Create Class Free</span>
+              </button>
+            )}
             <button
               type="button"
               onClick={() => scrollToSection("auth-section")}

@@ -3,14 +3,71 @@ const { computeOpenEnrollmentState, getCourseCreditHours, buildChallanNumber, pa
 const bcrypt = require('bcryptjs');
 const emailService = require('../../emailService');
 
-exports.post_api_admin_signup = (req, res) => {
+exports.post_api_admin_signup = async (req, res) => {
+  const { name, email, password, academy_name, first_class_name } = req.body;
+  if (!name || !email || !password) {
+    return res.status(400).json({ success: false, error: "Name, email, and password are required" });
+  }
 
-  res.status(403).json({ success: false, error: "Signup is disabled" });
+  try {
+    const cleanEmail = email.toLowerCase().trim();
+    // Check if admin already exists
+    const { data: existing } = await supabase
+      .from('admins')
+      .select('admin_id')
+      .eq('email', cleanEmail)
+      .maybeSingle();
 
+    if (existing) {
+      return res.status(409).json({ success: false, error: "An admin account with this email already exists" });
+    }
+
+    const hashed = await bcrypt.hash(password, 10);
+    // Role 2 is regular Academy Admin (Role 1 is Super Super Admin)
+    const { data: newAdmin, error: adminErr } = await supabase
+      .from('admins')
+      .insert([{ name: name.trim(), email: cleanEmail, password: hashed, role_id: 2 }])
+      .select('admin_id, name, email, role_id')
+      .single();
+
+    if (adminErr) throw adminErr;
+
+    let createdCourseId = null;
+    if (first_class_name && first_class_name.trim()) {
+      const courseTitle = first_class_name.trim();
+      const { data: newCourse, error: cErr } = await supabase
+        .from('courses')
+        .insert([{
+          course_name: courseTitle,
+          description: `Academic batch for ${courseTitle} at ${academy_name || 'Academy'}.`,
+          credit_hours: 3,
+          status: 'Published',
+          category: 'General'
+        }])
+        .select('course_id')
+        .single();
+
+      if (!cErr && newCourse) {
+        createdCourseId = newCourse.course_id;
+      }
+    }
+
+    res.json({
+      success: true,
+      admin: {
+        ...newAdmin,
+        is_super_admin: false,
+        academy_name: academy_name || name + "'s Academy"
+      },
+      course_id: createdCourseId
+    });
+  } catch (err) {
+    console.error("Admin signup error:", err.message);
+    res.status(500).json({ success: false, error: err.message });
+  }
 };
 
 exports.post_api_admin_login = async (req, res) => {
-
   const { email, password } = req.body;
   if (!email || !password)
     return res.status(400).json({ success: false, error: "Missing fields" });
@@ -19,7 +76,7 @@ exports.post_api_admin_login = async (req, res) => {
     const { data: admin, error } = await supabase
       .from('admins')
       .select('*')
-      .eq('email', email)
+      .eq('email', email.toLowerCase().trim())
       .single();
 
     if (error && error.code !== 'PGRST116') throw error;
@@ -28,13 +85,21 @@ exports.post_api_admin_login = async (req, res) => {
     const ok = await bcrypt.compare(password, admin.password);
     if (!ok) return res.status(401).json({ success: false, error: "Invalid credentials" });
 
+    // Identify if this is the single Super Super Admin (daniyal@learnsphere.com or role_id 1)
+    const isSuperAdmin = admin.email.toLowerCase() === 'daniyal@learnsphere.com' || admin.role_id === 1;
+
     delete admin.password;
-    res.json({ success: true, admin });
+    res.json({
+      success: true,
+      admin: {
+        ...admin,
+        is_super_admin: isSuperAdmin
+      }
+    });
   } catch (err) {
     console.error("Admin login error:", err.message);
     res.status(500).json({ success: false, error: err.message });
   }
-
 };
 
 exports.post_api_admin_add_teacher = async (req, res) => {
@@ -505,18 +570,20 @@ exports.post_api_admin_add_course = async (req, res) => {
     if (req.body.prerequisite_course_id) {
       prereqId = Number(req.body.prerequisite_course_id) || null;
     }
+    const firstCoursePayload = {
+      course_name,
+      description,
+      credit_hours: parsedCreditHours,
+      status: status || 'Draft',
+      category: category || 'General',
+      section_name: firstOff.section_name || null,
+      teacher_id: firstTeachers[0] || null
+    };
+    if (prereqId) firstCoursePayload.prerequisite_course_id = prereqId;
+
     const { data: firstCourse, error: firstErr } = await supabase
       .from('courses')
-      .insert([{
-        course_name,
-        description,
-        credit_hours: parsedCreditHours,
-        status: status || 'Draft',
-        category: category || 'General',
-        section_name: firstOff.section_name || null,
-        teacher_id: firstTeachers[0] || null,
-        prerequisite_course_id: prereqId
-      }])
+      .insert([firstCoursePayload])
       .select('course_id')
       .single();
 
@@ -530,19 +597,21 @@ exports.post_api_admin_add_course = async (req, res) => {
     for (let i = 1; i < finalOfferings.length; i++) {
       const off = finalOfferings[i];
       const offTeachers = await validateTeacherIds(off.teacher_ids || []);
+      const childPayload = {
+        course_name,
+        description,
+        credit_hours: parsedCreditHours,
+        status: status || 'Draft',
+        category: category || 'General',
+        section_name: off.section_name || null,
+        teacher_id: offTeachers[0] || null,
+        parent_course_id: parentId
+      };
+      if (prereqId) childPayload.prerequisite_course_id = prereqId;
+
       const { data: childCourse, error: childErr } = await supabase
         .from('courses')
-        .insert([{
-          course_name,
-          description,
-          credit_hours: parsedCreditHours,
-          status: status || 'Draft',
-          category: category || 'General',
-          section_name: off.section_name || null,
-          teacher_id: offTeachers[0] || null,
-          parent_course_id: parentId,
-          prerequisite_course_id: prereqId
-        }])
+        .insert([childPayload])
         .select('course_id')
         .single();
       
