@@ -12,19 +12,20 @@ export const viewport: Viewport = {
   themeColor: "#030712",
   width: "device-width",
   initialScale: 1,
+  colorScheme: "dark",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "LearnSphere LMS — Intelligent Academic Cloud Platform",
+    default: "LearnSphere LMS | Intelligent Academic Cloud Platform",
     template: "%s | LearnSphere LMS",
   },
   description:
-    "LearnSphere is a modern Learning Management System for universities, academies, and online educators featuring automated grading, WebRTC virtual classrooms, and cloud persistence.",
+    "LearnSphere is an enterprise-grade Learning Management System for universities, academies, and private coaching centers featuring automated grading, real-time WebRTC virtual classrooms, and cloud persistence.",
   keywords: [
     "Learning Management System",
-    "LMS",
+    "LMS software",
     "Online Education Platform",
     "Virtual Classroom WebRTC",
     "Student Information System",
@@ -34,11 +35,17 @@ export const metadata: Metadata = {
     "Online Course Curriculum",
     "Supabase LMS",
     "Next.js LMS",
+    "Tuition Center Management",
+    "Real-time Student Ledger",
+    "Automated GPA Calculator",
+    "Role Based Access Control LMS",
   ],
-  authors: [{ name: "LearnSphere Academic Team" }],
+  authors: [{ name: "LearnSphere Academic Team", url: siteUrl }],
   creator: "LearnSphere",
-  publisher: "LearnSphere",
+  publisher: "LearnSphere and KRAD TECH",
   applicationName: "LearnSphere LMS",
+  category: "education",
+  classification: "Educational Technology and Learning Management Systems",
   alternates: {
     canonical: "/",
   },
@@ -47,24 +54,25 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "LearnSphere LMS",
-    title: "LearnSphere LMS — Intelligent Academic Cloud Platform",
+    title: "LearnSphere LMS | Intelligent Academic Cloud Platform",
     description:
-      "Modern Learning Management System with automated grading, real-time WebRTC virtual classrooms, and cloud persistence.",
+      "Enterprise-grade Learning Management System with automated grading, real-time WebRTC virtual classrooms, and cloud persistence for modern institutions.",
     images: [
       {
-        url: "/favicon.ico",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "LearnSphere Academic Cloud Platform",
+        alt: "LearnSphere LMS - Intelligent Academic Cloud Platform",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "LearnSphere LMS — Intelligent Academic Cloud Platform",
+    title: "LearnSphere LMS | Intelligent Academic Cloud Platform",
     description:
       "Modern Learning Management System with automated grading, real-time WebRTC virtual classrooms, and cloud persistence.",
     creator: "@learnsphere",
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -77,9 +85,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  icons: {
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
+  },
 };
 
-// Server Component: static shell only. Interactive globals are client components below.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning style={{ zoom: "0.9" } as React.CSSProperties}>
@@ -94,4 +106,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     </html>
   );
 }
-

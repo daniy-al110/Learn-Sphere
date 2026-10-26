@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/login"],
+        allow: ["/", "/login", "/join"],
         disallow: [
           "/admin",
           "/admin/*",
@@ -22,7 +22,7 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: "Googlebot",
-        allow: ["/", "/login"],
+        allow: ["/", "/login", "/join"],
         disallow: [
           "/admin",
           "/admin/*",

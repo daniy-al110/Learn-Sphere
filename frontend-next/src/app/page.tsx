@@ -2,19 +2,12 @@ import type { Metadata } from "next";
 import LandingPageClient from "@/components/landing/LandingPageClient";
 
 export const metadata: Metadata = {
-  title: "LearnSphere LMS — Intelligent Academic Cloud Platform",
+  title: "LearnSphere LMS | Intelligent Academic Cloud Platform",
   description:
-    "LearnSphere is a next-generation Learning Management System for Students, Faculty, and University Administrators featuring automated grading, real-time WebRTC virtual classrooms, and cloud persistence.",
-  keywords: [
-    "Learning Management System",
-    "LMS",
-    "Online Education",
-    "Academic Portal",
-    "University Portal",
-    "Student Dashboard",
-    "Teacher Dashboard",
-    "Supabase LMS",
-  ],
+    "LearnSphere is the intelligent Operating System for modern academies, universities, and coaching centers. Featuring automated grading ledgers, WebRTC video classrooms, token-based enrollment, and cloud course tracking.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function Home() {

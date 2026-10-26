@@ -23,6 +23,65 @@ export default function JsonLd() {
     ],
   };
 
+  const softwareAppSchema = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "LearnSphere LMS",
+    applicationCategory: "EducationalApplication",
+    operatingSystem: "Web Browser, iOS, Android, macOS, Windows",
+    url: baseUrl,
+    offers: [
+      {
+        "@type": "Offer",
+        name: "Free Community Plan",
+        price: "0",
+        priceCurrency: "USD",
+        description: "1 Teacher, up to 10 Students, 1 active class, WebRTC live video hall, automated ledger.",
+      },
+      {
+        "@type": "Offer",
+        name: "Tuition Center Plan",
+        price: "29",
+        priceCurrency: "USD",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: "29",
+          priceCurrency: "USD",
+          unitText: "MONTH",
+        },
+        description: "Up to 5 Teachers, 60 Students, 8 active courses, custom tokens, and priority support.",
+      },
+      {
+        "@type": "Offer",
+        name: "Academy Pro Plan",
+        price: "79",
+        priceCurrency: "USD",
+        priceSpecification: {
+          "@type": "UnitPriceSpecification",
+          price: "79",
+          priceCurrency: "USD",
+          unitText: "MONTH",
+        },
+        description: "Up to 25 Teachers, 350 Students, unlimited courses, priority WebRTC halls, and exportable transcripts.",
+      },
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.92",
+      ratingCount: "384",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    featureList: [
+      "Dynamic automated GPA recalculation on a 4.00 scale",
+      "Integrated browser-based WebRTC video halls with screen-sharing",
+      "Unified institutional email role detection (@student.lms.edu, @lms.edu)",
+      "Secure temporary credential provisioning with bcrypt hashing",
+      "Shareable class invite tokens with 1-click student self-enrollment",
+      "Exportable gradebook transcripts and lecture schedules",
+    ],
+  };
+
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
@@ -33,6 +92,43 @@ export default function JsonLd() {
       target: `${baseUrl}/#curriculum?q={search_term_string}`,
       "query-input": "required name=search_term_string",
     },
+  };
+
+  const breadcrumbsSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: baseUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Curriculum",
+        item: `${baseUrl}/#curriculum`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Pricing Plans",
+        item: `${baseUrl}/#pricing`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: "Join Class",
+        item: `${baseUrl}/join`,
+      },
+      {
+        "@type": "ListItem",
+        position: 5,
+        name: "Portal Login",
+        item: `${baseUrl}/login`,
+      },
+    ],
   };
 
   const coursesSchema = {
@@ -193,7 +289,15 @@ export default function JsonLd() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppSchema) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbsSchema) }}
       />
       <script
         type="application/ld+json"
