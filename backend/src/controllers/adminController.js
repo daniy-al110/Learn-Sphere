@@ -1,3 +1,4 @@
+const { registerAdminWorkspace, getAdminWorkspace, addEntityToWorkspace, isPlatformSuperAdmin } = require('../utils/workspaces');
 const { supabase, db, getAsync, runAsync, allAsync } = require('../config/db');
 const { computeOpenEnrollmentState, getCourseCreditHours, buildChallanNumber, parseChallanRow, validateTeacherIds, syncCourseTeachers, getOpenEnrollmentWindow, requireOpenEnrollmentWindow, getStudentFeeBreakdown, issueFeeChallan } = require('../utils/helpers');
 const bcrypt = require('bcryptjs');
@@ -51,6 +52,13 @@ exports.post_api_admin_signup = async (req, res) => {
         createdCourseId = newCourse.course_id;
       }
     }
+
+    registerAdminWorkspace(
+      newAdmin.admin_id,
+      newAdmin.email,
+      academy_name || name + "'s Academy",
+      createdCourseId
+    );
 
     res.json({
       success: true,
@@ -227,7 +235,20 @@ exports.get_api_admin_teachers = async (req, res) => {
         }))
     }));
 
-    res.json({ success: true, teachers: teachersWithCourses });
+    const reqEmail = req.headers['x-user-email'];
+    const reqId = req.headers['x-user-id'];
+    const isMaster = isPlatformSuperAdmin(reqEmail, null);
+    let filteredTeachers = teachersWithCourses;
+    if (!isMaster && (reqEmail || reqId)) {
+      const ws = getAdminWorkspace(reqId, reqEmail);
+      if (ws) {
+        filteredTeachers = teachersWithCourses.filter(t => 
+          (Array.isArray(ws.teacher_ids) && ws.teacher_ids.includes(t.teacher_id)) ||
+          (t.assignedCourses && t.assignedCourses.some(ac => ws.course_ids && ws.course_ids.includes(ac.id)))
+        );
+      }
+    }
+    res.json({ success: true, teachers: filteredTeachers });
   } catch (err) {
     console.error("List teachers error:", err);
     res.status(500).json({ success: false, error: err.message });
@@ -620,6 +641,11 @@ exports.post_api_admin_add_course = async (req, res) => {
       if (offTeachers.length > 0) await syncCourseTeachers(childCourse.course_id, offTeachers);
     }
 
+    const adminEmail = req.headers['x-user-email'] || req.body.admin_email;
+    const adminId = req.headers['x-user-id'] || req.body.admin_id;
+    if (adminEmail || adminId) {
+      insertedIds.forEach(id => addEntityToWorkspace(adminId, adminEmail, 'course', id));
+    }
     console.log("✅ Courses added IDs:", insertedIds);
     res.json({ success: true, course_ids: insertedIds, parent_course_id: parentId });
   } catch (err) {
@@ -794,7 +820,20 @@ exports.get_api_admin_courses = async (req, res) => {
       };
     });
     
-    res.json({ success: true, courses });
+    const reqEmail = req.headers['x-user-email'];
+    const reqId = req.headers['x-user-id'];
+    const isMaster = isPlatformSuperAdmin(reqEmail, null);
+    let filteredCourses = courses;
+    if (!isMaster && (reqEmail || reqId)) {
+      const ws = getAdminWorkspace(reqId, reqEmail);
+      if (ws) {
+        filteredCourses = courses.filter(c => 
+          (Array.isArray(ws.course_ids) && ws.course_ids.includes(c.course_id)) ||
+          (c.department && c.department.toLowerCase() === (ws.academy_name || '').toLowerCase())
+        );
+      }
+    }
+    res.json({ success: true, courses: filteredCourses });
   } catch (err) {
     console.error("List courses error:", err);
     res.status(500).json({ success: false, error: err.message });

@@ -82,7 +82,7 @@ export default async function Image() {
         <div style={{ display: "flex", flexDirection: "column", gap: "20px", maxWidth: "950px" }}>
           <div
             style={{
-              display: "inline-flex",
+              display: "flex",
               alignItems: "center",
               gap: "8px",
               backgroundColor: "rgba(236, 72, 153, 0.12)",

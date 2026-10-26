@@ -15,7 +15,7 @@ const NAV: NavItem[] = [
   { href: "/admin/enrollment-requests", label: "Enrollment Requests", icon: "inbox", permission: "MANAGE_USERS" },
   { href: "/admin/fee-challans", label: "Fee Challans", icon: "receipt", permission: "MANAGE_FINANCE" },
   { href: "/admin/plan", label: "Academy Plan (10+)", icon: "credit-card" },
-  { href: "/admin/platform", label: "Platform Center", icon: "shield" },
+  { href: "/admin/platform", label: "Platform Center", icon: "shield", permission: "PLATFORM_SUPER_ADMIN" },
   { href: "/admin/registration-windows", label: "Reg Windows", icon: "calendar" },
   { href: "/admin/admins", label: "Admins", icon: "user-plus", permission: "MANAGE_ADMINS" },
   { href: "/admin/roles", label: "Roles & Permissions", icon: "shield", permission: "MANAGE_ROLES" },

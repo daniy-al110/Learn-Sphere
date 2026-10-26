@@ -204,13 +204,13 @@ export default function PricingSection({ onSelectFreePlan }: PricingSectionProps
                   <span className="text-slate-300 flex items-center gap-1.5">
                     <Users className="w-3.5 h-3.5 text-pink-400" /> Student Capacity
                   </span>
-                  <span className="font-extrabold text-pink-300">Up to 40 Students</span>
+                  <span className="font-extrabold text-pink-300">Up to 50 Students</span>
                 </div>
                 <div className="flex items-center justify-between text-slate-200">
                   <span className="text-slate-300 flex items-center gap-1.5">
                     <GraduationCap className="w-3.5 h-3.5 text-pink-400" /> Tutor Seats
                   </span>
-                  <span className="font-extrabold text-pink-300">2 Teacher Seats</span>
+                  <span className="font-extrabold text-pink-300">5 Teacher Seats</span>
                 </div>
                 <div className="flex items-center justify-between text-slate-200">
                   <span className="text-slate-300 flex items-center gap-1.5">
@@ -246,7 +246,7 @@ export default function PricingSection({ onSelectFreePlan }: PricingSectionProps
                     "tuition",
                     "Tuition Center Plan",
                     isAnnual ? "Rs. 1,499/mo (Rs. 17,999/yr)" : "Rs. 1,999/mo",
-                    "40 Students • 2 Tutors • 5 Batches"
+                    "50 Students • 5 Tutors • 8 Batches"
                   )
                 }
                 className="w-full py-3.5 rounded-xl font-bold text-sm text-white bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-600 shadow-[0_10px_25px_rgba(233,69,96,0.4)] transition-all cursor-pointer"
@@ -286,13 +286,13 @@ export default function PricingSection({ onSelectFreePlan }: PricingSectionProps
                   <span className="text-slate-400 flex items-center gap-1.5">
                     <Users className="w-3.5 h-3.5 text-indigo-400" /> Student Capacity
                   </span>
-                  <span className="font-bold text-white">Up to 150 Students</span>
+                  <span className="font-bold text-white">UNLIMITED Students</span>
                 </div>
                 <div className="flex items-center justify-between text-slate-200">
                   <span className="text-slate-400 flex items-center gap-1.5">
                     <GraduationCap className="w-3.5 h-3.5 text-indigo-400" /> Tutor Seats
                   </span>
-                  <span className="font-bold text-white">6 Teacher Seats</span>
+                  <span className="font-bold text-white">UNLIMITED Tutors</span>
                 </div>
                 <div className="flex items-center justify-between text-slate-200">
                   <span className="text-slate-400 flex items-center gap-1.5">
@@ -328,7 +328,7 @@ export default function PricingSection({ onSelectFreePlan }: PricingSectionProps
                     "academy",
                     "Academy Pro Plan",
                     isAnnual ? "Rs. 3,499/mo (Rs. 41,999/yr)" : "Rs. 4,499/mo",
-                    "150 Students • 6 Tutors • Unlimited Batches"
+                    "UNLIMITED Students • UNLIMITED Tutors • UNLIMITED Batches"
                   )
                 }
                 className="w-full py-3.5 rounded-xl font-bold text-sm text-slate-200 bg-white/5 hover:bg-white/10 border border-white/10 transition-all cursor-pointer"

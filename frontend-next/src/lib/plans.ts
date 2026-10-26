@@ -27,9 +27,9 @@ export const ACADEMY_PLANS: Record<PlanTier, PlanConfig> = {
     name: "Tuition Center Plan",
     priceMonthly: 1999,
     priceAnnualMonthly: 1499,
-    maxStudents: 40,
-    maxTeachers: 2,
-    maxCourses: 5,
+    maxStudents: 50,
+    maxTeachers: 5,
+    maxCourses: 8,
     badge: "Standard Tuition Center",
   },
   academy: {
@@ -37,23 +37,30 @@ export const ACADEMY_PLANS: Record<PlanTier, PlanConfig> = {
     name: "Academy Pro Plan",
     priceMonthly: 4499,
     priceAnnualMonthly: 3499,
-    maxStudents: 150,
-    maxTeachers: 6,
-    maxCourses: 999,
-    badge: "Academy Scale",
+    maxStudents: 999999, // Unlimited
+    maxTeachers: 999999, // Unlimited
+    maxCourses: 999999,  // Unlimited
+    badge: "Unlimited Scale",
   },
 };
 
 const PLAN_STORAGE_KEY = "learnsphere_academy_plan";
 
+export function isUnlimited(capacity: number): boolean {
+  return capacity >= 99999;
+}
+
+export function formatCapacity(capacity: number): string {
+  return isUnlimited(capacity) ? "Unlimited" : capacity.toString();
+}
+
 export function getActivePlanTier(): PlanTier {
-  if (typeof window === "undefined") return "tuition";
+  if (typeof window === "undefined") return "free";
   const stored = localStorage.getItem(PLAN_STORAGE_KEY) as PlanTier | null;
   if (stored && ACADEMY_PLANS[stored]) {
     return stored;
   }
-  // Default to tuition center so users test the full 40-student experience
-  return "tuition";
+  return "free";
 }
 
 export function setActivePlanTier(tier: PlanTier) {

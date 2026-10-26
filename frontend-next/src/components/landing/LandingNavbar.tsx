@@ -110,10 +110,10 @@ export default function LandingNavbar({ onStartClass }: LandingNavbarProps) {
               <button
                 type="button"
                 onClick={onStartClass}
-                className="relative inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-pink-300 hover:text-white bg-pink-500/10 hover:bg-pink-500/20 border border-pink-500/30 transition-all cursor-pointer"
+                className="relative inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-pink-500 via-rose-500 to-indigo-600 hover:from-pink-600 hover:to-indigo-700 shadow-md shadow-pink-500/30 hover:shadow-lg hover:scale-[1.02] border border-white/20 transition-all cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-pink-400" />
-                <span>Create Class Free</span>
+                <span>Register Academy & Start Class</span>
               </button>
             )}
             <button

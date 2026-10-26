@@ -136,29 +136,31 @@ export default function AdminPlanPage() {
             <Sparkles className="w-3.5 h-3.5" />
             Academy Subscriptions & Quota Management
           </div>
-          <h1 className="text-3xl font-black text-white tracking-tight">Upgrade Academy Plan</h1>
+          <h1 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight">Upgrade Academy Plan</h1>
           <p className="text-slate-400 text-sm mt-1">
             Unlock 10+ students, multiple teachers, and unlimited course batches for your institute.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
-          <Link
-            href="/admin/platform"
-            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition-colors border border-white/10"
-          >
-            Super Super Admin Center
-          </Link>
-        </div>
+        {typeof window !== "undefined" && (localStorage.getItem("userEmail")?.toLowerCase() === "kradtech4@gmail.com" || localStorage.getItem("userEmail")?.toLowerCase() === "admin@kradtech.com") && (
+          <div className="flex items-center gap-3">
+            <Link
+              href="/admin/platform"
+              className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold transition-colors border border-white/10"
+            >
+              Super Super Admin Center
+            </Link>
+          </div>
+        )}
       </div>
 
       {/* Active Quota Warning Card */}
-      <div className="rounded-3xl bg-slate-900 border border-pink-500/30 p-6 sm:p-7 shadow-xl">
+      <div className="rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-pink-500/30 p-6 sm:p-7 shadow-lg dark:shadow-xl text-slate-900 dark:text-white">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-white/10">
           <div>
             <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Current Active Plan:</span>
             <div className="flex items-center gap-3 mt-1">
-              <h2 className="text-2xl font-black text-white">{activePlan.name}</h2>
+              <h2 className="text-2xl font-black text-slate-900 dark:text-white">{activePlan.name}</h2>
               <span className="text-[10px] font-extrabold px-2.5 py-1 rounded-full bg-pink-500/20 text-pink-300 border border-pink-500/30 uppercase">
                 {activePlan.badge}
               </span>
@@ -254,11 +256,11 @@ export default function AdminPlanPage() {
             </div>
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span><strong>2 Teacher Seats</strong></span>
+              <span><strong>5 Teacher Seats</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span><strong>5 Course Batches</strong></span>
+              <span><strong>8 Course Batches</strong></span>
             </div>
           </div>
         </div>
@@ -291,15 +293,15 @@ export default function AdminPlanPage() {
           <div className="mt-5 space-y-2 text-xs text-slate-300">
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span><strong>Up to 150 Students</strong></span>
+              <span><strong>UNLIMITED Students (Zero Limits)</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span><strong>6 Teacher Seats</strong></span>
+              <span><strong>UNLIMITED Teacher Seats</strong></span>
             </div>
             <div className="flex items-center gap-2">
               <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-              <span><strong>Unlimited Courses & Batches</strong></span>
+              <span><strong>UNLIMITED Courses & Batches</strong></span>
             </div>
           </div>
         </div>

@@ -59,9 +59,18 @@ export default function Sidebar({
     session.permissions.includes("MANAGE_ADMINS") &&
     session.permissions.includes("MANAGE_ROLES");
 
+  const isPlatformSuperAdmin =
+    session.role === "admin" &&
+    (session.userEmail?.toLowerCase() === "kradtech4@gmail.com" ||
+     session.userEmail?.toLowerCase() === "admin@kradtech.com" ||
+     (Array.isArray(session.permissions) && session.permissions.includes("PLATFORM_SUPER_ADMIN")));
+
   const filteredItems = items.filter((item) => {
     if (!item.permission) return true;
     if (session.role !== "admin") return true;
+    if (item.permission === "PLATFORM_SUPER_ADMIN") {
+      return isPlatformSuperAdmin;
+    }
     return isSuperAdmin || (session.permissions && session.permissions.includes(item.permission));
   });
 

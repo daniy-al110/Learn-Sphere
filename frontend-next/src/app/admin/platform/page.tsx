@@ -54,6 +54,12 @@ interface PlatformCourse {
 }
 
 export default function SuperSuperAdminPlatformPage() {
+  const [isPlatformOwner, setIsPlatformOwner] = useState(false);
+
+  useEffect(() => {
+    const email = localStorage.getItem("userEmail")?.toLowerCase() || "";
+    setIsPlatformOwner(email === "kradtech4@gmail.com" || email === "admin@kradtech.com");
+  }, []);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<any>({
     total_courses: 0,
@@ -321,25 +327,29 @@ export default function SuperSuperAdminPlatformPage() {
                       </button>
                     </td>
                     <td className="py-3.5 text-right space-x-2">
-                      {r.status === "pending" ? (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => handleApprove(r)}
-                            className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-emerald-600/20"
-                          >
-                            Approve
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => handleReject(r)}
-                            className="px-3 py-1.5 rounded-xl bg-rose-600/30 hover:bg-rose-600 text-rose-300 hover:text-white font-bold text-xs transition-colors cursor-pointer border border-rose-500/30"
-                          >
-                            Reject
-                          </button>
-                        </>
+                      {isPlatformOwner ? (
+                        r.status === "pending" ? (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => handleApprove(r)}
+                              className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs transition-colors cursor-pointer shadow-md shadow-emerald-600/20"
+                            >
+                              Approve
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleReject(r)}
+                              className="px-3 py-1.5 rounded-xl bg-rose-600/30 hover:bg-rose-600 text-rose-300 hover:text-white font-bold text-xs transition-colors cursor-pointer border border-rose-500/30"
+                            >
+                              Reject
+                            </button>
+                          </>
+                        ) : (
+                          <span className="text-[11px] text-slate-500">Processed</span>
+                        )
                       ) : (
-                        <span className="text-[11px] text-slate-500">Processed</span>
+                        <span className="text-[11px] text-pink-400 font-semibold">Under KRAD Verification</span>
                       )}
                     </td>
                   </tr>

@@ -135,7 +135,7 @@ export default function LandingPageClient() {
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-2xl font-bold text-base text-white bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 hover:from-pink-600 hover:to-rose-600 shadow-[0_10px_35px_rgba(233,69,96,0.4)] hover:shadow-[0_12px_45px_rgba(233,69,96,0.6)] transition-all cursor-pointer active:scale-95"
                   >
                     <Sparkles className="w-5 h-5 text-pink-200" />
-                    <span>Start Free • Create Your Class</span>
+                    <span className="flex items-center gap-2"><Sparkles className="w-5 h-5 text-amber-300 animate-pulse" /> Register Academy & Start Class</span>
                     <ArrowRight className="w-5 h-5" />
                   </button>
 
